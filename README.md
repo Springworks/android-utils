@@ -3,4 +3,5 @@ androidutils
 
 Small pieces of reusable Android stuff
 
-[![Build Status](https://api.travis-ci.org/springworks/android-utils.png?branch=master)](https://api.travis-ci.org/springworks/android-utils)
+[![Build Status](https://api.travis-ci.org/springworks/android-utils.svg?branch=master)](https://travis-ci.org/Springworks/android-utils)
+
