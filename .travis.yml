@@ -1,61 +1,68 @@
-language: java
-
-jdk: oraclejdk7
+language: android
 
 notifications:
   email: true
 
-before_install:
-  #
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq libstdc++6:i386 lib32z1
+android:
+  components:
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    # - platform-tools
+    # - tools
 
-  # download and unpack android sdk
-  - wget http://dl.google.com/android/android-sdk_r22.6.2-linux.tgz
-  - tar -v -zxf android-sdk_r22.6.2-linux.tgz
+    # The BuildTools version used by your project
+    - build-tools-20.0.0
 
-  # export variables
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools
-  - export PATH=${PATH}:${ANDROID_HOME}/platform-tools
-  - export PATH=${PATH}:${ANDROID_HOME}/build-tools
+    # The SDK version used to compile your project
+    - android-20
+
+    # Additional components
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - extra-android-support
+    - addon-google_apis-google-19
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-android-19
+    - sys-img-x86-android-17
+    - sys-img-armeabi-v7a-android-wear-20
+    - sys-img-armeabi-v7a-android-18
+    - sys-img-armeabi-v7a-android-16
 
 install:
   # update android sdk
   - android list sdk -a -e
-  - echo "y" | android update sdk --filter platform-tools,build-tools-19.0.3 --no-ui -a
-  - echo "y" | android update sdk --filter android-18,android-16,android-14,android-10,android-8 --no-ui -a
-  - echo "y" | android update sdk --filter sysimg-18 --no-ui -a
-  - echo "y" | android update sdk --filter extra-android-support --no-ui -a
-  - echo "y" | android update sdk --filter extra-google-google_play_services --no-ui -a
 
   # setup of appcompat library
-  - cp -r ${ANDROID_HOME}/extras/android/support/v7/appcompat ..
-  - android update lib-project -p ../appcompat --target android-18
+  #- cp -r ${ANDROID_HOME}/extras/android/support/v7/appcompat ..
+  #- android update lib-project -p ../appcompat --target android-18
 
   # setup of google play services library
-  - cp -r ${ANDROID_HOME}/extras/google/google_play_services/libproject/google-play-services_lib ..
-  - android update lib-project -p ../google-play-services_lib --target android-18
+  #- cp -r ${ANDROID_HOME}/extras/google/google_play_services/libproject/google-play-services_lib ..
+  #- android update lib-project -p ../google-play-services_lib --target android-18
 
   # setup main and testproject
-  - android update lib-project -p androidutils-lib --target android-18
-  - android update test-project -p androidutils-tests -m androidutils-lib
+  #- android update lib-project -p androidutils-lib --target android-18
+  #- android update test-project -p androidutils-tests -m androidutils-lib
 
   # create and start emulator
-  - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a -c 25M
   - emulator -avd test -no-skin -no-audio -no-window &
-
+  
 before_script:
   # wait for emulator to make sure it's started before tests are run
   - chmod +x wait_for_emulator.sh
   - bash wait_for_emulator.sh
 
 script:
-  - cd androidutils-tests
-  - ant clean emma instrument
-  - adb install bin/test-instrumented.apk
-  - adb shell am instrument -e coverage true -w se.springworks.android.utils.test/android.test.InstrumentationTestRunner
-  - adb pull /data/data/se.springworks.android.utils.test/files/coverage.ec .
+  - chmod +x gradlew
+  - TERM=dumb ./gradlew connectedCheck
+  #- ant clean emma instrument
+  #- adb install bin/test-instrumented.apk
+  #- adb shell am instrument -e coverage true -w se.springworks.android.utils.test/android.test.InstrumentationTestRunner
+  #- adb pull /data/data/se.springworks.android.utils.test/files/coverage.ec .
   #- java -cp $ANDROID_HOME/tools/lib/emma.jar emma report -r html -in bin/coverage.em,coverage.ec -sp ../androidutils-lib/src/
-  - java -cp tools/emmacoveralls.jar emma report -r coveralls -in bin/coverage.em,coverage.ec -sp ../androidutils-lib/src/ -Dreport.coveralls.service.jobid=${TRAVIS_JOB_ID} -Dreport.coveralls.service.name=travis-ci -Dreport.coveralls.repotoken=sNret2NmV3tPLLDumzGWGWPD8FRwiIu58
-  - curl --form json_file=@coverage.json https://coveralls.io/api/v1/jobs
+  #- java -cp tools/emmacoveralls.jar emma report -r coveralls -in bin/coverage.em,coverage.ec -sp ../androidutils-lib/src/ -Dreport.coveralls.service.jobid=${TRAVIS_JOB_ID} -Dreport.coveralls.service.name=travis-ci -Dreport.coveralls.repotoken=sNret2NmV3tPLLDumzGWGWPD8FRwiIu58
+  #- curl --form json_file=@coverage.json https://coveralls.io/api/v1/jobs

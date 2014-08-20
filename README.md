@@ -3,5 +3,6 @@ androidutils
 
 Small pieces of reusable Android stuff
 
-[![Build Status](https://travis-ci.org/britzl/androidutils.png?branch=master)](https://travis-ci.org/britzl/androidutils)
-[![Coverage Status](https://coveralls.io/repos/britzl/androidutils/badge.png)](https://coveralls.io/r/britzl/androidutils)
+[![Build Status](https://api.travis-ci.org/kotlinski/androidutils-gradle.png?branch=master)](https://api.travis-ci.org/kotlinski/androidutils-gradle)
+
+[![Coverage Status](https://img.shields.io/coveralls/kotlinski/androidutils-gradle.svg)](https://coveralls.io/r/kotlinski/androidutils-gradle)
