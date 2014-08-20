@@ -18,7 +18,7 @@ allprojects {
 }
 android {
 
-    compileSdkVersion 18
+    compileSdkVersion 20
     buildToolsVersion '20'
 
     defaultConfig {
@@ -33,10 +33,8 @@ android {
         }
 		debug {
             runProguard false
-			testCoverageEnabled = true // until google solves this
+			testCoverageEnabled = false // until google solves this
 		}
-    }
-    productFlavors {
     }
 	    
 	packagingOptions {
