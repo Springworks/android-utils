@@ -167,9 +167,13 @@ public abstract class BaseActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-	protected void handleError(Exception e) {
-		e.printStackTrace();
-	}
+	/**
+	 * Suggested implementation in subclasses is to add context information and
+	 * then rethrow a runtime exception to cause the app to crash and send any
+	 * information to crash/exception detection system (such as Crittercism)
+	 * @param e
+	 */
+	protected abstract void handleError(Exception e);
 
 	/**
 	 * Set the default start activity transitions
