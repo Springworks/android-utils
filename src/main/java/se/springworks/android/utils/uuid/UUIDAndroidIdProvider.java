@@ -92,7 +92,11 @@ public class UUIDAndroidIdProvider implements UUIDProvider {
 				final String deviceId = ((TelephonyManager) context
 						.getSystemService(Context.TELEPHONY_SERVICE))
 						.getDeviceId();
-				return (deviceId != null && !"000000000000000".equals(deviceId)) ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
+				if(deviceId != null && !"000000000000000".equals(deviceId)) {
+					return UUID.nameUUIDFromBytes(deviceId.getBytes("utf8"));
+				} else {
+					return UUID.randomUUID();
+				}
 			}
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);

@@ -1,7 +1,8 @@
 package se.springworks.android.utils.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.app.Notification;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,7 +11,7 @@ import android.view.WindowManager;
 
 import se.springworks.android.utils.application.BaseApplication;
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends ActionBarActivity {
 
 	public interface OnActivityResultListener {
 		public void onActivityResult(int requestCode, int resultCode, Intent data);
@@ -56,7 +57,7 @@ public abstract class BaseActivity extends Activity {
 	public void setContentView(int layoutResId) {
 		super.setContentView(layoutResId);
 		try {
-			ActionBar ab = getActionBar();
+			ActionBar ab = getSupportActionBar();
 			if (ab != null && titleBarHidden) {
 				ab.hide();
 			}
@@ -104,10 +105,18 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	public final void onResume() {
 		super.onResume();
+		BaseApplication.getInstance().onActivityResumed(this);
+
+		try {
+			resumeActivity();
+		} catch (Exception e) {
+			handleError(e);
+		}
 	}
 
+/*
 
-/*	@Override
+	@Override
 	public final void onResumeFragments() {
 		super.onResumeFragments();
 		BaseApplication.getInstance().onActivityResumed(this);
@@ -117,7 +126,8 @@ public abstract class BaseActivity extends Activity {
 		} catch (Exception e) {
 			handleError(e);
 		}
-	}*/
+	}
+*/
 
 	@Override
 	public final void onPause() {
@@ -191,12 +201,12 @@ public abstract class BaseActivity extends Activity {
 		defaultFinishActivityExitAnimationId = exitId;
 	}
 
-	public final void switchActivity(Class<? extends Activity> c) {
+	public final void switchActivity(Class<? extends ActionBarActivity> c) {
 		Intent i = new Intent(this, c);
 		startActivity(i);
 	}
 
-	public final void switchActivity(Class<? extends Activity> c, Bundle extras) {
+	public final void switchActivity(Class<? extends ActionBarActivity> c, Bundle extras) {
 		Intent i = new Intent(this, c);
 		if (extras != null) {
 			i.putExtras(extras);
