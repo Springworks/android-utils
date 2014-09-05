@@ -1,20 +1,17 @@
 package se.springworks.android.utils.file;
 
 import android.content.Context;
-
 import com.google.inject.Inject;
+import se.springworks.android.utils.persistence.IKeyValueStorage;
 
 import java.io.File;
 import java.util.Date;
 
-import se.springworks.android.utils.persistence.IKeyValueStorage;
-
 /**
- * This implementation improves the {@link StorageFileHandler} by wrapping calls to
- * {@link StorageFileHandler#setFileModifiedTime(String, long)} and
- * {@link StorageFileHandler#getFileModifiedDate(String)} in order to work around limitations
- * with these methods on some systems where permissions aren't sufficient (refer to
- * https://code.google.com/p/android/issues/detail?id=25460 for details)
+ * This implementation improves the {@link StorageFileHandler} by wrapping calls to {@link
+ * StorageFileHandler#setFileModifiedTime(String, long)} and {@link StorageFileHandler#getFileModifiedDate(String)}
+ * in order to work around limitations with these methods on some systems where permissions aren't
+ * sufficient (refer to https://code.google.com/p/android/issues/detail?id=25460 for details)
  *
  * @author bjornritzl
  */
@@ -45,7 +42,8 @@ public class ImprovedStorageFileHandler extends StorageFileHandler {
 		long lastModified;
 		if (fileModificationDateStorage.contains(KEYPREFIX + name)) {
 			lastModified = fileModificationDateStorage.getLong(KEYPREFIX + name);
-		} else {
+		}
+		else {
 			lastModified = file.lastModified();
 		}
 		return new Date(lastModified);

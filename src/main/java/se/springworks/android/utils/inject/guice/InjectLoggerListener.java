@@ -1,10 +1,10 @@
 package se.springworks.android.utils.inject.guice;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.LoggerFactory;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 
 public class InjectLoggerListener extends CustomInjectionListener {
 

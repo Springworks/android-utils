@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class AddressComponent {
 
-	@JsonProperty("long_name")
+	@JsonProperty ("long_name")
 	private String longName;
 
-	@JsonProperty("short_name")
+	@JsonProperty ("short_name")
 	private String shortName;
 
-	@JsonProperty("types")
+	@JsonProperty ("types")
 	private ArrayList<String> types;
 
 	public String getLongName() {

@@ -1,5 +1,8 @@
 package se.springworks.android.utils.file;
 
+import se.springworks.android.utils.logging.Logger;
+import se.springworks.android.utils.logging.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
-
-import se.springworks.android.utils.logging.Logger;
-import se.springworks.android.utils.logging.LoggerFactory;
 
 public abstract class AbstractFileHandler implements IFileHandler {
 
@@ -24,7 +24,8 @@ public abstract class AbstractFileHandler implements IFileHandler {
 		try {
 			file.getParentFile().mkdirs();
 			return file.createNewFile();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 		}
 		return false;
 	}

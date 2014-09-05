@@ -3,8 +3,8 @@ package se.springworks.android.utils.http;
 import java.io.InputStream;
 
 /**
- * Simple synchronous http client with calls made on the ui thread, no thread pooling or
- * anything else fancy
+ * Simple synchronous http client with calls made on the ui thread, no thread pooling or anything
+ * else fancy
  *
  * @author bjornritzl
  */
@@ -14,6 +14,7 @@ public interface ISimpleHttpClient {
 	 * Make an HTTP GET
 	 *
 	 * @param url
+	 *
 	 * @return
 	 */
 	InputStream get(String url);
@@ -22,6 +23,7 @@ public interface ISimpleHttpClient {
 	 * Make an HTTP GET and return the response as a string
 	 *
 	 * @param url
+	 *
 	 * @return
 	 */
 	String getAsString(String url);

@@ -5,8 +5,8 @@ import android.content.res.AssetFileDescriptor;
 public interface ISoundPlayer {
 
 	/**
-	 * Sets a global volume for all sounds played. Note that this is a percentage of the
-	 * current max volume as set by the system
+	 * Sets a global volume for all sounds played. Note that this is a percentage of the current max
+	 * volume as set by the system
 	 *
 	 * @param volume
 	 */
@@ -35,8 +35,8 @@ public interface ISoundPlayer {
 	public void add(String path, Object key);
 
 	/**
-	 * Replaces a sound. If no sound is associated with the specified key the
-	 * new sound will be added to the key
+	 * Replaces a sound. If no sound is associated with the specified key the new sound will be added
+	 * to the key
 	 *
 	 * @param resId
 	 * @param key

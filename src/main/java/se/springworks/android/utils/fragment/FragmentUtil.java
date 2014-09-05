@@ -11,10 +11,12 @@ public class FragmentUtil {
 
 
 	/**
-	 * Check if the fragment manager contains a fragment of a specific class, previously
-	 * added with one of the show methods
+	 * Check if the fragment manager contains a fragment of a specific class, previously added with
+	 * one of the show methods
+	 *
 	 * @param a
 	 * @param dialogClass
+	 *
 	 * @return
 	 */
 	public static boolean contains(FragmentActivity a, Class<? extends DialogFragment> dialogClass) {
@@ -23,21 +25,21 @@ public class FragmentUtil {
 	}
 
 	public static void showSingle(FragmentActivity a, DialogFragment dialog, boolean addToBackStack, Bundle args) {
-		if(contains(a, dialog.getClass())) {
+		if (contains(a, dialog.getClass())) {
 			return;
 		}
 
-		if(args != null) {
+		if (args != null) {
 			dialog.setArguments(args);
 		}
 
 		FragmentManager fm = a.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment prev = fm.findFragmentByTag(dialog.getClass().getName());
-		if(prev != null) {
+		if (prev != null) {
 			ft.remove(prev);
 		}
-		if(addToBackStack) {
+		if (addToBackStack) {
 			ft.addToBackStack(null);
 		}
 		ft.commitAllowingStateLoss();

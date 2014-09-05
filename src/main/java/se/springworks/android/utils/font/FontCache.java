@@ -15,7 +15,8 @@ public class FontCache {
 		if (tf == null) {
 			try {
 				tf = Typeface.createFromAsset(context.getAssets(), name);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				return null;
 			}
 			fontCache.put(name, tf);

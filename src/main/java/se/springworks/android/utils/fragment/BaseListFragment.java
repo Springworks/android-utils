@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-
 import se.springworks.android.utils.inject.GrapeGuice;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.Logger;
@@ -19,10 +18,9 @@ import se.springworks.android.utils.logging.Logger;
  */
 public abstract class BaseListFragment extends ListFragment {
 
+	protected BaseAdapter adapter;
 	@InjectLogger
 	private Logger logger;
-
-	protected BaseAdapter adapter;
 
 	@Override
 	public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,10 +63,9 @@ public abstract class BaseListFragment extends ListFragment {
 	}
 
 	/**
-	 * Add headers and footers to the listview
-	 * Note that, prior to API level 19, it isn't possible to add headers and footers
-	 * after the adapter has been set. This method provides a point before the adapter
-	 * has been set where the headers and footers can be set.
+	 * Add headers and footers to the listview Note that, prior to API level 19, it isn't possible to
+	 * add headers and footers after the adapter has been set. This method provides a point before the
+	 * adapter has been set where the headers and footers can be set.
 	 *
 	 * @param listView
 	 */
@@ -89,16 +86,14 @@ public abstract class BaseListFragment extends ListFragment {
 	 * @param inflater
 	 * @param container
 	 * @param savedInstanceState
+	 *
 	 * @return
 	 */
 	protected abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
 	/**
-	 * Called when the fragment is ready to use. This means that:
-	 * <p/>
-	 * 1. The view has been created
-	 * 2. All injections have taken place
-	 * 3. The fragment's activity has been created
+	 * Called when the fragment is ready to use. This means that: <p/> 1. The view has been created 2.
+	 * All injections have taken place 3. The fragment's activity has been created
 	 *
 	 * @param savedInstanceState
 	 */
@@ -110,7 +105,8 @@ public abstract class BaseListFragment extends ListFragment {
 		logger.debug("onStart()");
 		try {
 			startFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}
@@ -121,7 +117,8 @@ public abstract class BaseListFragment extends ListFragment {
 		logger.debug("onStop()");
 		try {
 			stopFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}
@@ -132,7 +129,8 @@ public abstract class BaseListFragment extends ListFragment {
 		logger.debug("onResume()");
 		try {
 			resumeFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}
@@ -143,7 +141,8 @@ public abstract class BaseListFragment extends ListFragment {
 		logger.debug("onPause()");
 		try {
 			pauseFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}

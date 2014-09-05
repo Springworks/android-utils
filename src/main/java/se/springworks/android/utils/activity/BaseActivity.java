@@ -1,14 +1,12 @@
 package se.springworks.android.utils.activity;
 
-import android.app.Notification;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
-
 import se.springworks.android.utils.application.BaseApplication;
 
 public abstract class BaseActivity extends ActionBarActivity {
@@ -61,7 +59,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 			if (ab != null && titleBarHidden) {
 				ab.hide();
 			}
-		} catch (NullPointerException npe) {
+		}
+		catch (NullPointerException npe) {
 			// do nothing
 		}
 	}
@@ -77,7 +76,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 		try {
 			createActivity(savedInstanceState);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -87,7 +87,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 		super.onRestart();
 		try {
 			restartActivity();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -97,7 +98,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 		super.onStart();
 		try {
 			startActivity();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -109,7 +111,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 		try {
 			resumeActivity();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -136,7 +139,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 		try {
 			pauseActivity();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -147,7 +151,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 		try {
 			stopActivity();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -159,7 +164,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 		try {
 			destroyActivity();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			handleError(e);
 		}
 	}
@@ -178,9 +184,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 	}
 
 	/**
-	 * Suggested implementation in subclasses is to add context information and
-	 * then rethrow a runtime exception to cause the app to crash and send any
-	 * information to crash/exception detection system (such as Crittercism)
+	 * Suggested implementation in subclasses is to add context information and then rethrow a runtime
+	 * exception to cause the app to crash and send any information to crash/exception detection
+	 * system (such as Crittercism)
+	 *
 	 * @param e
 	 */
 	protected abstract void handleError(Exception e);
@@ -239,7 +246,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 		if (getParent() != null) {
 			getParent().startActivityForResult(intent, requestCode);
 			overridePendingTransition(enterAnimationId, exitAnimationId);
-		} else {
+		}
+		else {
 			super.startActivityForResult(intent, requestCode);
 			overridePendingTransition(enterAnimationId, exitAnimationId);
 		}

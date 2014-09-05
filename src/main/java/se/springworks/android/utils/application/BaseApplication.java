@@ -1,19 +1,15 @@
 package se.springworks.android.utils.application;
 
 import android.app.Application;
-
 import se.springworks.android.utils.activity.BaseActivity;
 import se.springworks.android.utils.logging.AndroidLogTarget;
 import se.springworks.android.utils.logging.LoggerFactory;
 
 public class BaseApplication extends Application {
 
-	private BaseActivity current;
-
-	private Class<?> mostRecentActivityClass;
-
 	private static BaseApplication instance;
-
+	private BaseActivity current;
+	private Class<?> mostRecentActivityClass;
 	private int activityCount = 0;
 
 	public BaseApplication() {
@@ -24,6 +20,10 @@ public class BaseApplication extends Application {
 		LoggerFactory.addTarget(target);
 	}
 
+	public static BaseApplication getInstance() {
+		return instance;
+	}
+
 	public boolean hasCreatedAnyActivities() {
 		return activityCount > 0;
 //		return mostRecentActivityClass != null;
@@ -31,10 +31,6 @@ public class BaseApplication extends Application {
 
 	public Class<?> getMostRecentActivityClass() {
 		return mostRecentActivityClass;
-	}
-
-	public static BaseApplication getInstance() {
-		return instance;
 	}
 
 	public BaseActivity getCurrentActivity() {

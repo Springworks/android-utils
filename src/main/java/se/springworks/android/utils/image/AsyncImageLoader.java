@@ -2,29 +2,20 @@ package se.springworks.android.utils.image;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-
-import java.io.InputStream;
-
 import se.springworks.android.utils.cache.ICache;
 import se.springworks.android.utils.cache.ICache.CacheException;
 
+import java.io.InputStream;
+
 public class AsyncImageLoader {
 
-	public interface OnImageLoadHandler {
-		public void onImage(Bitmap bitmap);
-
-		public void onError(String error);
-	}
-
 	private IImageLoader loader;
-
-
-	@Inject(optional = true)
-	@Named("asyncimageloader")
+	@Inject (optional = true)
+	@Named ("asyncimageloader")
 	private ICache<BitmapSerializer> cache;
+
 
 	@Inject
 	public AsyncImageLoader(IImageLoader loader) {
@@ -32,8 +23,7 @@ public class AsyncImageLoader {
 	}
 
 	/**
-	 * Loads a bitmap from a URL. If a cache is set it will be checked before
-	 * loading
+	 * Loads a bitmap from a URL. If a cache is set it will be checked before loading
 	 *
 	 * @param url
 	 * @param handler
@@ -41,7 +31,8 @@ public class AsyncImageLoader {
 	public void load(final String url, final OnImageLoadHandler handler) {
 		if (cache != null && cache.contains(url)) {
 			handler.onImage(cache.get(url).getBitmap());
-		} else {
+		}
+		else {
 			AsyncTask<String, Void, Bitmap> task = new AsyncTask<String, Void, Bitmap>() {
 
 				@Override
@@ -60,7 +51,8 @@ public class AsyncImageLoader {
 						if (cache != null) {
 							cache.cache(url, new BitmapSerializer(result));
 						}
-					} catch (CacheException e) {
+					}
+					catch (CacheException e) {
 						e.printStackTrace();
 					}
 					handler.onImage(result);
@@ -88,5 +80,11 @@ public class AsyncImageLoader {
 			}
 		};
 		task.execute(in);
+	}
+
+	public interface OnImageLoadHandler {
+		public void onImage(Bitmap bitmap);
+
+		public void onError(String error);
 	}
 }

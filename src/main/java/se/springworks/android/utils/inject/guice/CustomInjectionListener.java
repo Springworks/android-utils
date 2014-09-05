@@ -28,9 +28,11 @@ public abstract class CustomInjectionListener implements TypeListener {
 							field.setAccessible(true);
 							try {
 								inject(t, field, annotation);
-							} catch (IllegalArgumentException e) {
+							}
+							catch (IllegalArgumentException e) {
 								throw new RuntimeException(e);
-							} catch (IllegalAccessException e) {
+							}
+							catch (IllegalAccessException e) {
 								throw new RuntimeException(e);
 							}
 						}
@@ -41,11 +43,12 @@ public abstract class CustomInjectionListener implements TypeListener {
 	}
 
 	/**
-	 * Check if a field is of the correct type for the kind of injection provided by
-	 * this custom injector. The default behavior is to accepts all fields. Override this
-	 * method to limit injection
+	 * Check if a field is of the correct type for the kind of injection provided by this custom
+	 * injector. The default behavior is to accepts all fields. Override this method to limit
+	 * injection
 	 *
 	 * @param field
+	 *
 	 * @return true if the field is of the correct type
 	 */
 	protected boolean isFieldOfCorrectType(Field field) {

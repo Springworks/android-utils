@@ -4,12 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import se.springworks.android.utils.reflect.JavaTypeToken;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import se.springworks.android.utils.reflect.JavaTypeToken;
 
 public class JacksonParser implements IJsonParser {
 
@@ -24,7 +23,8 @@ public class JacksonParser implements IJsonParser {
 	public String toJson(Object object) {
 		try {
 			return mapper.writeValueAsString(object);
-		} catch (JsonProcessingException e) {
+		}
+		catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -35,7 +35,8 @@ public class JacksonParser implements IJsonParser {
 	public <T> T fromJson(InputStream json, Class<T> type) {
 		try {
 			return mapper.readValue(json, type);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -45,7 +46,8 @@ public class JacksonParser implements IJsonParser {
 	public <T> T fromJson(String json, Class<T> type) {
 		try {
 			return mapper.readValue(json, type);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -55,7 +57,8 @@ public class JacksonParser implements IJsonParser {
 	public <T> T fromJson(InputStream json, JavaTypeToken<T> type) {
 		try {
 			return mapper.readValue(json, TypeFactory.defaultInstance().constructType(type.getType()));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -65,7 +68,8 @@ public class JacksonParser implements IJsonParser {
 	public <T> T fromJson(String json, JavaTypeToken<T> type) {
 		try {
 			return mapper.readValue(json, TypeFactory.defaultInstance().constructType(type.getType()));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -75,7 +79,8 @@ public class JacksonParser implements IJsonParser {
 	public void toJson(File file, Object object) {
 		try {
 			mapper.writeValue(file, object);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -85,7 +90,8 @@ public class JacksonParser implements IJsonParser {
 	public void toJson(OutputStream out, Object object) {
 		try {
 			mapper.writeValue(out, object);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -1,19 +1,18 @@
 package se.springworks.android.utils.map.geocoding;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import se.springworks.android.utils.map.Bounds;
 import se.springworks.android.utils.map.LatLng;
 
 public class Geometry {
 
-	@JsonProperty("location")
+	@JsonProperty ("location")
 	private LatLng location;
 
-	@JsonProperty("location_type")
+	@JsonProperty ("location_type")
 	private String locationType;
 
-	@JsonProperty("viewport")
+	@JsonProperty ("viewport")
 	private Bounds viewport;
 
 	public Geometry() {

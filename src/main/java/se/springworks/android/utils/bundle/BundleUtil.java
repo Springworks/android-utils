@@ -11,31 +11,40 @@ public class BundleUtil {
 		Object o = b.get(key);
 		if (o == null) {
 			return false;
-		} else if (o instanceof String) {
+		}
+		else if (o instanceof String) {
 			String s = (String) o;
 			return s != null && !s.isEmpty();
-		} else if (o instanceof byte[]) {
+		}
+		else if (o instanceof byte[]) {
 			byte a[] = (byte[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof short[]) {
+		}
+		else if (o instanceof short[]) {
 			short a[] = (short[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof char[]) {
+		}
+		else if (o instanceof char[]) {
 			char a[] = (char[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof int[]) {
+		}
+		else if (o instanceof int[]) {
 			int a[] = (int[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof float[]) {
+		}
+		else if (o instanceof float[]) {
 			float a[] = (float[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof double[]) {
+		}
+		else if (o instanceof double[]) {
 			double a[] = (double[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof String[]) {
+		}
+		else if (o instanceof String[]) {
 			String a[] = (String[]) o;
 			return a != null && a.length != 0;
-		} else if (o instanceof ArrayList) {
+		}
+		else if (o instanceof ArrayList) {
 			ArrayList<?> a = (ArrayList<?>) o;
 			return a != null && !a.isEmpty();
 		}
@@ -54,13 +63,16 @@ public class BundleUtil {
 		if (s == null) {
 			try {
 				value = b.getBoolean(key);
-			} catch (ClassCastException e) {
+			}
+			catch (ClassCastException e) {
 
 			}
-		} else {
+		}
+		else {
 			try {
 				value = Boolean.parseBoolean(s);
-			} catch (NumberFormatException e) {
+			}
+			catch (NumberFormatException e) {
 
 			}
 		}
@@ -79,13 +91,16 @@ public class BundleUtil {
 		if (s == null) {
 			try {
 				value = b.getInt(key);
-			} catch (ClassCastException e) {
+			}
+			catch (ClassCastException e) {
 
 			}
-		} else {
+		}
+		else {
 			try {
 				value = Integer.parseInt(s);
-			} catch (NumberFormatException e) {
+			}
+			catch (NumberFormatException e) {
 
 			}
 		}

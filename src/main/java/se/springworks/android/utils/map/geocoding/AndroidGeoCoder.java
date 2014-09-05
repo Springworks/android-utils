@@ -3,7 +3,6 @@ package se.springworks.android.utils.map.geocoding;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-
 import com.google.inject.Inject;
 
 import java.io.IOException;
@@ -25,7 +24,8 @@ public class AndroidGeoCoder implements IGeoCodingApi {
 			for (Address a : addresses) {
 				results.add(GeoCodeResult.fromAddress(a));
 			}
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			callback.onError(e, "");
 			return;
 		}

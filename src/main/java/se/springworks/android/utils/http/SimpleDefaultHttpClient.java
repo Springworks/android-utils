@@ -24,7 +24,8 @@ public class SimpleDefaultHttpClient implements ISimpleHttpClient {
 			if (entity != null) {
 				return entity.getContent();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -38,7 +39,8 @@ public class SimpleDefaultHttpClient implements ISimpleHttpClient {
 			if (entity != null) {
 				return EntityUtils.toString(entity, "UTF-8");
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

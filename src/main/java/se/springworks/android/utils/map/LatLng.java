@@ -3,10 +3,10 @@ package se.springworks.android.utils.map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LatLng {
-	@JsonProperty("lat")
+	@JsonProperty ("lat")
 	private double latitude;
 
-	@JsonProperty("lng")
+	@JsonProperty ("lng")
 	private double longitude;
 
 	public LatLng() {

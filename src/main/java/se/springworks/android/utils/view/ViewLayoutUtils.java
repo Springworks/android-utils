@@ -9,8 +9,8 @@ import android.view.ViewGroup.MarginLayoutParams;
 public class ViewLayoutUtils {
 
 	/**
-	 * Set the margins for a view. The view must have {@link LayoutParams} that are of the
-	 * type {@link MarginLayoutParams} (or a subclass)
+	 * Set the margins for a view. The view must have {@link LayoutParams} that are of the type {@link
+	 * MarginLayoutParams} (or a subclass)
 	 *
 	 * @param v
 	 * @param left
@@ -24,7 +24,8 @@ public class ViewLayoutUtils {
 			MarginLayoutParams mlp = new MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT);
 			mlp.setMargins(left, top, right, bottom);
 			v.setLayoutParams(mlp);
-		} else if (params instanceof MarginLayoutParams) {
+		}
+		else if (params instanceof MarginLayoutParams) {
 			MarginLayoutParams lp = (MarginLayoutParams) params;
 			lp.setMargins(left, top, right, bottom);
 			v.setLayoutParams(lp);
@@ -49,7 +50,8 @@ public class ViewLayoutUtils {
 		LayoutParams lp = v.getLayoutParams();
 		if (lp == null) {
 			lp = new LayoutParams(width, height);
-		} else if (lp != null) {
+		}
+		else if (lp != null) {
 			lp.width = width;
 			lp.height = height;
 		}

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import se.springworks.android.utils.inject.GrapeGuice;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.Logger;
@@ -38,16 +37,14 @@ public abstract class BaseFragment extends Fragment {
 	 * @param inflater
 	 * @param container
 	 * @param savedInstanceState
+	 *
 	 * @return
 	 */
 	protected abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
 	/**
-	 * Called when the fragment is ready to use. This means that:
-	 * <p/>
-	 * 1. The view has been created
-	 * 2. All injections have taken place
-	 * 3. The fragment's activity has been created
+	 * Called when the fragment is ready to use. This means that: <p/> 1. The view has been created 2.
+	 * All injections have taken place 3. The fragment's activity has been created
 	 *
 	 * @param savedInstanceState
 	 */
@@ -59,7 +56,8 @@ public abstract class BaseFragment extends Fragment {
 		logger.debug("onStart()");
 		try {
 			startFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}
@@ -70,7 +68,8 @@ public abstract class BaseFragment extends Fragment {
 		logger.debug("onStop()");
 		try {
 			stopFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}
@@ -81,7 +80,8 @@ public abstract class BaseFragment extends Fragment {
 		logger.debug("onResume()");
 		try {
 			resumeFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}
@@ -92,7 +92,8 @@ public abstract class BaseFragment extends Fragment {
 		logger.debug("onPause()");
 		try {
 			pauseFragment();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("onStart() start fragment threw exception", e);
 		}
 	}

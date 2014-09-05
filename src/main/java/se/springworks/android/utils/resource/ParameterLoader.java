@@ -1,13 +1,12 @@
 package se.springworks.android.utils.resource;
 
 import android.content.Context;
-
 import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.logging.LoggerFactory;
 
 /**
- * This class implements the ParameterLoader interface by loading parameters
- * from the Application's resources.
+ * This class implements the ParameterLoader interface by loading parameters from the Application's
+ * resources.
  */
 public class ParameterLoader implements IParameterLoader {
 
@@ -23,13 +22,13 @@ public class ParameterLoader implements IParameterLoader {
 	}
 
 	/**
-	 * Look up the resource id for the given type in the package identified by
-	 * gaContext. The lookup is done by key instead of id as presence of these
-	 * parameters are optional. Some or all may not be present. If gaContext is
-	 * null, return 0.
+	 * Look up the resource id for the given type in the package identified by gaContext. The lookup
+	 * is done by key instead of id as presence of these parameters are optional. Some or all may not
+	 * be present. If gaContext is null, return 0.
 	 *
-	 * @param key  the key for the string resource we're seeking
+	 * @param key the key for the string resource we're seeking
 	 * @param type the type (string, bool or integer)
+	 *
 	 * @return resource id of the given string resource, or 0 if not found
 	 */
 	private int getResourceIdForType(String key, String type) {
@@ -44,7 +43,8 @@ public class ParameterLoader implements IParameterLoader {
 		int id = getResourceIdForType(key, "string");
 		if (id == 0) {
 			return null;
-		} else {
+		}
+		else {
 			return ctx.getString(id);
 		}
 	}
@@ -54,7 +54,8 @@ public class ParameterLoader implements IParameterLoader {
 		int id = getResourceIdForType(key, "bool");
 		if (id == 0) {
 			return false;
-		} else {
+		}
+		else {
 			return "true".equalsIgnoreCase(ctx.getString(id));
 		}
 	}
@@ -64,10 +65,12 @@ public class ParameterLoader implements IParameterLoader {
 		int id = getResourceIdForType(key, "integer");
 		if (id == 0) {
 			return defaultValue;
-		} else {
+		}
+		else {
 			try {
 				return Integer.parseInt(ctx.getString(id));
-			} catch (NumberFormatException e) {
+			}
+			catch (NumberFormatException e) {
 				logger.warn("NumberFormatException parsing " + ctx.getString(id));
 				return defaultValue;
 			}

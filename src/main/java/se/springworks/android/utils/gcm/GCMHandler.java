@@ -1,12 +1,8 @@
 package se.springworks.android.utils.gcm;
 
 import android.content.Context;
-
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.inject.Inject;
-
-import java.io.IOException;
-
 import se.springworks.android.utils.application.ApplicationUtils;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.Logger;
@@ -15,6 +11,8 @@ import se.springworks.android.utils.resource.ParameterLoader;
 import se.springworks.android.utils.threading.AsyncVoidTask;
 import se.springworks.android.utils.threading.ICallback;
 import se.springworks.android.utils.threading.SimpleAsyncTask;
+
+import java.io.IOException;
 
 /**
  * http://developer.android.com/google/gcm/gs.html
@@ -26,15 +24,12 @@ public abstract class GCMHandler implements IPushHandler {
 	public static final String KEY_SENDERID = "gcm_senderid";
 
 	public static final String PROPERTY_REG_ID = "gcm_registration_id";
-	private static final String PROPERTY_APP_VERSION = "gcm_appVersion";
-	private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTimeMs";
-
 	/**
 	 * Default lifespan (7 days) of a reservation until it is considered expired.
 	 */
 	public static final long REGISTRATION_EXPIRY_TIME_MS = 1000 * 3600 * 24 * 7;
-
-
+	private static final String PROPERTY_APP_VERSION = "gcm_appVersion";
+	private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTimeMs";
 	@InjectLogger
 	private Logger logger;
 
@@ -69,7 +64,8 @@ public abstract class GCMHandler implements IPushHandler {
 			protected void performTask() {
 				try {
 					gcm.unregister();
-				} catch (IOException e) {
+				}
+				catch (IOException e) {
 					exception = e;
 					e.printStackTrace();
 				}
@@ -112,7 +108,8 @@ public abstract class GCMHandler implements IPushHandler {
 				String regId = null;
 				try {
 					regId = gcm.register(senderId);
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					logger.error("register() unable to register for gcm, %s", e);
 					exception = e;
 				}
@@ -144,11 +141,8 @@ public abstract class GCMHandler implements IPushHandler {
 	}
 
 	/**
-	 * Checks if the registration has expired.
-	 * <p/>
-	 * <p/>
-	 * To avoid the scenario where the device sends the registration to the
-	 * server but the server loses it, the app developer may choose to
+	 * Checks if the registration has expired. <p/> <p/> To avoid the scenario where the device sends
+	 * the registration to the server but the server loses it, the app developer may choose to
 	 * re-register after REGISTRATION_EXPIRY_TIME_MS.
 	 *
 	 * @return true if the registration has expired.
@@ -190,8 +184,8 @@ public abstract class GCMHandler implements IPushHandler {
 
 
 	/**
-	 * Stores the registration id, app versionCode, and expiration time in the
-	 * application's {@code SharedPreferences}.
+	 * Stores the registration id, app versionCode, and expiration time in the application's {@code
+	 * SharedPreferences}.
 	 *
 	 * @param regId registration id
 	 */

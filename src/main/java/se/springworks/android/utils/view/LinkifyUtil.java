@@ -11,11 +11,10 @@ import android.widget.TextView;
 public class LinkifyUtil {
 
 	/**
-	 * Linkify a view.
-	 * If the view is a view group all children in the display tree will be linkified.
-	 * If the view is a single TextView it will be linkified.
-	 * If the view is an EditText nothing will happen since there's a bug in Linkify
-	 * on some platforms (tested on Samsung S3 but works on HTC One V)
+	 * Linkify a view. If the view is a view group all children in the display tree will be linkified.
+	 * If the view is a single TextView it will be linkified. If the view is an EditText nothing will
+	 * happen since there's a bug in Linkify on some platforms (tested on Samsung S3 but works on HTC
+	 * One V)
 	 *
 	 * @param v
 	 * @param mask
@@ -24,9 +23,11 @@ public class LinkifyUtil {
 		if (v instanceof EditText) {
 			// do nothing
 			// linkifying an edittext causes a crash: https://groups.google.com/forum/#!msg/android-developers/fPW5KPasNtw/ZsAvk0Md5MgJ
-		} else if (v instanceof TextView) {
+		}
+		else if (v instanceof TextView) {
 			linkify((TextView) v, mask);
-		} else if (v instanceof ViewGroup) {
+		}
+		else if (v instanceof ViewGroup) {
 			ViewGroup vg = (ViewGroup) v;
 			int childCount = vg.getChildCount();
 			for (int i = 0; i < childCount; i++) {

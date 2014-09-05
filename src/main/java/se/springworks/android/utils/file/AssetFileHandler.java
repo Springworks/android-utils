@@ -1,17 +1,15 @@
 package se.springworks.android.utils.file;
 
 import android.content.res.AssetManager;
-
 import com.google.inject.Inject;
+import se.springworks.android.utils.logging.Logger;
+import se.springworks.android.utils.logging.LoggerFactory;
+import se.springworks.android.utils.stream.StreamUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
-
-import se.springworks.android.utils.logging.Logger;
-import se.springworks.android.utils.logging.LoggerFactory;
-import se.springworks.android.utils.stream.StreamUtils;
 
 public class AssetFileHandler implements IAssetFileHandler {
 
@@ -37,9 +35,11 @@ public class AssetFileHandler implements IAssetFileHandler {
 		final String path;
 		if (filename.isEmpty()) {
 			path = name + File.separator;
-		} else if (parent != null) {
+		}
+		else if (parent != null) {
 			path = parent + File.separator;
-		} else {
+		}
+		else {
 			path = "";
 		}
 
@@ -84,7 +84,8 @@ public class AssetFileHandler implements IAssetFileHandler {
 		}
 		try {
 			return assetManager.list(path);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 		}
 		return null;
 	}
@@ -93,7 +94,8 @@ public class AssetFileHandler implements IAssetFileHandler {
 	public long getSize(String name) {
 		try {
 			return this.assetManager.openFd(name).getLength();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 		}
 		return 0;
 	}

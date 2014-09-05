@@ -4,18 +4,11 @@ import java.util.Map;
 
 /**
  * Interface for an asynchronous http client. This client is expected to have all the bells and
- * whistles of an async client with thread pools, calls being made outside the ui thread and so
- * on
+ * whistles of an async client with thread pools, calls being made outside the ui thread and so on
  *
  * @author bjornritzl
  */
 public interface IAsyncHttpClient {
-
-	public interface IAsyncHttpResponseHandler {
-		void onSuccess(String response);
-
-		void onFailure(Throwable e, String response, int statusCode);
-	}
 
 	void get(String url, IAsyncHttpResponseHandler responseHandler);
 
@@ -34,4 +27,10 @@ public interface IAsyncHttpClient {
 	void removeHeader(String header);
 
 	void clearCookies();
+
+	public interface IAsyncHttpResponseHandler {
+		void onSuccess(String response);
+
+		void onFailure(Throwable e, String response, int statusCode);
+	}
 }

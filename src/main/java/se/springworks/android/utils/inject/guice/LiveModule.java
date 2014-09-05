@@ -6,13 +6,11 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
-
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.matcher.Matchers;
-
 import se.springworks.android.utils.auth.GoogleAuthentication;
 import se.springworks.android.utils.auth.IAuthentication;
 import se.springworks.android.utils.eventbus.IEventBus;

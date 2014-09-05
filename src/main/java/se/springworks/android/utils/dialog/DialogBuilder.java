@@ -8,12 +8,11 @@ import android.content.DialogInterface;
 import android.text.SpannableString;
 import android.view.WindowManager.BadTokenException;
 import android.widget.TextView;
-
 import se.springworks.android.utils.view.LinkifyUtil;
 
 /**
- * Helper, similar to the native Dialog.Builder class, but with added functionality to
- * linkify and set movement mode to the message
+ * Helper, similar to the native Dialog.Builder class, but with added functionality to linkify and
+ * set movement mode to the message
  *
  * @author bjornritzl
  */
@@ -58,6 +57,37 @@ public class DialogBuilder {
 		return b;
 	}
 
+	public static Dialog showConfirmCancel(Context context, int titleId, int messageId, int confirmId, int cancelId, DialogInterface.OnClickListener confirmListener) {
+		return DialogBuilder.create(context, titleId, messageId)
+				.addPositiveButton(confirmId, confirmListener)
+				.addNegativeButton(cancelId)
+				.setCancelable(true)
+				.show();
+	}
+
+	public static Dialog showConfirm(Context context, int titleId, int messageId, int confirmId, DialogInterface.OnClickListener confirmListener) {
+		return DialogBuilder
+				.create(context, titleId, messageId)
+				.addPositiveButton(confirmId, confirmListener)
+				.setCancelable(false)
+				.show();
+	}
+
+	public static Dialog show(Context context, int titleId, int messageId) {
+		return show(context, context.getString(titleId), context.getString(messageId));
+	}
+
+	public static Dialog show(Context context, String title, String message) {
+		return show(context, title, new SpannableString(message));
+	}
+
+	public static Dialog show(Context context, String title, SpannableString message) {
+		return DialogBuilder
+				.create(context, title, message)
+				.setCancelable(false)
+				.show();
+	}
+
 	public DialogBuilder setCancelable(boolean cancelable) {
 		builder.setCancelable(cancelable);
 		return this;
@@ -97,7 +127,6 @@ public class DialogBuilder {
 		return this;
 	}
 
-
 	public DialogBuilder addPositiveButton(int confirmId) {
 		return addPositiveButton(context.getString(confirmId), null);
 	}
@@ -115,7 +144,6 @@ public class DialogBuilder {
 		return this;
 	}
 
-
 	public Dialog show() {
 		AlertDialog dialog = builder.create();
 		try {
@@ -124,42 +152,12 @@ public class DialogBuilder {
 			if (message != null) {
 				LinkifyUtil.linkify(message);
 			}
-		} catch (BadTokenException e) {
+		}
+		catch (BadTokenException e) {
 			// do nothing
 			// reported on google play console
 			// Unable to add window -- token android.os.BinderProxy@4223bb48 is not valid; is your activity running?
 		}
 		return dialog;
-	}
-
-	public static Dialog showConfirmCancel(Context context, int titleId, int messageId, int confirmId, int cancelId, DialogInterface.OnClickListener confirmListener) {
-		return DialogBuilder.create(context, titleId, messageId)
-				.addPositiveButton(confirmId, confirmListener)
-				.addNegativeButton(cancelId)
-				.setCancelable(true)
-				.show();
-	}
-
-	public static Dialog showConfirm(Context context, int titleId, int messageId, int confirmId, DialogInterface.OnClickListener confirmListener) {
-		return DialogBuilder
-				.create(context, titleId, messageId)
-				.addPositiveButton(confirmId, confirmListener)
-				.setCancelable(false)
-				.show();
-	}
-
-	public static Dialog show(Context context, int titleId, int messageId) {
-		return show(context, context.getString(titleId), context.getString(messageId));
-	}
-
-	public static Dialog show(Context context, String title, String message) {
-		return show(context, title, new SpannableString(message));
-	}
-
-	public static Dialog show(Context context, String title, SpannableString message) {
-		return DialogBuilder
-				.create(context, title, message)
-				.setCancelable(false)
-				.show();
 	}
 }

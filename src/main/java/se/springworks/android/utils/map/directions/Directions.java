@@ -8,11 +8,11 @@ import java.util.List;
 public class Directions {
 
 
-	@JsonProperty("routes")
+	@JsonProperty ("routes")
 	private ArrayList<Route> routes;
 
 
-	@JsonProperty("status")
+	@JsonProperty ("status")
 	private String status;
 
 

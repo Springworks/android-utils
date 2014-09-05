@@ -3,10 +3,10 @@ package se.springworks.android.utils.map.directions;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Distance {
-	@JsonProperty("text")
+	@JsonProperty ("text")
 	private String text;
 
-	@JsonProperty("value")
+	@JsonProperty ("value")
 	private int distance;
 
 	public String getText() {

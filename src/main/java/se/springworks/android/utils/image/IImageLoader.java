@@ -5,11 +5,9 @@ import android.graphics.Bitmap;
 import java.io.InputStream;
 
 /**
- * Interface for classes that provide functionality for loading images, optionally
- * using a specific pixel bit depth.
- * <p/>
- * The loader should provide functionality to downsample a loaded image
- * in case of memory problems (OutOfMemoryError).
+ * Interface for classes that provide functionality for loading images, optionally using a specific
+ * pixel bit depth. <p/> The loader should provide functionality to downsample a loaded image in
+ * case of memory problems (OutOfMemoryError).
  *
  * @author bjornritzl
  */
@@ -33,6 +31,7 @@ public interface IImageLoader {
 	 * Get a bitmap from a URL
 	 *
 	 * @param url
+	 *
 	 * @return
 	 */
 	Bitmap getAsBitmap(String url);
@@ -41,6 +40,7 @@ public interface IImageLoader {
 	 * Get a bitmap from an asset file
 	 *
 	 * @param fileName
+	 *
 	 * @return
 	 */
 	Bitmap getFromAssets(String fileName);
@@ -49,6 +49,7 @@ public interface IImageLoader {
 	 * Get a bitmap from a stream
 	 *
 	 * @param in
+	 *
 	 * @return
 	 */
 	Bitmap getAsBitmap(InputStream in);

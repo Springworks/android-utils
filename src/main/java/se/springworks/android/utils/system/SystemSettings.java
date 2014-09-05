@@ -8,7 +8,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
-
 import com.google.inject.Inject;
 
 public class SystemSettings implements ISystemSettings {
@@ -16,7 +15,7 @@ public class SystemSettings implements ISystemSettings {
 	@Inject
 	private Context context;
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings ("deprecation")
 	@Override
 	public boolean isAirplaneModeOn() {
 		return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
@@ -34,11 +33,12 @@ public class SystemSettings implements ISystemSettings {
 
 	// http://stackoverflow.com/questions/12466878/how-to-check-programmatically-if-data-roaming-is-enabled-disabled
 	@Override
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings ("deprecation")
 	public boolean isDataRoamingEnabled() {
 		try {
 			return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.DATA_ROAMING) == 1;
-		} catch (SettingNotFoundException e) {
+		}
+		catch (SettingNotFoundException e) {
 			return false;
 		}
 	}

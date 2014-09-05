@@ -3,15 +3,13 @@ package se.springworks.android.utils.image;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-
 import com.google.inject.Inject;
-
-import java.io.InputStream;
-
 import se.springworks.android.utils.http.ISimpleHttpClient;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.stream.StreamUtils.FlushedInputStream;
+
+import java.io.InputStream;
 
 public class ImageLoader implements IImageLoader {
 	@InjectLogger

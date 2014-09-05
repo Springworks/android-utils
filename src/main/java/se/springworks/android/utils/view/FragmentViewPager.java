@@ -9,26 +9,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.util.AttributeSet;
-
 import se.springworks.android.utils.adapter.SectionedFragmentPagerAdapter;
 
 /**
- * This ViewPager subclass greatly simplify the way you work with a view pager and
- * actionbar tabs. Create an instance of this class, pass it an actionbar and start
- * adding fragments. Each added fragment results in a new tab and all tab and page
- * navigation is hooked up and handled automatically.
+ * This ViewPager subclass greatly simplify the way you work with a view pager and actionbar tabs.
+ * Create an instance of this class, pass it an actionbar and start adding fragments. Each added
+ * fragment results in a new tab and all tab and page navigation is hooked up and handled
+ * automatically.
  *
  * @author bjornritzl
  */
 public class FragmentViewPager extends ViewPager implements TabListener {
 
-	public static interface Listener {
-		void onTabSelected(String title);
-	}
-
 	private ActionBar actionBar;
 	private SectionedFragmentPagerAdapter<Fragment> adapter;
-
 	private Listener listener;
 
 	public FragmentViewPager(Context context) {
@@ -71,7 +65,9 @@ public class FragmentViewPager extends ViewPager implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		setCurrentItem(tab.getPosition());
-		if (listener != null) listener.onTabSelected(tab.getText().toString());
+		if (listener != null) {
+			listener.onTabSelected(tab.getText().toString());
+		}
 	}
 
 	@Override
@@ -81,6 +77,10 @@ public class FragmentViewPager extends ViewPager implements TabListener {
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+	}
+
+	public static interface Listener {
+		void onTabSelected(String title);
 	}
 }

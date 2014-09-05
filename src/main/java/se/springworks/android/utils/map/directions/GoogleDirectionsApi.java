@@ -1,11 +1,6 @@
 package se.springworks.android.utils.map.directions;
 
 import com.google.inject.Inject;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import se.springworks.android.utils.cache.MemCache;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.json.IJsonParser;
@@ -13,12 +8,13 @@ import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.rest.IRestClient;
 import se.springworks.android.utils.rest.IRestClient.OnHttpResponseHandler;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 /**
- * https://developers.google.com/maps/documentation/directions
- * <p/>
- * http://maps.googleapis.com/maps/api/directions/json?origin=Mickelsbergsv%C3%A4gen+354&destination=Sergels+torg&sensor=true&mode=transit&departure_time=1377897244
- * <p/>
- * http://stackoverflow.com/questions/9340800/detect-the-nearest-transit-stop-from-the-given-location
+ * https://developers.google.com/maps/documentation/directions <p/> http://maps.googleapis.com/maps/api/directions/json?origin=Mickelsbergsv%C3%A4gen+354&destination=Sergels+torg&sensor=true&mode=transit&departure_time=1377897244
+ * <p/> http://stackoverflow.com/questions/9340800/detect-the-nearest-transit-stop-from-the-given-location
  *
  * @author bjornritzl
  */

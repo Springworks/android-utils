@@ -32,11 +32,9 @@ package se.springworks.android.utils.iab;
  */
 
 /**
- * Base64 converter class. This code is not a complete MIME encoder;
- * it simply converts binary data to base64 data and back.
- * <p/>
- * <p>Note {@link CharBase64} is a GWT-compatible implementation of this
- * class.
+ * Base64 converter class. This code is not a complete MIME encoder; it simply converts binary data
+ * to base64 data and back. <p/> <p>Note {@link CharBase64} is a GWT-compatible implementation of
+ * this class.
  */
 public class Base64 {
 	/**
@@ -96,8 +94,8 @@ public class Base64 {
 					(byte) '9', (byte) '-', (byte) '_'};
 
 	/**
-	 * Translates a Base64 value to either its 6-bit reconstruction value
-	 * or a negative number indicating some other meaning.
+	 * Translates a Base64 value to either its 6-bit reconstruction value or a negative number
+	 * indicating some other meaning.
 	 */
 	private final static byte[] DECODABET = {-9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal  0 -  8
 			-5, -5, // Whitespace: Tab and Linefeed
@@ -121,7 +119,7 @@ public class Base64 {
 			39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, // Letters 'n' through 'z'
 			-9, -9, -9, -9, -9 // Decimal 123 - 127
 		/*  ,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 128 - 139
-        -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 140 - 152
+				-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 140 - 152
         -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 153 - 165
         -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 166 - 178
         -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 179 - 191
@@ -184,29 +182,27 @@ public class Base64 {
     /* ********  E N C O D I N G   M E T H O D S  ******** */
 
 	/**
-	 * Encodes up to three bytes of the array <var>source</var>
-	 * and writes the resulting four Base64 bytes to <var>destination</var>.
-	 * The source and destination arrays can be manipulated
-	 * anywhere along their length by specifying
-	 * <var>srcOffset</var> and <var>destOffset</var>.
-	 * This method does not check to make sure your arrays
-	 * are large enough to accommodate <var>srcOffset</var> + 3 for
-	 * the <var>source</var> array or <var>destOffset</var> + 4 for
-	 * the <var>destination</var> array.
-	 * The actual number of significant bytes in your array is
-	 * given by <var>numSigBytes</var>.
+	 * Encodes up to three bytes of the array <var>source</var> and writes the resulting four Base64
+	 * bytes to <var>destination</var>. The source and destination arrays can be manipulated anywhere
+	 * along their length by specifying <var>srcOffset</var> and <var>destOffset</var>. This method
+	 * does not check to make sure your arrays are large enough to accommodate <var>srcOffset</var> +
+	 * 3 for the <var>source</var> array or <var>destOffset</var> + 4 for the <var>destination</var>
+	 * array. The actual number of significant bytes in your array is given by
+	 * <var>numSigBytes</var>.
 	 *
-	 * @param source      the array to convert
-	 * @param srcOffset   the index where conversion begins
+	 * @param source the array to convert
+	 * @param srcOffset the index where conversion begins
 	 * @param numSigBytes the number of significant bytes in your array
 	 * @param destination the array to hold the conversion
-	 * @param destOffset  the index where output will be put
-	 * @param alphabet    is the encoding alphabet
+	 * @param destOffset the index where output will be put
+	 * @param alphabet is the encoding alphabet
+	 *
 	 * @return the <var>destination</var> array
+	 *
 	 * @since 1.3
 	 */
 	private static byte[] encode3to4(byte[] source, int srcOffset,
-									 int numSigBytes, byte[] destination, int destOffset, byte[] alphabet) {
+			int numSigBytes, byte[] destination, int destOffset, byte[] alphabet) {
 		//           1         2         3
 		// 01234567890123456789012345678901 Bit position
 		// --------000000001111111122222222 Array position from threeBytes
@@ -220,8 +216,8 @@ public class Base64 {
 		// when Java treats a value as negative that is cast from a byte to an int.
 		int inBuff =
 				(numSigBytes > 0 ? ((source[srcOffset] << 24) >>> 8) : 0)
-						| (numSigBytes > 1 ? ((source[srcOffset + 1] << 24) >>> 16) : 0)
-						| (numSigBytes > 2 ? ((source[srcOffset + 2] << 24) >>> 24) : 0);
+				| (numSigBytes > 1 ? ((source[srcOffset + 1] << 24) >>> 16) : 0)
+				| (numSigBytes > 2 ? ((source[srcOffset + 2] << 24) >>> 24) : 0);
 
 		switch (numSigBytes) {
 			case 3:
@@ -248,11 +244,11 @@ public class Base64 {
 	} // end encode3to4
 
 	/**
-	 * Encodes a byte array into Base64 notation.
-	 * Equivalent to calling
-	 * {@code encodeBytes(source, 0, source.length)}
+	 * Encodes a byte array into Base64 notation. Equivalent to calling {@code encodeBytes(source, 0,
+	 *source.length)}
 	 *
 	 * @param source The data to convert
+	 *
 	 * @since 1.4
 	 */
 	public static String encode(byte[] source) {
@@ -262,9 +258,9 @@ public class Base64 {
 	/**
 	 * Encodes a byte array into web safe Base64 notation.
 	 *
-	 * @param source    The data to convert
-	 * @param doPadding is {@code true} to pad result with '=' chars
-	 *                  if it does not fall on 3 byte boundaries
+	 * @param source The data to convert
+	 * @param doPadding is {@code true} to pad result with '=' chars if it does not fall on 3 byte
+	 * boundaries
 	 */
 	public static String encodeWebSafe(byte[] source, boolean doPadding) {
 		return encode(source, 0, source.length, WEBSAFE_ALPHABET, doPadding);
@@ -273,16 +269,17 @@ public class Base64 {
 	/**
 	 * Encodes a byte array into Base64 notation.
 	 *
-	 * @param source    the data to convert
-	 * @param off       offset in array where conversion should begin
-	 * @param len       length of data to convert
-	 * @param alphabet  the encoding alphabet
-	 * @param doPadding is {@code true} to pad result with '=' chars
-	 *                  if it does not fall on 3 byte boundaries
+	 * @param source the data to convert
+	 * @param off offset in array where conversion should begin
+	 * @param len length of data to convert
+	 * @param alphabet the encoding alphabet
+	 * @param doPadding is {@code true} to pad result with '=' chars if it does not fall on 3 byte
+	 * boundaries
+	 *
 	 * @since 1.4
 	 */
 	public static String encode(byte[] source, int off, int len, byte[] alphabet,
-								boolean doPadding) {
+			boolean doPadding) {
 		byte[] outBuff = encode(source, off, len, alphabet, Integer.MAX_VALUE);
 		int outLen = outBuff.length;
 
@@ -301,19 +298,20 @@ public class Base64 {
 	/**
 	 * Encodes a byte array into Base64 notation.
 	 *
-	 * @param source        the data to convert
-	 * @param off           offset in array where conversion should begin
-	 * @param len           length of data to convert
-	 * @param alphabet      is the encoding alphabet
+	 * @param source the data to convert
+	 * @param off offset in array where conversion should begin
+	 * @param len length of data to convert
+	 * @param alphabet is the encoding alphabet
 	 * @param maxLineLength maximum length of one line.
+	 *
 	 * @return the BASE64-encoded byte array
 	 */
 	public static byte[] encode(byte[] source, int off, int len, byte[] alphabet,
-								int maxLineLength) {
+			int maxLineLength) {
 		int lenDiv3 = (len + 2) / 3; // ceil(len / 3)
 		int len43 = lenDiv3 * 4;
 		byte[] outBuff = new byte[len43 // Main 4:3
-				+ (len43 / maxLineLength)]; // New lines
+															+ (len43 / maxLineLength)]; // New lines
 
 		int d = 0;
 		int e = 0;
@@ -326,8 +324,8 @@ public class Base64 {
 			// but inlined for faster encoding (~20% improvement)
 			int inBuff =
 					((source[d + off] << 24) >>> 8)
-							| ((source[d + 1 + off] << 24) >>> 16)
-							| ((source[d + 2 + off] << 24) >>> 24);
+					| ((source[d + 1 + off] << 24) >>> 16)
+					| ((source[d + 2 + off] << 24) >>> 24);
 			outBuff[e] = alphabet[(inBuff >>> 18)];
 			outBuff[e + 1] = alphabet[(inBuff >>> 12) & 0x3f];
 			outBuff[e + 2] = alphabet[(inBuff >>> 6) & 0x3f];
@@ -362,54 +360,53 @@ public class Base64 {
 
 
 	/**
-	 * Decodes four bytes from array <var>source</var>
-	 * and writes the resulting bytes (up to three of them)
-	 * to <var>destination</var>.
-	 * The source and destination arrays can be manipulated
-	 * anywhere along their length by specifying
-	 * <var>srcOffset</var> and <var>destOffset</var>.
-	 * This method does not check to make sure your arrays
-	 * are large enough to accommodate <var>srcOffset</var> + 4 for
-	 * the <var>source</var> array or <var>destOffset</var> + 3 for
-	 * the <var>destination</var> array.
-	 * This method returns the actual number of bytes that
-	 * were converted from the Base64 encoding.
+	 * Decodes four bytes from array <var>source</var> and writes the resulting bytes (up to three of
+	 * them) to <var>destination</var>. The source and destination arrays can be manipulated anywhere
+	 * along their length by specifying <var>srcOffset</var> and <var>destOffset</var>. This method
+	 * does not check to make sure your arrays are large enough to accommodate <var>srcOffset</var> +
+	 * 4 for the <var>source</var> array or <var>destOffset</var> + 3 for the <var>destination</var>
+	 * array. This method returns the actual number of bytes that were converted from the Base64
+	 * encoding.
 	 *
-	 * @param source      the array to convert
-	 * @param srcOffset   the index where conversion begins
+	 * @param source the array to convert
+	 * @param srcOffset the index where conversion begins
 	 * @param destination the array to hold the conversion
-	 * @param destOffset  the index where output will be put
-	 * @param decodabet   the decodabet for decoding Base64 content
+	 * @param destOffset the index where output will be put
+	 * @param decodabet the decodabet for decoding Base64 content
+	 *
 	 * @return the number of decoded bytes converted
+	 *
 	 * @since 1.3
 	 */
 	private static int decode4to3(byte[] source, int srcOffset,
-								  byte[] destination, int destOffset, byte[] decodabet) {
+			byte[] destination, int destOffset, byte[] decodabet) {
 		// Example: Dk==
 		if (source[srcOffset + 2] == EQUALS_SIGN) {
 			int outBuff =
 					((decodabet[source[srcOffset]] << 24) >>> 6)
-							| ((decodabet[source[srcOffset + 1]] << 24) >>> 12);
+					| ((decodabet[source[srcOffset + 1]] << 24) >>> 12);
 
 			destination[destOffset] = (byte) (outBuff >>> 16);
 			return 1;
-		} else if (source[srcOffset + 3] == EQUALS_SIGN) {
+		}
+		else if (source[srcOffset + 3] == EQUALS_SIGN) {
 			// Example: DkL=
 			int outBuff =
 					((decodabet[source[srcOffset]] << 24) >>> 6)
-							| ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
-							| ((decodabet[source[srcOffset + 2]] << 24) >>> 18);
+					| ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
+					| ((decodabet[source[srcOffset + 2]] << 24) >>> 18);
 
 			destination[destOffset] = (byte) (outBuff >>> 16);
 			destination[destOffset + 1] = (byte) (outBuff >>> 8);
 			return 2;
-		} else {
+		}
+		else {
 			// Example: DkLE
 			int outBuff =
 					((decodabet[source[srcOffset]] << 24) >>> 6)
-							| ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
-							| ((decodabet[source[srcOffset + 2]] << 24) >>> 18)
-							| ((decodabet[source[srcOffset + 3]] << 24) >>> 24);
+					| ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
+					| ((decodabet[source[srcOffset + 2]] << 24) >>> 18)
+					| ((decodabet[source[srcOffset + 3]] << 24) >>> 24);
 
 			destination[destOffset] = (byte) (outBuff >> 16);
 			destination[destOffset + 1] = (byte) (outBuff >> 8);
@@ -423,7 +420,9 @@ public class Base64 {
 	 * Decodes data from Base64 notation.
 	 *
 	 * @param s the string to decode (decoded in default encoding)
+	 *
 	 * @return the decoded data
+	 *
 	 * @since 1.4
 	 */
 	public static byte[] decode(String s) throws Base64DecoderException {
@@ -432,10 +431,11 @@ public class Base64 {
 	}
 
 	/**
-	 * Decodes data from web safe Base64 notation.
-	 * Web safe encoding uses '-' instead of '+', '_' instead of '/'
+	 * Decodes data from web safe Base64 notation. Web safe encoding uses '-' instead of '+', '_'
+	 * instead of '/'
 	 *
 	 * @param s the string to decode (decoded in default encoding)
+	 *
 	 * @return the decoded data
 	 */
 	public static byte[] decodeWebSafe(String s) throws Base64DecoderException {
@@ -444,11 +444,12 @@ public class Base64 {
 	}
 
 	/**
-	 * Decodes Base64 content in byte array format and returns
-	 * the decoded byte array.
+	 * Decodes Base64 content in byte array format and returns the decoded byte array.
 	 *
 	 * @param source The Base64 encoded data
+	 *
 	 * @return decoded data
+	 *
 	 * @throws Base64DecoderException
 	 * @since 1.3
 	 */
@@ -457,11 +458,11 @@ public class Base64 {
 	}
 
 	/**
-	 * Decodes web safe Base64 content in byte array format and returns
-	 * the decoded data.
-	 * Web safe encoding uses '-' instead of '+', '_' instead of '/'
+	 * Decodes web safe Base64 content in byte array format and returns the decoded data. Web safe
+	 * encoding uses '-' instead of '+', '_' instead of '/'
 	 *
 	 * @param source the string to decode (decoded in default encoding)
+	 *
 	 * @return the decoded data
 	 */
 	public static byte[] decodeWebSafe(byte[] source)
@@ -470,13 +471,14 @@ public class Base64 {
 	}
 
 	/**
-	 * Decodes Base64 content in byte array format and returns
-	 * the decoded byte array.
+	 * Decodes Base64 content in byte array format and returns the decoded byte array.
 	 *
 	 * @param source the Base64 encoded data
-	 * @param off    the offset of where to begin decoding
-	 * @param len    the length of characters to decode
+	 * @param off the offset of where to begin decoding
+	 * @param len the length of characters to decode
+	 *
 	 * @return decoded data
+	 *
 	 * @throws Base64DecoderException
 	 * @since 1.3
 	 */
@@ -486,13 +488,13 @@ public class Base64 {
 	}
 
 	/**
-	 * Decodes web safe Base64 content in byte array format and returns
-	 * the decoded byte array.
-	 * Web safe encoding uses '-' instead of '+', '_' instead of '/'
+	 * Decodes web safe Base64 content in byte array format and returns the decoded byte array. Web
+	 * safe encoding uses '-' instead of '+', '_' instead of '/'
 	 *
 	 * @param source the Base64 encoded data
-	 * @param off    the offset of where to begin decoding
-	 * @param len    the length of characters to decode
+	 * @param off the offset of where to begin decoding
+	 * @param len the length of characters to decode
+	 *
 	 * @return decoded data
 	 */
 	public static byte[] decodeWebSafe(byte[] source, int off, int len)
@@ -501,13 +503,13 @@ public class Base64 {
 	}
 
 	/**
-	 * Decodes Base64 content using the supplied decodabet and returns
-	 * the decoded byte array.
+	 * Decodes Base64 content using the supplied decodabet and returns the decoded byte array.
 	 *
-	 * @param source    the Base64 encoded data
-	 * @param off       the offset of where to begin decoding
-	 * @param len       the length of characters to decode
+	 * @param source the Base64 encoded data
+	 * @param off the offset of where to begin decoding
+	 * @param len the length of characters to decode
 	 * @param decodabet the decodabet for decoding Base64 content
+	 *
 	 * @return decoded data
 	 */
 	public static byte[] decode(byte[] source, int off, int len, byte[] decodabet)
@@ -535,13 +537,15 @@ public class Base64 {
 						if (b4Posn == 0 || b4Posn == 1) {
 							throw new Base64DecoderException(
 									"invalid padding byte '=' at byte offset " + i);
-						} else if ((b4Posn == 3 && bytesLeft > 2)
-								|| (b4Posn == 4 && bytesLeft > 1)) {
+						}
+						else if ((b4Posn == 3 && bytesLeft > 2)
+										 || (b4Posn == 4 && bytesLeft > 1)) {
 							throw new Base64DecoderException(
 									"padding byte '=' falsely signals end of encoded value "
-											+ "at offset " + i
+									+ "at offset " + i
 							);
-						} else if (lastByte != EQUALS_SIGN && lastByte != NEW_LINE) {
+						}
+						else if (lastByte != EQUALS_SIGN && lastByte != NEW_LINE) {
 							throw new Base64DecoderException(
 									"encoded value has invalid trailing byte");
 						}
@@ -554,9 +558,10 @@ public class Base64 {
 						b4Posn = 0;
 					}
 				}
-			} else {
+			}
+			else {
 				throw new Base64DecoderException("Bad Base64 input character at " + i
-						+ ": " + source[i + off] + "(decimal)");
+																				 + ": " + source[i + off] + "(decimal)");
 			}
 		}
 
@@ -569,7 +574,7 @@ public class Base64 {
 		if (b4Posn != 0) {
 			if (b4Posn == 1) {
 				throw new Base64DecoderException("single trailing character at offset "
-						+ (len - 1));
+																				 + (len - 1));
 			}
 			b4[b4Posn++] = EQUALS_SIGN;
 			outBuffPosn += decode4to3(b4, 0, outBuff, outBuffPosn, decodabet);

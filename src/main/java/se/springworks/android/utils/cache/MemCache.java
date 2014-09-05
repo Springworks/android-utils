@@ -5,35 +5,6 @@ import java.util.Iterator;
 
 public class MemCache<T> implements ICache<T> {
 
-	private class CachedData {
-
-		// time when the data expires (-1 = never)
-		public final long expires;
-
-		public final T data;
-
-		public CachedData(T data) {
-			this(data, (long) -1);
-		}
-
-		public CachedData(T data, long expires) {
-			this.data = data;
-			this.expires = expires;
-		}
-
-		/**
-		 * Check if the cached data has expired
-		 *
-		 * @return
-		 */
-		public boolean hasExpired() {
-			if (expires == -1) {
-				return false;
-			}
-			return System.currentTimeMillis() >= expires;
-		}
-	}
-
 	private HashMap<String, CachedData> cache = new HashMap<String, CachedData>();
 
 	/**
@@ -81,5 +52,34 @@ public class MemCache<T> implements ICache<T> {
 	public boolean contains(String resourceKey) {
 		prune();
 		return cache.containsKey(resourceKey);
+	}
+
+	private class CachedData {
+
+		// time when the data expires (-1 = never)
+		public final long expires;
+
+		public final T data;
+
+		public CachedData(T data) {
+			this(data, (long) -1);
+		}
+
+		public CachedData(T data, long expires) {
+			this.data = data;
+			this.expires = expires;
+		}
+
+		/**
+		 * Check if the cached data has expired
+		 *
+		 * @return
+		 */
+		public boolean hasExpired() {
+			if (expires == -1) {
+				return false;
+			}
+			return System.currentTimeMillis() >= expires;
+		}
 	}
 }

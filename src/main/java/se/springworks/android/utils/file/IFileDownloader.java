@@ -3,12 +3,6 @@ package se.springworks.android.utils.file;
 
 public interface IFileDownloader {
 
-	public interface OnFileDownloadListener {
-		void onDownloaded(String uri);
-
-		void onFailed(Exception e, String uri);
-	}
-
 	void setOnFileDownloadListener(OnFileDownloadListener listener);
 
 	void download(String uri, String destination, IFileHandler fileHandler);
@@ -20,4 +14,10 @@ public interface IFileDownloader {
 	void cancelAll();
 
 	boolean isDownloading(String uri);
+
+	public interface OnFileDownloadListener {
+		void onDownloaded(String uri);
+
+		void onFailed(Exception e, String uri);
+	}
 }

@@ -1,42 +1,26 @@
 package se.springworks.android.utils.map.directions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import se.springworks.android.utils.map.LatLng;
 import se.springworks.android.utils.map.directions.Leg.Time;
 
 public class TransitDetails {
 
-	public static class Station {
-		@JsonProperty("location")
-		private LatLng location;
-
-		@JsonProperty("name")
-		private String name;
-	}
-
-	@JsonProperty("arrival_stop")
+	@JsonProperty ("arrival_stop")
 	private Station arrivalStop;
-
-	@JsonProperty("arrival_time")
+	@JsonProperty ("arrival_time")
 	private Time arrivalTime;
-
-	@JsonProperty("departure_stop")
+	@JsonProperty ("departure_stop")
 	private Station departureStop;
-
-	@JsonProperty("departure_time")
+	@JsonProperty ("departure_time")
 	private Time departureTime;
-
-	@JsonProperty("headsign")
+	@JsonProperty ("headsign")
 	private String headsign;
-
-	@JsonProperty("headway")
+	@JsonProperty ("headway")
 	private int headway;
-
-	@JsonProperty("num_stops")
+	@JsonProperty ("num_stops")
 	private int numberOfStops;
-
-	@JsonProperty("line")
+	@JsonProperty ("line")
 	private Line line;
 
 	public Station getArrivalStop() {
@@ -56,8 +40,8 @@ public class TransitDetails {
 	}
 
 	/**
-	 * Get the direction in which to travel on this line, as it is marked on
-	 * the vehicle or at the departure stop. This will often be the terminus station.
+	 * Get the direction in which to travel on this line, as it is marked on the vehicle or at the
+	 * departure stop. This will often be the terminus station.
 	 *
 	 * @return
 	 */
@@ -66,9 +50,9 @@ public class TransitDetails {
 	}
 
 	/**
-	 * Get the expected number of seconds between departures from the same stop
-	 * at this time. For example, with a headway value of 600, you would expect a ten
-	 * minute wait if you should miss your bus.
+	 * Get the expected number of seconds between departures from the same stop at this time. For
+	 * example, with a headway value of 600, you would expect a ten minute wait if you should miss
+	 * your bus.
 	 *
 	 * @return
 	 */
@@ -77,9 +61,9 @@ public class TransitDetails {
 	}
 
 	/**
-	 * Get the number of stops in this step, counting the arrival stop, but not the
-	 * departure stop. For example, if your directions involve leaving from Stop A,
-	 * passing through stops B and C, and arriving at stop D, will return 3.
+	 * Get the number of stops in this step, counting the arrival stop, but not the departure stop.
+	 * For example, if your directions involve leaving from Stop A, passing through stops B and C, and
+	 * arriving at stop D, will return 3.
 	 *
 	 * @return
 	 */
@@ -98,6 +82,14 @@ public class TransitDetails {
 
 	public boolean hasLine() {
 		return line != null;
+	}
+
+	public static class Station {
+		@JsonProperty ("location")
+		private LatLng location;
+
+		@JsonProperty ("name")
+		private String name;
 	}
 
 }

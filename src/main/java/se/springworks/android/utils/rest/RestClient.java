@@ -1,12 +1,8 @@
 package se.springworks.android.utils.rest;
 
 import android.content.Context;
-
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-
-import java.util.Map;
-
 import se.springworks.android.utils.cache.ICache;
 import se.springworks.android.utils.cache.ICache.CacheException;
 import se.springworks.android.utils.http.HttpUtils;
@@ -16,25 +12,21 @@ import se.springworks.android.utils.http.ISimpleHttpClient;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.Logger;
 
+import java.util.Map;
+
 public class RestClient implements IRestClient {
-
-	@Inject
-	private IAsyncHttpClient asyncClient;
-
-	@Inject
-	private ISimpleHttpClient syncClient;
-
-	private String baseUrl = "";
-
-	private boolean cachingEnabled = false;
-
-	@Inject(optional = true)
-	@Named("restclient")
-	private ICache<String> cache;
 
 	@InjectLogger
 	Logger logger;
-
+	@Inject
+	private IAsyncHttpClient asyncClient;
+	@Inject
+	private ISimpleHttpClient syncClient;
+	private String baseUrl = "";
+	private boolean cachingEnabled = false;
+	@Inject (optional = true)
+	@Named ("restclient")
+	private ICache<String> cache;
 	@Inject
 	private Context context;
 
@@ -60,12 +52,14 @@ public class RestClient implements IRestClient {
 		final String absoluteUrl = getAbsoluteUrl(url, params);
 		if (isCachingEnabled() && cache.contains(absoluteUrl)) {
 			result = cache.get(absoluteUrl);
-		} else {
+		}
+		else {
 			result = syncClient.getAsString(absoluteUrl);
 			if (result != null && isCachingEnabled()) {
 				try {
 					cache.cache(absoluteUrl, result);
-				} catch (CacheException e) {
+				}
+				catch (CacheException e) {
 					logger.warn("get() %s unable to cache result %s", absoluteUrl, e.getMessage());
 				}
 			}
@@ -80,14 +74,16 @@ public class RestClient implements IRestClient {
 
 		if (isCachingEnabled() && cache.contains(absoluteUrl)) {
 			responseHandler.onSuccess(cache.get(absoluteUrl));
-		} else {
+		}
+		else {
 			asyncClient.get(absoluteUrl, new IAsyncHttpResponseHandler() {
 				@Override
 				public final void onSuccess(String response) {
 					if (isCachingEnabled()) {
 						try {
 							cache.cache(absoluteUrl, response);
-						} catch (CacheException e) {
+						}
+						catch (CacheException e) {
 							logger.warn("get() %s unable to cache result %s", absoluteUrl, e.getMessage());
 						}
 					}

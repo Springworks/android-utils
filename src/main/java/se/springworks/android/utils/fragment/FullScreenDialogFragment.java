@@ -1,7 +1,6 @@
 package se.springworks.android.utils.fragment;
 
 import android.os.Bundle;
-
 import se.springworks.android.utils.R;
 
 public abstract class FullScreenDialogFragment extends BaseDialogFragment {

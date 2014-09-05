@@ -7,28 +7,23 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.test.AndroidTestCase;
 import android.view.View;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import se.springworks.android.utils.inject.annotation.InjectView;
+import se.springworks.android.utils.logging.Logger;
+import se.springworks.android.utils.logging.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-import se.springworks.android.utils.inject.annotation.InjectView;
-import se.springworks.android.utils.logging.Logger;
-import se.springworks.android.utils.logging.LoggerFactory;
-
 /**
- * Wrapper for Guice {@link com.google.inject.Guice} with added custom view dependency injection
- * The modules to load for Guice needs to be defined as a string-array resource with the name
- * "guice-modules".
- * <p/>
- * If you obfuscate your code remember to keep the module names unchanged:
- * <p/>
- * -keep public class * extends com.google.inject.AbstractModule
+ * Wrapper for Guice {@link com.google.inject.Guice} with added custom view dependency injection The
+ * modules to load for Guice needs to be defined as a string-array resource with the name
+ * "guice-modules". <p/> If you obfuscate your code remember to keep the module names unchanged:
+ * <p/> -keep public class * extends com.google.inject.AbstractModule
  *
  * @author bjornritzl
  */
@@ -72,11 +67,13 @@ public class GrapeGuice {
 					final Class<? extends AbstractModule> clazz = Class.forName(name).asSubclass(AbstractModule.class);
 					try {
 						modules.add(clazz.getDeclaredConstructor(Context.class).newInstance(application));
-					} catch (NoSuchMethodException ignored) {
+					}
+					catch (NoSuchMethodException ignored) {
 						modules.add(clazz.newInstance());
 					}
 				}
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -90,6 +87,7 @@ public class GrapeGuice {
 	 * Rebinds all bindings for this injector based on the provided module(s)
 	 *
 	 * @param modules
+	 *
 	 * @return This instance rebound with bindings defined in the provided module(s)
 	 */
 	public GrapeGuice rebind(AbstractModule... modules) {
@@ -98,12 +96,13 @@ public class GrapeGuice {
 	}
 
 	/**
-	 * Get an injector for the specified context with the bindings defined in the provided modules
-	 * If an injector already exists for the specified context it will be rebound with bindings from
-	 * the specified module(s)
+	 * Get an injector for the specified context with the bindings defined in the provided modules If
+	 * an injector already exists for the specified context it will be rebound with bindings from the
+	 * specified module(s)
 	 *
 	 * @param context
 	 * @param modules
+	 *
 	 * @return
 	 */
 	public static GrapeGuice getInjector(Context context, AbstractModule... modules) {
@@ -117,8 +116,8 @@ public class GrapeGuice {
 	}
 
 	/**
-	 * Injects dependencies into fields and methods of an object This uses the
-	 * Guice framework to do annotations, {@link Injector#injectMembers(Object)}
+	 * Injects dependencies into fields and methods of an object This uses the Guice framework to do
+	 * annotations, {@link Injector#injectMembers(Object)}
 	 *
 	 * @param o The object to inject dependencies into
 	 */
@@ -132,6 +131,7 @@ public class GrapeGuice {
 	 *
 	 * @param a The activity to get views from
 	 * @param o The object to inject views into
+	 *
 	 * @InjectView(id = R.id.name) in the specified target object
 	 */
 	public GrapeGuice injectViews(Activity a, Object o) {
@@ -158,18 +158,22 @@ public class GrapeGuice {
 					View v = null;
 					if (from instanceof Activity) {
 						v = ((Activity) from).findViewById(id);
-					} else if (from instanceof View) {
+					}
+					else if (from instanceof View) {
 						v = ((View) from).findViewById(id);
-					} else if (from instanceof Dialog) {
+					}
+					else if (from instanceof Dialog) {
 						v = ((Dialog) from).findViewById(id);
 					}
 					if (v != null) {
 						field.set(into, v);
 					}
-				} catch (IllegalArgumentException e) {
+				}
+				catch (IllegalArgumentException e) {
 					e.printStackTrace();
 					logger.error("injectViewsFromObject() %d %s", id, e);
-				} catch (IllegalAccessException e) {
+				}
+				catch (IllegalAccessException e) {
 					e.printStackTrace();
 					logger.error("injectViewsFromObject() %d %s", id, e);
 				}
@@ -179,8 +183,8 @@ public class GrapeGuice {
 	}
 
 	/**
-	 * Injects views into the members of an activity Refer to
-	 * {@link #injectViews(Activity, Object)} for details
+	 * Injects views into the members of an activity Refer to {@link #injectViews(Activity, Object)}
+	 * for details
 	 *
 	 * @param a The activity to get views from and fields to inject to
 	 */
@@ -189,8 +193,8 @@ public class GrapeGuice {
 	}
 
 	/**
-	 * Injects views from the current activity into a fragment Refer to
-	 * {@link #injectViews(Activity, Object)} for details
+	 * Injects views from the current activity into a fragment Refer to {@link #injectViews(Activity,
+	 * Object)} for details
 	 *
 	 * @param f
 	 */
