@@ -1,7 +1,6 @@
 package se.springworks.android.utils.gcm;
 
 import android.os.Bundle;
-
 import se.springworks.android.utils.threading.ICallback;
 
 public interface IPushHandler {

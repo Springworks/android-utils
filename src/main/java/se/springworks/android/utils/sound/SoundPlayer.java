@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.SoundPool;
-
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
@@ -136,10 +135,10 @@ public class SoundPlayer implements ISoundPlayer {
 	/**
 	 * Plays a sound
 	 *
-	 * @param key    Id of the sound to play
+	 * @param key Id of the sound to play
 	 * @param volume Volume in percentage of current max volume to play sound
-	 * @param loop   Number of times to loop (-1 forever)
-	 * @param speed  Speed of playback (1.0 normal speed). Rnage 0.5 to 2.0
+	 * @param loop Number of times to loop (-1 forever)
+	 * @param speed Speed of playback (1.0 normal speed). Rnage 0.5 to 2.0
 	 */
 	private void play(Object key, float volume, int loop, float speed) {
 		if (soundMap.containsKey(key)) {

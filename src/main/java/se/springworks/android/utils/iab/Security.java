@@ -28,13 +28,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * Security-related methods. For a secure implementation, all of this code
- * should be implemented on a server that communicates with the
- * application on the device. For the sake of simplicity and clarity of this
- * example, this code is included here and is executed on the device. If you
- * must verify the purchases on the phone, you should obfuscate this code to
- * make it harder for an attacker to replace the code with stubs that treat all
- * purchases as verified.
+ * Security-related methods. For a secure implementation, all of this code should be implemented on
+ * a server that communicates with the application on the device. For the sake of simplicity and
+ * clarity of this example, this code is included here and is executed on the device. If you must
+ * verify the purchases on the phone, you should obfuscate this code to make it harder for an
+ * attacker to replace the code with stubs that treat all purchases as verified.
  */
 public class Security {
 	private static final String TAG = "IABUtil/Security";
@@ -43,14 +41,13 @@ public class Security {
 	private static final String SIGNATURE_ALGORITHM = "SHA1withRSA";
 
 	/**
-	 * Verifies that the data was signed with the given signature, and returns
-	 * the verified purchase. The data is in JSON format and signed
-	 * with a private key. The data also contains the {@link PurchaseState}
-	 * and product ID of the purchase.
+	 * Verifies that the data was signed with the given signature, and returns the verified purchase.
+	 * The data is in JSON format and signed with a private key. The data also contains the {@link
+	 * PurchaseState} and product ID of the purchase.
 	 *
 	 * @param base64PublicKey the base64-encoded public key to use for verifying.
-	 * @param signedData      the signed JSON string (signed, not encrypted)
-	 * @param signature       the signature for the data, signed with the private key
+	 * @param signedData the signed JSON string (signed, not encrypted)
+	 * @param signature the signature for the data, signed with the private key
 	 */
 	public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature) {
 		if (signedData == null) {
@@ -71,10 +68,10 @@ public class Security {
 	}
 
 	/**
-	 * Generates a PublicKey instance from a string containing the
-	 * Base64-encoded public key.
+	 * Generates a PublicKey instance from a string containing the Base64-encoded public key.
 	 *
 	 * @param encodedPublicKey Base64-encoded public key
+	 *
 	 * @throws IllegalArgumentException if encodedPublicKey is invalid
 	 */
 	public static PublicKey generatePublicKey(String encodedPublicKey) {
@@ -82,24 +79,28 @@ public class Security {
 			byte[] decodedKey = Base64.decode(encodedPublicKey);
 			KeyFactory keyFactory = KeyFactory.getInstance(KEY_FACTORY_ALGORITHM);
 			return keyFactory.generatePublic(new X509EncodedKeySpec(decodedKey));
-		} catch (NoSuchAlgorithmException e) {
+		}
+		catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
-		} catch (InvalidKeySpecException e) {
+		}
+		catch (InvalidKeySpecException e) {
 			Log.e(TAG, "Invalid key specification.");
 			throw new IllegalArgumentException(e);
-		} catch (Base64DecoderException e) {
+		}
+		catch (Base64DecoderException e) {
 			Log.e(TAG, "Base64 decoding failed.");
 			throw new IllegalArgumentException(e);
 		}
 	}
 
 	/**
-	 * Verifies that the signature from the server matches the computed
-	 * signature on the data.  Returns true if the data is correctly signed.
+	 * Verifies that the signature from the server matches the computed signature on the data.
+	 * Returns true if the data is correctly signed.
 	 *
-	 * @param publicKey  public key associated with the developer account
+	 * @param publicKey public key associated with the developer account
 	 * @param signedData signed data from server
-	 * @param signature  server signature
+	 * @param signature server signature
+	 *
 	 * @return true if the data and signature match
 	 */
 	public static boolean verify(PublicKey publicKey, String signedData, String signature) {
@@ -113,13 +114,17 @@ public class Security {
 				return false;
 			}
 			return true;
-		} catch (NoSuchAlgorithmException e) {
+		}
+		catch (NoSuchAlgorithmException e) {
 			Log.e(TAG, "NoSuchAlgorithmException.");
-		} catch (InvalidKeyException e) {
+		}
+		catch (InvalidKeyException e) {
 			Log.e(TAG, "Invalid key specification.");
-		} catch (SignatureException e) {
+		}
+		catch (SignatureException e) {
 			Log.e(TAG, "Signature exception.");
-		} catch (Base64DecoderException e) {
+		}
+		catch (Base64DecoderException e) {
 			Log.e(TAG, "Base64 decoding failed.");
 		}
 		return false;

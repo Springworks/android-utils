@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PolyLine {
 
-	@JsonProperty("points")
+	@JsonProperty ("points")
 	private String points;
 
 

@@ -2,7 +2,6 @@ package se.springworks.android.utils.analytics;
 
 import android.app.Activity;
 import android.content.Context;
-
 import com.google.analytics.tracking.android.EasyTracker;
 
 public class GoogleTracker implements IAnalyticsTracker {

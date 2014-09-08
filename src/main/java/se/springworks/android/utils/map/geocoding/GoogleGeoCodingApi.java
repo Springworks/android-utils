@@ -1,15 +1,14 @@
 package se.springworks.android.utils.map.geocoding;
 
 import com.google.inject.Inject;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.json.IJsonParser;
 import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.rest.IRestClient;
 import se.springworks.android.utils.rest.IRestClient.OnHttpResponseHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * https://developers.google.com/maps/documentation/geocoding/

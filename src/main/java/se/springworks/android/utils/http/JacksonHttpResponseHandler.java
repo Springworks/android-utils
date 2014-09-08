@@ -18,7 +18,7 @@ public abstract class JacksonHttpResponseHandler<T> extends AsyncHttpResponseHan
 
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings ("rawtypes")
 	public JacksonHttpResponseHandler(Class<? extends Collection> collectionClass, Class<?> elementClass) {
 		type = TypeFactory.defaultInstance().constructCollectionType(collectionClass, elementClass);
 	}
@@ -35,11 +35,13 @@ public abstract class JacksonHttpResponseHandler<T> extends AsyncHttpResponseHan
 		try {
 			if (type != null) {
 				t = mapper.readValue(response, type);
-			} else {
+			}
+			else {
 				t = mapper.readValue(response, new TypeReference<T>() {
 				});
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		onSuccess(t, response);

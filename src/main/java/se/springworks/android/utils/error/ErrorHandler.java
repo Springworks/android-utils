@@ -3,7 +3,6 @@ package se.springworks.android.utils.error;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-
 import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.logging.LoggerFactory;
 
@@ -58,7 +57,8 @@ public class ErrorHandler {
 				try {
 					dialog.show();
 					currentDialog = dialog;
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -69,7 +69,8 @@ public class ErrorHandler {
 		if (currentDialog != null) {
 			try {
 				currentDialog.dismiss();
-			} catch (IllegalArgumentException e) {
+			}
+			catch (IllegalArgumentException e) {
 				// do nothing
 				// java.lang.IllegalArgumentException: View not attached to window manager
 				// reported in dev console

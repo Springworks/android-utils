@@ -10,7 +10,8 @@ public class ApplicationUtils {
 		PackageInfo info = null;
 		try {
 			info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-		} catch (NameNotFoundException e) {
+		}
+		catch (NameNotFoundException e) {
 		}
 		return info;
 	}

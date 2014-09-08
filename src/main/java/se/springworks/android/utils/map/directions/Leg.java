@@ -1,92 +1,46 @@
 package se.springworks.android.utils.map.directions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import se.springworks.android.utils.map.LatLng;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import se.springworks.android.utils.map.LatLng;
-
 /**
- * Each element in the legs array specifies a single leg of the journey from the origin
- * to the destination in the calculated route. For routes that contain no waypoints,
- * the route will consist of a single "leg," but for routes that define one or more
- * waypoints, the route will consist of one or more legs, corresponding to the specific
- * legs of the journey.
+ * Each element in the legs array specifies a single leg of the journey from the origin to the
+ * destination in the calculated route. For routes that contain no waypoints, the route will consist
+ * of a single "leg," but for routes that define one or more waypoints, the route will consist of
+ * one or more legs, corresponding to the specific legs of the journey.
  *
  * @author bjornritzl
  */
 public class Leg {
 
 
-	public static class Time {
-
-		@JsonProperty("text")
-		private String text;
-
-		@JsonProperty("time_zone")
-		private String timeZone;
-
-		@JsonProperty("value")
-		private long value;
-
-		public Date getDate() {
-			return new Date(getTimeInMilliseconds());
-		}
-
-		public String getTimeZone() {
-			return timeZone;
-		}
-
-		public String getText() {
-			return text;
-		}
-
-		public long getTimeInSeconds() {
-			return value;
-		}
-
-		public long getTimeInMilliseconds() {
-			return value * 1000;
-		}
-
-	}
-
-
-	@JsonProperty("arrival_time")
+	@JsonProperty ("arrival_time")
 	private Time arrivalTime;
-
-	@JsonProperty("departure_time")
+	@JsonProperty ("departure_time")
 	private Time departureTime;
-
-	@JsonProperty("distance")
+	@JsonProperty ("distance")
 	private Distance distance;
-
-	@JsonProperty("duration")
+	@JsonProperty ("duration")
 	private Duration duration;
-
-	@JsonProperty("duration_in_traffic")
+	@JsonProperty ("duration_in_traffic")
 	private Duration durationInTraffic;
-
-	@JsonProperty("end_address")
+	@JsonProperty ("end_address")
 	private String endAddress;
-
-	@JsonProperty("end_location")
+	@JsonProperty ("end_location")
 	private LatLng endLocation;
-
-	@JsonProperty("start_address")
+	@JsonProperty ("start_address")
 	private String startAddress;
-
-	@JsonProperty("start_location")
+	@JsonProperty ("start_location")
 	private LatLng startLocation;
-
-	@JsonProperty("steps")
+	@JsonProperty ("steps")
 	private ArrayList<Step> steps;
 
-
 	/**
-	 * Get the estimated time of arrival for this leg. This property
-	 * is only returned for transit directions
+	 * Get the estimated time of arrival for this leg. This property is only returned for transit
+	 * directions
 	 *
 	 * @return
 	 */
@@ -95,8 +49,8 @@ public class Leg {
 	}
 
 	/**
-	 * Get the estimated time of departure for this leg. This is only
-	 * available for transit directions
+	 * Get the estimated time of departure for this leg. This is only available for transit
+	 * directions
 	 *
 	 * @return
 	 */
@@ -123,16 +77,12 @@ public class Leg {
 	}
 
 	/**
-	 * Get the total duration of this leg, taking into account current
-	 * traffic conditions. The duration in traffic will only be returned
-	 * if all of the following are true:
-	 * <p/>
-	 * - The directions request includes a departure_time parameter set to
-	 * a value within a few minutes of the current time.
-	 * - The request includes a valid Maps for Business client and signature
-	 * parameter.
-	 * - Traffic conditions are available for the requested route.
-	 * - The directions request does not include stopover waypoints.
+	 * Get the total duration of this leg, taking into account current traffic conditions. The
+	 * duration in traffic will only be returned if all of the following are true: <p/> - The
+	 * directions request includes a departure_time parameter set to a value within a few minutes of
+	 * the current time. - The request includes a valid Maps for Business client and signature
+	 * parameter. - Traffic conditions are available for the requested route. - The directions request
+	 * does not include stopover waypoints.
 	 *
 	 * @return
 	 */
@@ -141,8 +91,8 @@ public class Leg {
 	}
 
 	/**
-	 * Get the human-readable address (typically a street address) reflecting
-	 * the end location of this leg
+	 * Get the human-readable address (typically a street address) reflecting the end location of this
+	 * leg
 	 *
 	 * @return
 	 */
@@ -159,12 +109,10 @@ public class Leg {
 	}
 
 	/**
-	 * Get the latitude/longitude coordinates of the given destination of this
-	 * leg. Because the Directions API calculates directions between locations
-	 * by using the nearest transportation option (usually a road) at the start
-	 * and end points, end location may be different than the provided
-	 * destination of this leg if, for example, a road is not near the
-	 * destination
+	 * Get the latitude/longitude coordinates of the given destination of this leg. Because the
+	 * Directions API calculates directions between locations by using the nearest transportation
+	 * option (usually a road) at the start and end points, end location may be different than the
+	 * provided destination of this leg if, for example, a road is not near the destination
 	 *
 	 * @return
 	 */
@@ -173,8 +121,8 @@ public class Leg {
 	}
 
 	/**
-	 * Get the human-readable address (typically a street address) reflecting the
-	 * start location of this leg
+	 * Get the human-readable address (typically a street address) reflecting the start location of
+	 * this leg
 	 *
 	 * @return
 	 */
@@ -191,11 +139,10 @@ public class Leg {
 	}
 
 	/**
-	 * Get the latitude/longitude coordinates of the origin of this leg. Because
-	 * the Directions API calculates directions between locations by using the
-	 * nearest transportation option (usually a road) at the start and end points,
-	 * start location may be different than the provided origin of this leg if,
-	 * for example, a road is not near the origin.
+	 * Get the latitude/longitude coordinates of the origin of this leg. Because the Directions API
+	 * calculates directions between locations by using the nearest transportation option (usually a
+	 * road) at the start and end points, start location may be different than the provided origin of
+	 * this leg if, for example, a road is not near the origin.
 	 *
 	 * @return
 	 */
@@ -204,12 +151,44 @@ public class Leg {
 	}
 
 	/**
-	 * Get an array of steps denoting information about each separate step
-	 * of the leg of the journey.
+	 * Get an array of steps denoting information about each separate step of the leg of the journey.
 	 *
 	 * @return
 	 */
 	public Iterable<Step> getSteps() {
 		return steps;
+	}
+
+	public static class Time {
+
+		@JsonProperty ("text")
+		private String text;
+
+		@JsonProperty ("time_zone")
+		private String timeZone;
+
+		@JsonProperty ("value")
+		private long value;
+
+		public Date getDate() {
+			return new Date(getTimeInMilliseconds());
+		}
+
+		public String getTimeZone() {
+			return timeZone;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public long getTimeInSeconds() {
+			return value;
+		}
+
+		public long getTimeInMilliseconds() {
+			return value * 1000;
+		}
+
 	}
 }

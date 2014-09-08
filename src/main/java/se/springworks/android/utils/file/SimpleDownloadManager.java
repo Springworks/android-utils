@@ -9,15 +9,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
-
 import com.google.inject.Inject;
-
-import java.lang.ref.WeakReference;
-
 import se.springworks.android.utils.database.CursorUtils;
 import se.springworks.android.utils.file.IFileDownloader.OnFileDownloadListener;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
 import se.springworks.android.utils.logging.Logger;
+
+import java.lang.ref.WeakReference;
 
 public class SimpleDownloadManager extends BroadcastReceiver {
 

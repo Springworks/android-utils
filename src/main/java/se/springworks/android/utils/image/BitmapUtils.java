@@ -15,6 +15,7 @@ public class BitmapUtils {
 	 *
 	 * @param assets
 	 * @param fileName
+	 *
 	 * @return
 	 */
 	public static Bitmap getFromAssets(AssetManager assets, String fileName) {
@@ -25,7 +26,8 @@ public class BitmapUtils {
 		Bitmap bitmap = null;
 		try {
 			bitmap = getAsBitmap(assets.open(fileName), maxDownsampling, config);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		return bitmap;
@@ -33,14 +35,15 @@ public class BitmapUtils {
 
 
 	/**
-	 * Load a bitmap from a stream using a specific pixel configuration. If the image is too
-	 * large (ie causes an OutOfMemoryError situation) the method will iteratively try to
-	 * increase sample size up to a defined maximum sample size. The sample size will be doubled
-	 * each try since this it is recommended that the sample size should be a factor of two
+	 * Load a bitmap from a stream using a specific pixel configuration. If the image is too large (ie
+	 * causes an OutOfMemoryError situation) the method will iteratively try to increase sample size
+	 * up to a defined maximum sample size. The sample size will be doubled each try since this it is
+	 * recommended that the sample size should be a factor of two
 	 *
-	 * @param in              Stream to load bitmap from
+	 * @param in Stream to load bitmap from
 	 * @param maxDownsampling Maximum downsampling of the bitmap before giving up
-	 * @param config          The {@link Config} to use when loading the bitmap
+	 * @param config The {@link Config} to use when loading the bitmap
+	 *
 	 * @return The bitmap or null if it wasn't possible to load the bitmap
 	 */
 	public static Bitmap getAsBitmap(InputStream in, int maxDownsampling, Config config) {
@@ -54,10 +57,12 @@ public class BitmapUtils {
 				if (bitmap == null) {
 					options.inSampleSize *= 2;
 				}
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 				break;
-			} catch (OutOfMemoryError error) {
+			}
+			catch (OutOfMemoryError error) {
 				options.inSampleSize *= 2;
 			}
 		}
@@ -69,6 +74,7 @@ public class BitmapUtils {
 	 *
 	 * @param b1
 	 * @param b2
+	 *
 	 * @return true if the bitmaps have the same dimensions, configuration and pixeldata
 	 */
 	public static boolean isSame(Bitmap b1, Bitmap b2) {

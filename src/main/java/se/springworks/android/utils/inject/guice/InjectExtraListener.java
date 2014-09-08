@@ -2,11 +2,10 @@ package se.springworks.android.utils.inject.guice;
 
 import android.app.Activity;
 import android.os.Bundle;
+import se.springworks.android.utils.inject.annotation.InjectExtra;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-
-import se.springworks.android.utils.inject.annotation.InjectExtra;
 
 public class InjectExtraListener extends CustomInjectionListener {
 
@@ -31,7 +30,8 @@ public class InjectExtraListener extends CustomInjectionListener {
 				if (value != null) {
 					field.set(o, value);
 				}
-			} catch (IllegalArgumentException e) {
+			}
+			catch (IllegalArgumentException e) {
 				throw new IllegalArgumentException(e.getMessage() + " field = " + field + " key = " + key + " value = " + value);
 			}
 		}

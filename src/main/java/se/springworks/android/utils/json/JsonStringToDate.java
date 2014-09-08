@@ -23,10 +23,12 @@ public class JsonStringToDate extends JsonDeserializer<Date> {
 			if (s.matches("[0-9]+")) {
 				long millis = Long.parseLong(s);
 				date = new Date(millis);
-			} else {
+			}
+			else {
 				date = DateFormat.getDateInstance().parse(s);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			date = new Date();
 		}
 		return date;

@@ -4,13 +4,6 @@ import java.util.Map;
 
 public interface IRestClient {
 
-	public interface OnHttpResponseHandler {
-
-		public void onSuccess(String response);
-
-		public void onFailure(Throwable t, String response, int code);
-	}
-
 	/**
 	 * Clears any stored cookies
 	 */
@@ -31,6 +24,7 @@ public interface IRestClient {
 	 *
 	 * @param url
 	 * @param params
+	 *
 	 * @return
 	 */
 	String get(final String url, Map<String, String> params);
@@ -116,4 +110,11 @@ public interface IRestClient {
 	 * @return
 	 */
 	boolean isCachingEnabled();
+
+	public interface OnHttpResponseHandler {
+
+		public void onSuccess(String response);
+
+		public void onFailure(Throwable t, String response, int code);
+	}
 }

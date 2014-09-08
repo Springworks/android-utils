@@ -16,28 +16,18 @@ import android.view.View;
 public class ScrollableBitmapView extends View {
 
 	private static final float CLICKTHRESHOLD = 10;
-
-	private enum State {
-		NONE, DRAG, ZOOM
-	}
-
-	private State state = State.NONE;
-
-	private Bitmap image;
-
-	private ScaleGestureDetector scaleGestureDetector;
-	private GestureDetector gestureDetector;
-
-	private float maxScale = 2.0f;
-	private float minScale = 0.5f;
-
 	private final PointF touchDown = new PointF();
 	private final PointF lastTouch = new PointF();
 	private final PointF zoomCenter = new PointF();
-
 	private final Matrix matrix = new Matrix();
 	private final float[] m = new float[9];
-
+	private final RectF bounds = new RectF();
+	private State state = State.NONE;
+	private Bitmap image;
+	private ScaleGestureDetector scaleGestureDetector;
+	private GestureDetector gestureDetector;
+	private float maxScale = 2.0f;
+	private float minScale = 0.5f;
 	private Paint bitmapPaint = new Paint();
 
 	public ScrollableBitmapView(Context context) {
@@ -82,7 +72,8 @@ public class ScrollableBitmapView extends View {
 						// keep scale within min and max
 						if (newScale > maxScale) {
 							scaleRatio = maxScale / currentScale;
-						} else if (newScale < minScale) {
+						}
+						else if (newScale < minScale) {
 							scaleRatio = minScale / currentScale;
 						}
 						previousScaleFactor = scaleFactor;
@@ -206,7 +197,8 @@ public class ScrollableBitmapView extends View {
 		}
 		if (ox > leftedge) {
 			dx = ox - leftedge;
-		} else if (ox < rightedge) {
+		}
+		else if (ox < rightedge) {
 			dx = ox - rightedge;
 		}
 
@@ -220,7 +212,8 @@ public class ScrollableBitmapView extends View {
 		}
 		if (oy > topedge) {
 			dy = oy - topedge;
-		} else if (oy < bottomedge) {
+		}
+		else if (oy < bottomedge) {
 			dy = oy - bottomedge;
 		}
 
@@ -250,8 +243,6 @@ public class ScrollableBitmapView extends View {
 		return m[Matrix.MTRANS_Y];
 	}
 
-	private final RectF bounds = new RectF();
-
 	public RectF getBounds() {
 		bounds.left = -getHorizontalOffset();
 		bounds.top = -getVerticalOffset();
@@ -259,7 +250,6 @@ public class ScrollableBitmapView extends View {
 		bounds.bottom = bounds.top + getMeasuredHeight();
 		return bounds;
 	}
-
 
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -295,7 +285,6 @@ public class ScrollableBitmapView extends View {
 		matrix.postScale(zoom, zoom);
 	}
 
-
 	public void zoomToFit() {
 		float iw = image.getWidth();
 		float ih = image.getHeight();
@@ -303,5 +292,10 @@ public class ScrollableBitmapView extends View {
 		float h = getHeight();
 		float zoom = Math.min(w / iw, h / ih);
 		zoomTo(zoom, iw / 2, ih / 2);
+	}
+
+
+	private enum State {
+		NONE, DRAG, ZOOM
 	}
 }

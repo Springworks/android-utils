@@ -10,10 +10,10 @@ public class GeoCodeResults {
 	/**
 	 * an array of geocoded address information and geometry information
 	 */
-	@JsonProperty("results")
+	@JsonProperty ("results")
 	private ArrayList<GeoCodeResult> results = new ArrayList<GeoCodeResult>();
 
-	@JsonProperty("status")
+	@JsonProperty ("status")
 	private String status;
 
 	public List<GeoCodeResult> getResults() {

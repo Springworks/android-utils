@@ -1,13 +1,11 @@
 package se.springworks.android.utils.http;
 
 import android.content.Context;
-
 import com.google.inject.Inject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.HttpException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -85,7 +83,8 @@ public class LoopjAsyncHttpClient implements IAsyncHttpClient {
 					responseHandler.onFailure(e, response, code);
 				}
 			});
-		} catch (UnsupportedEncodingException e) {
+		}
+		catch (UnsupportedEncodingException e) {
 			responseHandler.onFailure(e, null, -1);
 		}
 	}

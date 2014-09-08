@@ -3,7 +3,6 @@ package se.springworks.android.utils.file;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
-
 import com.google.inject.Inject;
 
 import java.io.File;
@@ -15,20 +14,9 @@ import java.io.File;
  */
 public class StorageFileHandler extends AbstractFileHandler {
 
-	public enum StorageMode {
-		INTERNALFILES,
-		EXTERNALFILES,
-		PREFEREXTERNALFILES,
-		INTERNALCACHE,
-		EXTERNALCACHE,
-		PREFEREXTERNALCACHE
-	}
-
 	// set this to give all future instances the same storage mode when created
 	public static StorageMode globalStorageMode = null;
-
 	private StorageMode mode = StorageMode.INTERNALFILES;
-
 	private Context context;
 
 	@Inject
@@ -59,7 +47,6 @@ public class StorageFileHandler extends AbstractFileHandler {
 	public boolean isExternalStorageAvailable() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
-
 
 	@Override
 	public String getBaseFolder() {
@@ -107,7 +94,7 @@ public class StorageFileHandler extends AbstractFileHandler {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings ("deprecation")
 	@Override
 	public long getAvailableMemory() {
 		StatFs statFs = new StatFs(getAbsolutePathToStorage());
@@ -116,7 +103,7 @@ public class StorageFileHandler extends AbstractFileHandler {
 		return (long) availableBlocks * (long) blockSize;
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings ("deprecation")
 	@Override
 	public long getTotalMemory() {
 		StatFs statFs = new StatFs(getAbsolutePathToStorage());
@@ -125,7 +112,6 @@ public class StorageFileHandler extends AbstractFileHandler {
 		return (long) blocks * (long) blockSize;
 	}
 
-
 	private String getAbsolutePathToStorage() {
 		if (mode == StorageMode.INTERNALCACHE
 				|| mode == StorageMode.INTERNALFILES
@@ -133,6 +119,16 @@ public class StorageFileHandler extends AbstractFileHandler {
 			return Environment.getRootDirectory().getAbsolutePath();
 		}
 		return Environment.getExternalStorageDirectory().getAbsolutePath();
+	}
+
+
+	public enum StorageMode {
+		INTERNALFILES,
+		EXTERNALFILES,
+		PREFEREXTERNALFILES,
+		INTERNALCACHE,
+		EXTERNALCACHE,
+		PREFEREXTERNALCACHE
 	}
 
 }

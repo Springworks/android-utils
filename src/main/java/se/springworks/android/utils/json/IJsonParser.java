@@ -1,10 +1,10 @@
 package se.springworks.android.utils.json;
 
+import se.springworks.android.utils.reflect.JavaTypeToken;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import se.springworks.android.utils.reflect.JavaTypeToken;
 
 public interface IJsonParser {
 

@@ -3,22 +3,21 @@ package se.springworks.android.utils.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import se.springworks.android.utils.logging.Logger;
+import se.springworks.android.utils.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import se.springworks.android.utils.logging.Logger;
-import se.springworks.android.utils.logging.LoggerFactory;
-
 /**
- * An adapter with support for sections/segments. You can add single items and
- * collections of items to a section. The order in which sections are created is
- * preserved
+ * An adapter with support for sections/segments. You can add single items and collections of items
+ * to a section. The order in which sections are created is preserved
  *
  * @param <S> Type of sections
  * @param <I> Type of items in sections
+ *
  * @author bjornritzl
  */
 public abstract class SectionedAdapter<S, I> extends BaseAdapter {
@@ -122,13 +121,14 @@ public abstract class SectionedAdapter<S, I> extends BaseAdapter {
 		return getItemViewType(position) == 0;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings ("unchecked")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Object o = getItem(position);
 		if (isSection(position)) {
 			convertView = getSectionView((S) o, convertView, parent);
-		} else {
+		}
+		else {
 			convertView = getItemView((I) o, convertView, parent);
 		}
 		return convertView;
@@ -137,9 +137,10 @@ public abstract class SectionedAdapter<S, I> extends BaseAdapter {
 	/**
 	 * Creates a view to represent a section
 	 *
-	 * @param section     The section to create a view for
+	 * @param section The section to create a view for
 	 * @param convertView
 	 * @param parent
+	 *
 	 * @return
 	 */
 	public abstract View getSectionView(S section, View convertView, ViewGroup parent);
@@ -147,9 +148,10 @@ public abstract class SectionedAdapter<S, I> extends BaseAdapter {
 	/**
 	 * Creates a view to represent an item
 	 *
-	 * @param item        The item to create a view for
+	 * @param item The item to create a view for
 	 * @param convertView
 	 * @param parent
+	 *
 	 * @return
 	 */
 	public abstract View getItemView(I item, View convertView, ViewGroup parent);

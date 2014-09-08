@@ -22,7 +22,8 @@ public class HttpUtils {
 			buffer.append('=');
 			try {
 				buffer.append(URLEncoder.encode(value, "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
+			}
+			catch (UnsupportedEncodingException e) {
 				buffer.append(value);
 			}
 			if (keys.hasNext()) {
@@ -31,7 +32,8 @@ public class HttpUtils {
 		}
 		if (url.indexOf("?") == -1) {
 			url += "?" + buffer.toString();
-		} else {
+		}
+		else {
 			url += "&" + buffer.toString();
 		}
 		return url;

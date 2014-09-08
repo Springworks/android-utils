@@ -19,6 +19,7 @@ public interface IFileHandler {
 	 * Creates an empty file
 	 *
 	 * @param filename
+	 *
 	 * @return true if successful, otherwise false
 	 */
 	public boolean createEmptyFile(String filename);
@@ -27,6 +28,7 @@ public interface IFileHandler {
 	 * Deletes a file
 	 *
 	 * @param name Name of the file to delete
+	 *
 	 * @return true if successful, otherwise false
 	 */
 	public boolean delete(String name) throws IOException;
@@ -35,7 +37,9 @@ public interface IFileHandler {
 	 * Deletes a directory and all it's contents
 	 *
 	 * @param path
+	 *
 	 * @return true if successful, otherwise false
+	 *
 	 * @throws IOException
 	 */
 	public boolean deleteDir(String path) throws IOException;
@@ -44,7 +48,9 @@ public interface IFileHandler {
 	 * Checks if a file exists
 	 *
 	 * @param name Name of the file to look for
+	 *
 	 * @return true if the file exists, otherwise false
+	 *
 	 * @throws Exception
 	 */
 	public boolean exists(String name);
@@ -67,6 +73,7 @@ public interface IFileHandler {
 	 * Get the size of a file
 	 *
 	 * @param name
+	 *
 	 * @return Size of the file in bytes or -1 if the file doesn't exist
 	 */
 	public long getSize(String name);
@@ -75,7 +82,9 @@ public interface IFileHandler {
 	 * Get an input stream (reading) for a file
 	 *
 	 * @param name
+	 *
 	 * @return
+	 *
 	 * @throws IOException
 	 */
 	public InputStream getReadableFile(String name) throws IOException;
@@ -85,7 +94,9 @@ public interface IFileHandler {
 	 *
 	 * @param name
 	 * @param append
+	 *
 	 * @return
+	 *
 	 * @throws IOException
 	 */
 	public OutputStream getWritableFile(String name, boolean append) throws IOException;
@@ -95,21 +106,22 @@ public interface IFileHandler {
 	 * Get the modification date of a file
 	 *
 	 * @param name
+	 *
 	 * @return The modification date or null if the file doesn't exist
 	 */
 	public Date getFileModifiedDate(String name);
 
 
 	/**
-	 * Sets the modification time of a file
-	 * IMPORTANT NOTE: If the implementation of this interface operates
-	 * on the filesystem using {@link java.io.File#setLastModified(long)} there's a risk that
+	 * Sets the modification time of a file IMPORTANT NOTE: If the implementation of this interface
+	 * operates on the filesystem using {@link java.io.File#setLastModified(long)} there's a risk that
 	 * the call will fail due to insufficient permissions. Read more here:
-	 * https://code.google.com/p/android/issues/detail?id=25460. In such a case as lack
-	 * of permissions the method will return false to indicate failure.
+	 * https://code.google.com/p/android/issues/detail?id=25460. In such a case as lack of permissions
+	 * the method will return false to indicate failure.
 	 *
 	 * @param name
 	 * @param time
+	 *
 	 * @return true if successful, otherwise false
 	 */
 	public boolean setFileModifiedTime(String name, long time);
@@ -118,7 +130,9 @@ public interface IFileHandler {
 	 * Loads a file
 	 *
 	 * @param name Name of the file to loiad
+	 *
 	 * @return The bytes of the file
+	 *
 	 * @throws Exception
 	 */
 	public byte[] load(String name) throws IOException;
@@ -128,6 +142,7 @@ public interface IFileHandler {
 	 *
 	 * @param name Name of the file to write to
 	 * @param data Bytes to write to the file
+	 *
 	 * @throws Exception
 	 */
 	public void save(String name, byte[] data) throws IOException;
@@ -137,6 +152,7 @@ public interface IFileHandler {
 	 *
 	 * @param name Name of the file to write to
 	 * @param data String to write to the file (using writeUTF)
+	 *
 	 * @throws Exception
 	 */
 	public void save(String name, String data) throws IOException;
@@ -144,8 +160,9 @@ public interface IFileHandler {
 	/**
 	 * Saves a file
 	 *
-	 * @param name   Name of the file to write to
+	 * @param name Name of the file to write to
 	 * @param stream Stream of bytes to write to the file
+	 *
 	 * @throws Exception
 	 */
 	public void save(String name, InputStream stream) throws IOException;

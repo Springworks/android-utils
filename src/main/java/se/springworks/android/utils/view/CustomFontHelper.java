@@ -5,15 +5,14 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
 import se.springworks.android.utils.R;
 import se.springworks.android.utils.font.FontCache;
 
 public class CustomFontHelper {
 
 	/**
-	 * Sets a font on a textview based on the custom com.my.package:font attribute
-	 * If the custom font attribute isn't found in the attributes nothing happens
+	 * Sets a font on a textview based on the custom com.my.package:font attribute If the custom font
+	 * attribute isn't found in the attributes nothing happens
 	 *
 	 * @param textview
 	 * @param context

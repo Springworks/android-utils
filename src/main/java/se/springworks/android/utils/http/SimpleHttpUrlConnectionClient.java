@@ -1,14 +1,13 @@
 package se.springworks.android.utils.http;
 
 import android.util.Base64;
+import se.springworks.android.utils.stream.StreamUtils;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-
-import se.springworks.android.utils.stream.StreamUtils;
 
 public class SimpleHttpUrlConnectionClient implements ISimpleHttpClient {
 
@@ -20,7 +19,8 @@ public class SimpleHttpUrlConnectionClient implements ISimpleHttpClient {
 		try {
 			URLConnection urlConnection = openConnection(url);
 			in = new BufferedInputStream(urlConnection.getInputStream());
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -38,7 +38,8 @@ public class SimpleHttpUrlConnectionClient implements ISimpleHttpClient {
 			byte[] data = StreamUtils.getAsBytes(in);
 			string = new String(data, "UTF-8");
 			in.close();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -49,6 +50,7 @@ public class SimpleHttpUrlConnectionClient implements ISimpleHttpClient {
 	 * Opens a URLConnection and sets basic auth
 	 *
 	 * @param url
+	 *
 	 * @return
 	 */
 	private URLConnection openConnection(String url) {
@@ -59,7 +61,8 @@ public class SimpleHttpUrlConnectionClient implements ISimpleHttpClient {
 			if (basicAuth != null) {
 				urlConnection.setRequestProperty("Authorization", basicAuth);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -5,15 +5,8 @@ import java.util.Observable;
 
 public class Stopwatch extends Observable {
 
-	enum State {
-		RUNNING,
-		STOPPED
-	}
-
 	private State state = State.STOPPED;
-
 	private long startTime;
-
 	private long runningTime = 0;
 
 	public Stopwatch() {
@@ -57,5 +50,10 @@ public class Stopwatch extends Observable {
 			return runningTime + (System.currentTimeMillis() - startTime);
 		}
 		return runningTime;
+	}
+
+	enum State {
+		RUNNING,
+		STOPPED
 	}
 }

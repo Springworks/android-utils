@@ -5,9 +5,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 /**
- * A text watcher that will ignore changes less than a certain number of characters
- * and wait a certain number of milliseconds before indicating a text change by calling
- * {@link DelayedTextWatcher#onTextChanged()}
+ * A text watcher that will ignore changes less than a certain number of characters and wait a
+ * certain number of milliseconds before indicating a text change by calling {@link
+ * DelayedTextWatcher#onTextChanged()}
  *
  * @author bjornritzl
  */

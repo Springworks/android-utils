@@ -16,7 +16,9 @@ public class FileUtils {
 	 * Read content of a file to a byte array
 	 *
 	 * @param file File to read
+	 *
 	 * @return The bytes
+	 *
 	 * @throws IOException
 	 */
 	public static byte[] read(final File file) throws IOException {
@@ -36,6 +38,7 @@ public class FileUtils {
 	 *
 	 * @param file
 	 * @param data
+	 *
 	 * @throws IOException
 	 */
 	public static void write(File file, byte[] data) throws IOException {
@@ -54,6 +57,7 @@ public class FileUtils {
 	 *
 	 * @param file
 	 * @param stream
+	 *
 	 * @throws IOException
 	 */
 	public static void write(File file, InputStream stream) throws IOException {
@@ -76,6 +80,7 @@ public class FileUtils {
 	 *
 	 * @param file
 	 * @param data
+	 *
 	 * @throws IOException
 	 */
 	public static void write(File file, String data) throws IOException {
@@ -92,13 +97,12 @@ public class FileUtils {
 	}
 
 	/**
-	 * Converts any string into a string that is safe to use as a file name.
-	 * The result will only include ascii characters and numbers, and the "-","_", and "." characters.
-	 * <p/>
-	 * Modified slightly from:
-	 * http://activemq.apache.org/maven/5.7.0/kahadb/apidocs/org/apache/kahadb/util/IOHelper.html
+	 * Converts any string into a string that is safe to use as a file name. The result will only
+	 * include ascii characters and numbers, and the "-","_", and "." characters. <p/> Modified
+	 * slightly from: http://activemq.apache.org/maven/5.7.0/kahadb/apidocs/org/apache/kahadb/util/IOHelper.html
 	 *
 	 * @param name
+	 *
 	 * @return
 	 */
 	public static String toFileSystemSafeName(String name) {
@@ -113,7 +117,8 @@ public class FileUtils {
 
 			if (valid) {
 				rc.append(c);
-			} else {
+			}
+			else {
 				// Encode the character using hex notation
 				rc.append('#');
 				rc.append(Integer.toHexString(c));
