@@ -34,7 +34,8 @@ proguard/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -64,6 +65,7 @@ $RECYCLE.BIN/
 
 
 # Android Studio
+*.iml
 .idea
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
