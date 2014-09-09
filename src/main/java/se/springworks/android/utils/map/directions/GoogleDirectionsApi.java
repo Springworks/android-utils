@@ -3,10 +3,10 @@ package se.springworks.android.utils.map.directions;
 import com.google.inject.Inject;
 import se.springworks.android.utils.cache.MemCache;
 import se.springworks.android.utils.inject.annotation.InjectLogger;
-import se.springworks.android.utils.json.IJsonParser;
 import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.rest.IRestClient;
 import se.springworks.android.utils.rest.IRestClient.OnHttpResponseHandler;
+import se.springworks.javautil.json.IJsonParser;
 
 import java.util.HashMap;
 import java.util.Locale;

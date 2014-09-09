@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Set;
 
 import se.springworks.android.utils.collections.ArrayUtils;
-import se.springworks.android.utils.json.IJsonParser;
-import se.springworks.android.utils.reflect.JavaTypeToken;
+import se.springworks.javautil.json.IJsonParser;
+import se.springworks.javautil.reflect.JavaTypeToken;
 
 public class SharedPreferencesStorage implements IKeyValueStorage {
 

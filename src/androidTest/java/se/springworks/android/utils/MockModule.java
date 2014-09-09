@@ -1,12 +1,12 @@
 package se.springworks.android.utils;
 
-import se.springworks.android.utils.json.IJsonParser;
-import se.springworks.android.utils.json.JacksonParser;
 import se.springworks.android.utils.persistence.IKeyValueStorage;
 import se.springworks.android.utils.persistence.SharedPreferencesStorage;
 import android.content.Context;
 
 import com.google.inject.AbstractModule;
+import se.springworks.javautil.json.IJsonParser;
+import se.springworks.javautil.json.JacksonParser;
 
 public class MockModule extends AbstractModule {
 

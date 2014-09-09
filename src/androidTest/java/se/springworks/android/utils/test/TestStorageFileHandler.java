@@ -227,14 +227,5 @@ public class TestStorageFileHandler extends AndroidTestCase {
 		assertTrue(fileHandler.getFileModifiedDate("emptyfile") instanceof Date);
 		assertNull(fileHandler.getFileModifiedDate("doesnotexist"));
 	}
-	
-	@Test
-	public void testSetFileModifiedDate() {
-		// note, there's not point testing further since there's a problem with some devices not being able to set
-		// an accurate file modification date. Need to test this more using the ImprovedStorageFileHandler
-		assertFalse(fileHandler.setFileModifiedTime("doesnotexist", 123456));
 
-		fileHandler.createEmptyFile("emptyfile");
-		assertTrue(fileHandler.setFileModifiedTime("emptyfile", 123456));
-	}
 }

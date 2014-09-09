@@ -1,6 +1,5 @@
 package se.springworks.android.utils.test;
 
-import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +18,6 @@ import se.springworks.android.utils.http.IAsyncHttpClient;
 import se.springworks.android.utils.http.ISimpleHttpClient;
 import se.springworks.android.utils.inject.GrapeGuice;
 import se.springworks.android.utils.inject.guice.InjectLoggerListener;
-import se.springworks.android.utils.json.IJsonParser;
-import se.springworks.android.utils.json.JacksonParser;
 import se.springworks.android.utils.mock.MockAsyncHttpClient;
 import se.springworks.android.utils.mock.MockAsyncHttpResponseHandler;
 import se.springworks.android.utils.mock.MockHttpResponseHandler;
@@ -38,6 +35,8 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
+import se.springworks.javautil.json.IJsonParser;
+import se.springworks.javautil.json.JacksonParser;
 
 public class TestRestClient extends AndroidTestCase {
 	

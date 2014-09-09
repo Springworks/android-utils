@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-
-import se.springworks.android.utils.json.IJsonParser;
+import se.springworks.javautil.json.IJsonParser;
 
 public class NamedSharedPreferencesStorage extends SharedPreferencesStorage {
 
