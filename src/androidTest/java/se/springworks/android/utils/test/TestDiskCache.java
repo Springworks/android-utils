@@ -13,8 +13,6 @@ import se.springworks.android.utils.file.IFileHandler;
 import se.springworks.android.utils.file.StorageFileHandler;
 import se.springworks.android.utils.file.StorageFileHandler.StorageMode;
 import se.springworks.android.utils.inject.GrapeGuice;
-import se.springworks.android.utils.json.IJsonParser;
-import se.springworks.android.utils.json.JacksonParser;
 import se.springworks.android.utils.persistence.IKeyValueStorage;
 import se.springworks.android.utils.persistence.NamedSharedPreferencesStorage;
 import android.content.Context;
@@ -24,6 +22,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
+import se.springworks.javautil.json.IJsonParser;
+import se.springworks.javautil.json.JacksonParser;
 
 public class TestDiskCache extends AndroidTestCase {
 	

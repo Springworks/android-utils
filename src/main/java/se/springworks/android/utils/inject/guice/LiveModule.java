@@ -31,8 +31,6 @@ import se.springworks.android.utils.iab.IabHelperFactory;
 import se.springworks.android.utils.image.AsyncImageLoader;
 import se.springworks.android.utils.image.IImageLoader;
 import se.springworks.android.utils.image.ImageLoader;
-import se.springworks.android.utils.json.IJsonParser;
-import se.springworks.android.utils.json.JacksonParser;
 import se.springworks.android.utils.logging.Logger;
 import se.springworks.android.utils.logging.LoggerFactory;
 import se.springworks.android.utils.notification.AndroidNotificationManager;
@@ -47,6 +45,8 @@ import se.springworks.android.utils.sound.SoundPlayer;
 import se.springworks.android.utils.sound.SoundPlayerFactory;
 import se.springworks.android.utils.system.ISystemSettings;
 import se.springworks.android.utils.system.SystemSettings;
+import se.springworks.javautil.json.IJsonParser;
+import se.springworks.javautil.json.JacksonParser;
 
 public class LiveModule extends AbstractModule {
 
