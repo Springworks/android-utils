@@ -22,5 +22,4 @@ public class MockModule extends AbstractModule {
 		bind(IKeyValueStorage.class).to(SharedPreferencesStorage.class);
 		bind(IJsonParser.class).to(JacksonParser.class);
 	}
-
 }
