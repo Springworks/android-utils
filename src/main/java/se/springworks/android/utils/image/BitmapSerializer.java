@@ -14,55 +14,57 @@ import java.io.Serializable;
  */
 public class BitmapSerializer implements Serializable {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
 
-	private Bitmap bitmap;
+  private Bitmap bitmap;
 
-	public BitmapSerializer() {
+  public BitmapSerializer() {
 
-	}
+  }
 
-	public BitmapSerializer(Bitmap bitmap) {
-		this.bitmap = bitmap;
-	}
+  public BitmapSerializer(Bitmap bitmap) {
+    this.bitmap = bitmap;
+  }
 
-	public Bitmap getBitmap() {
-		return bitmap;
-	}
+  public Bitmap getBitmap() {
+    return bitmap;
+  }
 
-	private synchronized void writeObject(final ObjectOutputStream out) throws IOException {
-		final int width = bitmap.getWidth();
-		final int height = bitmap.getHeight();
-		final int pixelCount = width * height;
+  private synchronized void writeObject(final ObjectOutputStream out) throws IOException {
+    final int width = bitmap.getWidth();
+    final int height = bitmap.getHeight();
+    final int pixelCount = width * height;
 
-		out.writeInt(height);
-		out.writeInt(width);
-		out.writeInt(bitmap.getConfig().ordinal());
+    out.writeInt(height);
+    out.writeInt(width);
+    out.writeInt(bitmap.getConfig().ordinal());
 
-		int[] pixelBuffer = new int[pixelCount];
+    int[] pixelBuffer = new int[pixelCount];
 
-		bitmap.getPixels(pixelBuffer, 0, width, 0, 0, width, height);
-		for (int i = 0; i < pixelCount; i++) {
-			out.writeInt(pixelBuffer[i]);
-		}
-	}
+    bitmap.getPixels(pixelBuffer, 0, width, 0, 0, width, height);
+    for (int i = 0; i < pixelCount; i++) {
+      out.writeInt(pixelBuffer[i]);
+    }
+  }
 
 
-	private synchronized void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
-		final int height = in.readInt();
-		final int width = in.readInt();
-		final int pixelCount = width * height;
-		final Bitmap.Config config = Bitmap.Config.values()[in.readInt()];
+  private synchronized void readObject(final ObjectInputStream in) throws
+                                                                   IOException,
+                                                                   ClassNotFoundException {
+    final int height = in.readInt();
+    final int width = in.readInt();
+    final int pixelCount = width * height;
+    final Bitmap.Config config = Bitmap.Config.values()[in.readInt()];
 
-		bitmap = Bitmap.createBitmap(width, height, config);
+    bitmap = Bitmap.createBitmap(width, height, config);
 
-		int[] pixelBuffer = new int[pixelCount];
-		for (int i = 0; i < pixelCount; i++) {
-			pixelBuffer[i] = in.readInt();
-		}
-		bitmap.setPixels(pixelBuffer, 0, width, 0, 0, width, height);
-	}
+    int[] pixelBuffer = new int[pixelCount];
+    for (int i = 0; i < pixelCount; i++) {
+      pixelBuffer[i] = in.readInt();
+    }
+    bitmap.setPixels(pixelBuffer, 0, width, 0, 0, width, height);
+  }
 }

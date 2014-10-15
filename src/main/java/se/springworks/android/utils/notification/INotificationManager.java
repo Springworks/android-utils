@@ -5,5 +5,5 @@ import android.app.Notification;
 public interface INotificationManager {
 
 
-	void notify(int id, Notification notification);
+  void notify(int id, Notification notification);
 }

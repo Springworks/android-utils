@@ -6,32 +6,32 @@ import se.springworks.android.utils.map.LatLng;
 
 public class Geometry {
 
-	@JsonProperty ("location")
-	private LatLng location;
+  @JsonProperty ("location")
+  private LatLng location;
 
-	@JsonProperty ("location_type")
-	private String locationType;
+  @JsonProperty ("location_type")
+  private String locationType;
 
-	@JsonProperty ("viewport")
-	private Bounds viewport;
+  @JsonProperty ("viewport")
+  private Bounds viewport;
 
-	public Geometry() {
+  public Geometry() {
 
-	}
+  }
 
-	public Geometry(LatLng location) {
-		this.location = location;
-	}
+  public Geometry(LatLng location) {
+    this.location = location;
+  }
 
-	public LatLng getLocation() {
-		return location;
-	}
+  public LatLng getLocation() {
+    return location;
+  }
 
-	public Bounds getViewport() {
-		return viewport;
-	}
+  public Bounds getViewport() {
+    return viewport;
+  }
 
-	public String getLocationType() {
-		return locationType;
-	}
+  public String getLocationType() {
+    return locationType;
+  }
 }

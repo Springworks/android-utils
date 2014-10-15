@@ -24,114 +24,114 @@ import java.util.ArrayList;
  */
 public class Step {
 
-	@JsonProperty ("distance")
-	private Distance distance;
+  @JsonProperty ("distance")
+  private Distance distance;
 
-	@JsonProperty ("duration")
-	private Duration duration;
+  @JsonProperty ("duration")
+  private Duration duration;
 
-	@JsonProperty ("end_location")
-	private LatLng endLocation;
+  @JsonProperty ("end_location")
+  private LatLng endLocation;
 
-	@JsonProperty ("html_instructions")
-	private String htmlInstructions;
+  @JsonProperty ("html_instructions")
+  private String htmlInstructions;
 
-	@JsonProperty ("polyline")
-	private PolyLine polyLine;
+  @JsonProperty ("polyline")
+  private PolyLine polyLine;
 
-	@JsonProperty ("start_location")
-	private LatLng startLocation;
+  @JsonProperty ("start_location")
+  private LatLng startLocation;
 
-	@JsonProperty ("travel_mode")
-	private String travelMode;
+  @JsonProperty ("travel_mode")
+  private String travelMode;
 
-	@JsonProperty ("maneuver")
-	private String maneuver;
+  @JsonProperty ("maneuver")
+  private String maneuver;
 
-	@JsonProperty ("transit_details")
-	private TransitDetails transitDetails;
+  @JsonProperty ("transit_details")
+  private TransitDetails transitDetails;
 
-	@JsonProperty ("steps")
-	private ArrayList<Step> steps;
+  @JsonProperty ("steps")
+  private ArrayList<Step> steps;
 
 
-	/**
-	 * Get the distance covered by this step until the next step
-	 *
-	 * @return
-	 */
-	public Distance getDistance() {
-		return distance;
-	}
+  /**
+   * Get the distance covered by this step until the next step
+   *
+   * @return
+   */
+  public Distance getDistance() {
+    return distance;
+  }
 
-	/**
-	 * Get the typical time required to perform the step, until the next step
-	 *
-	 * @return
-	 */
-	public Duration getDuration() {
-		return duration;
-	}
+  /**
+   * Get the typical time required to perform the step, until the next step
+   *
+   * @return
+   */
+  public Duration getDuration() {
+    return duration;
+  }
 
-	/**
-	 * Get the location of the last point of this step
-	 *
-	 * @return
-	 */
-	public LatLng getEndLocation() {
-		return endLocation;
-	}
+  /**
+   * Get the location of the last point of this step
+   *
+   * @return
+   */
+  public LatLng getEndLocation() {
+    return endLocation;
+  }
 
-	/**
-	 * Get the location of the starting point of this step
-	 *
-	 * @return
-	 */
-	public LatLng getStartLocation() {
-		return startLocation;
-	}
+  /**
+   * Get the location of the starting point of this step
+   *
+   * @return
+   */
+  public LatLng getStartLocation() {
+    return startLocation;
+  }
 
-	public PolyLine getPolyLine() {
-		return polyLine;
-	}
+  public PolyLine getPolyLine() {
+    return polyLine;
+  }
 
-	public String getManeuver() {
-		return maneuver;
-	}
+  public String getManeuver() {
+    return maneuver;
+  }
 
-	/**
-	 * Get formatted instructions for this step, presented as an HTML text string
-	 *
-	 * @return
-	 */
-	public String getHtmlInstructions() {
-		return htmlInstructions;
-	}
+  /**
+   * Get formatted instructions for this step, presented as an HTML text string
+   *
+   * @return
+   */
+  public String getHtmlInstructions() {
+    return htmlInstructions;
+  }
 
-	public Iterable<Step> getSteps() {
-		return steps;
-	}
+  public Iterable<Step> getSteps() {
+    return steps;
+  }
 
-	public TravelMode getTravelMode() {
-		try {
-			return TravelMode.valueOf(travelMode);
-		}
-		catch (IllegalArgumentException e) {
-			return TravelMode.DRIVING;
-		}
-	}
+  public TravelMode getTravelMode() {
+    try {
+      return TravelMode.valueOf(travelMode);
+    }
+    catch (IllegalArgumentException e) {
+      return TravelMode.DRIVING;
+    }
+  }
 
-	/**
-	 * Get transit specific information. Transit details is only returned when {@link
-	 * Step#getTravelMode()} equals {@link TravelMode#TRANSIT}
-	 *
-	 * @return Transit details or null
-	 */
-	public TransitDetails getTransitDetails() {
-		return transitDetails;
-	}
+  /**
+   * Get transit specific information. Transit details is only returned when {@link
+   * Step#getTravelMode()} equals {@link TravelMode#TRANSIT}
+   *
+   * @return Transit details or null
+   */
+  public TransitDetails getTransitDetails() {
+    return transitDetails;
+  }
 
-	public boolean hasTransitDetails() {
-		return transitDetails != null;
-	}
+  public boolean hasTransitDetails() {
+    return transitDetails != null;
+  }
 }

@@ -9,22 +9,22 @@ import android.os.AsyncTask;
  */
 public abstract class AsyncVoidTask extends AsyncTask<Void, Void, Void> {
 
-	@Override
-	protected final Void doInBackground(Void... params) {
-		performTask();
-		return null;
-	}
+  @Override
+  protected final Void doInBackground(Void... params) {
+    performTask();
+    return null;
+  }
 
-	@Override
-	protected final void onPostExecute(Void result) {
-		onPostExecute();
-	}
+  @Override
+  protected final void onPostExecute(Void result) {
+    onPostExecute();
+  }
 
-	public void execute() {
-		execute((Void) null);
-	}
+  public void execute() {
+    execute((Void) null);
+  }
 
-	abstract protected void onPostExecute();
+  abstract protected void onPostExecute();
 
-	abstract protected void performTask();
+  abstract protected void performTask();
 }

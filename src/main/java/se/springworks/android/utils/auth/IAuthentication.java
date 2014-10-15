@@ -3,37 +3,37 @@ package se.springworks.android.utils.auth;
 
 public interface IAuthentication {
 
-	boolean isValidAccountName(String accountName);
+  boolean isValidAccountName(String accountName);
 
-	/**
-	 * Get a login token. If more than one account exists some kind of account picker should be shown,
-	 * or a best guess should be made
-	 *
-	 * @param callback
-	 */
-	void getToken(OnTokenCallback callback);
+  /**
+   * Get a login token. If more than one account exists some kind of account picker should be shown,
+   * or a best guess should be made
+   *
+   * @param callback
+   */
+  void getToken(OnTokenCallback callback);
 
-	/**
-	 * Get a login token for a specific account
-	 *
-	 * @param accountName
-	 * @param callback
-	 */
-	void getToken(String accountName, OnTokenCallback callback);
+  /**
+   * Get a login token for a specific account
+   *
+   * @param accountName
+   * @param callback
+   */
+  void getToken(String accountName, OnTokenCallback callback);
 
-	public enum AuthenticationError {
-		NOVALIDACCOUNTS,
-		BUSY,
-		USERCANCELED,
-		UNSPECIFIED,
-		MISSINGAPIKEY,
-		UNRECOVERABLE,
-		SERVICEUNAVAILABLE
-	}
+  public enum AuthenticationError {
+    NOVALIDACCOUNTS,
+    BUSY,
+    USERCANCELED,
+    UNSPECIFIED,
+    MISSINGAPIKEY,
+    UNRECOVERABLE,
+    SERVICEUNAVAILABLE
+  }
 
-	public interface OnTokenCallback {
-		void onToken(String accountName, String token);
+  public interface OnTokenCallback {
+    void onToken(String accountName, String token);
 
-		void onError(AuthenticationError error);
-	}
+    void onError(AuthenticationError error);
+  }
 }

@@ -9,7 +9,8 @@ import java.util.Date;
 
 /**
  * This implementation improves the {@link StorageFileHandler} by wrapping calls to {@link
- * StorageFileHandler#setFileModifiedTime(String, long)} and {@link StorageFileHandler#getFileModifiedDate(String)}
+ * StorageFileHandler#setFileModifiedTime(String,
+ * long)} and {@link StorageFileHandler#getFileModifiedDate(String)}
  * in order to work around limitations with these methods on some systems where permissions aren't
  * sufficient (refer to https://code.google.com/p/android/issues/detail?id=25460 for details)
  *
@@ -17,49 +18,49 @@ import java.util.Date;
  */
 public class ImprovedStorageFileHandler extends StorageFileHandler {
 
-	private static final String KEYPREFIX = "ISFH";
+  private static final String KEYPREFIX = "ISFH";
 
-	@Inject
-	private IKeyValueStorage fileModificationDateStorage;
-
-
-	@Inject
-	public ImprovedStorageFileHandler(Context context) {
-		super(context);
-	}
-
-	public ImprovedStorageFileHandler(Context context, StorageMode mode) {
-		super(context, mode);
-	}
+  @Inject
+  private IKeyValueStorage fileModificationDateStorage;
 
 
-	@Override
-	public Date getFileModifiedDate(String name) {
-		File file = getFile(name);
-		if (!file.exists()) {
-			return null;
-		}
-		long lastModified;
-		if (fileModificationDateStorage.contains(KEYPREFIX + name)) {
-			lastModified = fileModificationDateStorage.getLong(KEYPREFIX + name);
-		}
-		else {
-			lastModified = file.lastModified();
-		}
-		return new Date(lastModified);
-	}
+  @Inject
+  public ImprovedStorageFileHandler(Context context) {
+    super(context);
+  }
 
-	@Override
-	public boolean setFileModifiedTime(String name, long time) {
-		File file = getFile(name);
-		if (!file.exists()) {
-			return false;
-		}
-		boolean success = file.setLastModified(time);
-		if (!success) {
-			fileModificationDateStorage.put(KEYPREFIX + name, time);
-		}
-		return true;
-	}
+  public ImprovedStorageFileHandler(Context context, StorageMode mode) {
+    super(context, mode);
+  }
+
+
+  @Override
+  public Date getFileModifiedDate(String name) {
+    File file = getFile(name);
+    if (!file.exists()) {
+      return null;
+    }
+    long lastModified;
+    if (fileModificationDateStorage.contains(KEYPREFIX + name)) {
+      lastModified = fileModificationDateStorage.getLong(KEYPREFIX + name);
+    }
+    else {
+      lastModified = file.lastModified();
+    }
+    return new Date(lastModified);
+  }
+
+  @Override
+  public boolean setFileModifiedTime(String name, long time) {
+    File file = getFile(name);
+    if (!file.exists()) {
+      return false;
+    }
+    boolean success = file.setLastModified(time);
+    if (!success) {
+      fileModificationDateStorage.put(KEYPREFIX + name, time);
+    }
+    return true;
+  }
 
 }

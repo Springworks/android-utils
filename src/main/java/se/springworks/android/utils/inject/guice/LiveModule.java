@@ -50,73 +50,79 @@ import se.springworks.javautil.json.JacksonParser;
 
 public class LiveModule extends AbstractModule {
 
-	private static final Logger logger = LoggerFactory.getLogger(LiveModule.class);
+  private static final Logger logger = LoggerFactory.getLogger(LiveModule.class);
 
-	private Context context;
+  private Context context;
 
-	public LiveModule(Context context) {
-		super();
-		this.context = context;
-	}
+  public LiveModule(Context context) {
+    super();
+    this.context = context;
+  }
 
-	@Override
-	public void configure() {
-		logger.debug("configure()");
+  @Override
+  public void configure() {
+    logger.debug("configure()");
 
-		bindListener(Matchers.any(), new InjectLoggerListener());
-		bindListener(Matchers.any(), new InjectExtraListener());
-		bindListener(Matchers.any(), new InjectResourceListener(context.getResources()));
+    bindListener(Matchers.any(), new InjectLoggerListener());
+    bindListener(Matchers.any(), new InjectExtraListener());
+    bindListener(Matchers.any(), new InjectResourceListener(context.getResources()));
 
 
-		bind(LayoutInflater.class).toInstance((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+    bind(LayoutInflater.class).toInstance((LayoutInflater) context.getSystemService(Context
+                                                                                        .LAYOUT_INFLATER_SERVICE));
 
-		bind(NotificationManager.class).toInstance((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+    bind(NotificationManager.class).toInstance((NotificationManager) context.getSystemService(
+        Context.NOTIFICATION_SERVICE));
 
-		bind(DownloadManager.class).toInstance((DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE));
+    bind(DownloadManager.class).toInstance((DownloadManager) context.getSystemService(Context
+                                                                                          .DOWNLOAD_SERVICE));
 
-		bind(INotificationManager.class).to(AndroidNotificationManager.class);
+    bind(INotificationManager.class).to(AndroidNotificationManager.class);
 
-		bind(Context.class).toInstance(context.getApplicationContext());
+    bind(Context.class).toInstance(context.getApplicationContext());
 
-		bind(ParameterLoader.class).toInstance(new ParameterLoader(context.getApplicationContext()));
+    bind(ParameterLoader.class).toInstance(new ParameterLoader(context.getApplicationContext()));
 
-		bind(Resources.class).toInstance(context.getResources());
+    bind(Resources.class).toInstance(context.getResources());
 
-		bind(AssetManager.class).toInstance(context.getAssets());
+    bind(AssetManager.class).toInstance(context.getAssets());
 
-		bind(IJsonParser.class).to(JacksonParser.class);
+    bind(IJsonParser.class).to(JacksonParser.class);
 
-		bind(IRestClient.class).to(RestClient.class).in(Singleton.class);
+    bind(IRestClient.class).to(RestClient.class).in(Singleton.class);
 
-		bind(IFileHandler.class).to(StorageFileHandler.class);
+    bind(IFileHandler.class).to(StorageFileHandler.class);
 
-		bind(IFileDownloader.class).to(FileDownloader.class).in(Singleton.class);
+    bind(IFileDownloader.class).to(FileDownloader.class).in(Singleton.class);
 
-		bind(IAssetFileHandler.class).to(AssetFileHandler.class).in(Singleton.class);
+    bind(IAssetFileHandler.class).to(AssetFileHandler.class).in(Singleton.class);
 
-		bind(IAsyncHttpClient.class).to(LoopjAsyncHttpClient.class).in(Singleton.class);
-		bind(ISimpleHttpClient.class).to(SimpleDefaultHttpClient.class);
+    bind(IAsyncHttpClient.class).to(LoopjAsyncHttpClient.class).in(Singleton.class);
+    bind(ISimpleHttpClient.class).to(SimpleDefaultHttpClient.class);
 
-		bind(IImageLoader.class).to(ImageLoader.class);
+    bind(IImageLoader.class).to(ImageLoader.class);
 
-		bind(ISystemSettings.class).to(SystemSettings.class);
+    bind(ISystemSettings.class).to(SystemSettings.class);
 
-		bind(AsyncImageLoader.class);
+    bind(AsyncImageLoader.class);
 
-		bind(IEventBus.class).to(OttoBus.class).in(Singleton.class);
+    bind(IEventBus.class).to(OttoBus.class).in(Singleton.class);
 
-		bind(IAuthentication.class).toInstance(new GoogleAuthentication(context.getApplicationContext()));
+    bind(IAuthentication.class).toInstance(new GoogleAuthentication(context.getApplicationContext
+        ()));
 
-		bind(IKeyValueStorage.class).to(SharedPreferencesStorage.class).in(Singleton.class);
+    bind(IKeyValueStorage.class).to(SharedPreferencesStorage.class).in(Singleton.class);
 
-		bind(IIabHelper.class).to(IabHelper.class).in(Singleton.class);
+    bind(IIabHelper.class).to(IabHelper.class).in(Singleton.class);
 
-		bind(GoogleCloudMessaging.class).toInstance(GoogleCloudMessaging.getInstance(context));
+    bind(GoogleCloudMessaging.class).toInstance(GoogleCloudMessaging.getInstance(context));
 
 //		bind(IAnalyticsTracker.class).to(GoogleTracker.class).in(Singleton.class);
 
-		install(new FactoryModuleBuilder().implement(ISoundPlayer.class, SoundPlayer.class).build(SoundPlayerFactory.class));
+    install(new FactoryModuleBuilder().implement(ISoundPlayer.class, SoundPlayer.class).build(
+        SoundPlayerFactory.class));
 
-		install(new FactoryModuleBuilder().implement(IIabHelper.class, IabHelper.class).build(IabHelperFactory.class));
-	}
+    install(new FactoryModuleBuilder().implement(IIabHelper.class, IabHelper.class).build(
+        IabHelperFactory.class));
+  }
 }

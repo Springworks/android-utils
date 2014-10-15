@@ -6,25 +6,25 @@ import java.util.ArrayList;
 
 public class AddressComponent {
 
-	@JsonProperty ("long_name")
-	private String longName;
+  @JsonProperty ("long_name")
+  private String longName;
 
-	@JsonProperty ("short_name")
-	private String shortName;
+  @JsonProperty ("short_name")
+  private String shortName;
 
-	@JsonProperty ("types")
-	private ArrayList<String> types;
+  @JsonProperty ("types")
+  private ArrayList<String> types;
 
-	public String getLongName() {
-		return longName;
-	}
+  public String getLongName() {
+    return longName;
+  }
 
-	public String getShortName() {
-		return shortName;
-	}
+  public String getShortName() {
+    return shortName;
+  }
 
-	public Iterable<String> getTypes() {
-		return types;
-	}
+  public Iterable<String> getTypes() {
+    return types;
+  }
 
 }

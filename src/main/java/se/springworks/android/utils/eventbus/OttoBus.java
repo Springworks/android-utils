@@ -8,40 +8,40 @@ import java.util.List;
 
 public class OttoBus implements IEventBus {
 
-	private Bus bus;
+  private Bus bus;
 
-	private List<Object> registeredObjects = new ArrayList<Object>();
+  private List<Object> registeredObjects = new ArrayList<Object>();
 
-	public OttoBus() {
-		this(ThreadEnforcer.MAIN);
-	}
+  public OttoBus() {
+    this(ThreadEnforcer.MAIN);
+  }
 
-	public OttoBus(ThreadEnforcer threadEnforcer) {
-		bus = new Bus(threadEnforcer);
-	}
+  public OttoBus(ThreadEnforcer threadEnforcer) {
+    bus = new Bus(threadEnforcer);
+  }
 
-	@Override
-	public synchronized void register(Object o) {
-		bus.register(o);
-		registeredObjects.add(o);
-	}
+  @Override
+  public synchronized void register(Object o) {
+    bus.register(o);
+    registeredObjects.add(o);
+  }
 
-	@Override
-	public synchronized void post(Object data) {
-		bus.post(data);
-	}
+  @Override
+  public synchronized void post(Object data) {
+    bus.post(data);
+  }
 
-	@Override
-	public synchronized void unregister(Object o) {
-		bus.unregister(o);
-		registeredObjects.remove(o);
-	}
+  @Override
+  public synchronized void unregister(Object o) {
+    bus.unregister(o);
+    registeredObjects.remove(o);
+  }
 
-	@Override
-	public synchronized void unregisterAll() {
-		while (!registeredObjects.isEmpty()) {
-			Object o = registeredObjects.remove(0);
-			bus.unregister(o);
-		}
-	}
+  @Override
+  public synchronized void unregisterAll() {
+    while (!registeredObjects.isEmpty()) {
+      Object o = registeredObjects.remove(0);
+      bus.unregister(o);
+    }
+  }
 }

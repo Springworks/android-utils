@@ -12,55 +12,55 @@ import se.springworks.android.utils.stream.StreamUtils.FlushedInputStream;
 import java.io.InputStream;
 
 public class ImageLoader implements IImageLoader {
-	@InjectLogger
-	private Logger logger;
+  @InjectLogger
+  private Logger logger;
 
-	@Inject
-	private ISimpleHttpClient client;
+  @Inject
+  private ISimpleHttpClient client;
 
-	@Inject
-	private AssetManager assetManager;
+  @Inject
+  private AssetManager assetManager;
 
-	private int maxDownsampling = 1;
+  private int maxDownsampling = 1;
 
-	private Config config;
+  private Config config;
 
-	private InputStream getAsStream(String url) {
-		InputStream in = client.get(url);
-		if (in == null) {
-			return null;
-		}
-		return new FlushedInputStream(in);
-	}
+  private InputStream getAsStream(String url) {
+    InputStream in = client.get(url);
+    if (in == null) {
+      return null;
+    }
+    return new FlushedInputStream(in);
+  }
 
-	@Override
-	public Bitmap getAsBitmap(String url) {
-		InputStream in = getAsStream(url);
-		if (in == null) {
-			return null;
-		}
-		return getAsBitmap(in);
-	}
+  @Override
+  public Bitmap getAsBitmap(String url) {
+    InputStream in = getAsStream(url);
+    if (in == null) {
+      return null;
+    }
+    return getAsBitmap(in);
+  }
 
-	@Override
-	public Bitmap getAsBitmap(InputStream in) {
-		logger.debug("getAsBitmap()");
-		return BitmapUtils.getAsBitmap(in, maxDownsampling, config);
-	}
+  @Override
+  public Bitmap getAsBitmap(InputStream in) {
+    logger.debug("getAsBitmap()");
+    return BitmapUtils.getAsBitmap(in, maxDownsampling, config);
+  }
 
-	@Override
-	public Bitmap getFromAssets(String fileName) {
-		return BitmapUtils.getFromAssets(assetManager, fileName, maxDownsampling, config);
-	}
+  @Override
+  public Bitmap getFromAssets(String fileName) {
+    return BitmapUtils.getFromAssets(assetManager, fileName, maxDownsampling, config);
+  }
 
 
-	@Override
-	public void setMaxDownsampling(int max) {
-		this.maxDownsampling = max;
-	}
+  @Override
+  public void setMaxDownsampling(int max) {
+    this.maxDownsampling = max;
+  }
 
-	@Override
-	public void setBitmapConfig(Config config) {
-		this.config = config;
-	}
+  @Override
+  public void setBitmapConfig(Config config) {
+    this.config = config;
+  }
 }

@@ -8,12 +8,14 @@ import java.lang.reflect.Field;
 
 public class InjectLoggerListener extends CustomInjectionListener {
 
-	public InjectLoggerListener() {
-		super(InjectLogger.class);
-	}
+  public InjectLoggerListener() {
+    super(InjectLogger.class);
+  }
 
-	@Override
-	protected void inject(Object object, Field field, Annotation annotation) throws IllegalArgumentException, IllegalAccessException {
-		field.set(object, LoggerFactory.getLogger(field.getDeclaringClass()));
-	}
+  @Override
+  protected void inject(Object object, Field field, Annotation annotation) throws
+                                                                           IllegalArgumentException,
+                                                                           IllegalAccessException {
+    field.set(object, LoggerFactory.getLogger(field.getDeclaringClass()));
+  }
 }

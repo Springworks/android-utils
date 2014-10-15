@@ -29,181 +29,187 @@ import java.util.WeakHashMap;
  */
 public class GrapeGuice {
 
-	private static WeakHashMap<Application, GrapeGuice> injectors = new WeakHashMap<Application, GrapeGuice>();
+  private static WeakHashMap<Application, GrapeGuice> injectors = new WeakHashMap<Application,
+      GrapeGuice>();
 
-	private Logger logger = LoggerFactory.getLogger(GrapeGuice.class);
+  private Logger logger = LoggerFactory.getLogger(GrapeGuice.class);
 
-	private Injector injector;
+  private Injector injector;
 
-	private GrapeGuice(Injector injector) {
-		this.injector = injector;
-	}
+  private GrapeGuice(Injector injector) {
+    this.injector = injector;
+  }
 
-	public static GrapeGuice getInjector(Fragment fragment) {
-		return getInjector(fragment.getActivity());
-	}
+  public static GrapeGuice getInjector(Fragment fragment) {
+    return getInjector(fragment.getActivity());
+  }
 
-	public static GrapeGuice getInjector(View view) {
-		return getInjector(view.getContext());
-	}
+  public static GrapeGuice getInjector(View view) {
+    return getInjector(view.getContext());
+  }
 
-	public static GrapeGuice getInjector(AndroidTestCase testCase) {
-		return getInjector(testCase.getContext());
-	}
+  public static GrapeGuice getInjector(AndroidTestCase testCase) {
+    return getInjector(testCase.getContext());
+  }
 
-	public static GrapeGuice getInjector(Context context) {
-		if (context == null) {
-			return null;
-		}
-		final Application application = (Application) context.getApplicationContext();
-		GrapeGuice injector = injectors.get(application);
-		if (injector == null) {
-			final int id = application.getResources().getIdentifier("guice_modules", "array", application.getPackageName());
-			final String[] moduleNames = id > 0 ? application.getResources().getStringArray(id) : new String[]{};
-			final List<AbstractModule> modules = new ArrayList<AbstractModule>();
+  public static GrapeGuice getInjector(Context context) {
+    if (context == null) {
+      return null;
+    }
+    final Application application = (Application) context.getApplicationContext();
+    GrapeGuice injector = injectors.get(application);
+    if (injector == null) {
+      final int id = application.getResources().getIdentifier("guice_modules",
+                                                              "array",
+                                                              application.getPackageName());
+      final String[] moduleNames = id >
+                                   0 ? application.getResources().getStringArray(id) : new
+                                       String[]{};
+      final List<AbstractModule> modules = new ArrayList<AbstractModule>();
 
-			try {
-				for (String name : moduleNames) {
-					final Class<? extends AbstractModule> clazz = Class.forName(name).asSubclass(AbstractModule.class);
-					try {
-						modules.add(clazz.getDeclaredConstructor(Context.class).newInstance(application));
-					}
-					catch (NoSuchMethodException ignored) {
-						modules.add(clazz.newInstance());
-					}
-				}
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+      try {
+        for (String name : moduleNames) {
+          final Class<? extends AbstractModule> clazz = Class.forName(name).asSubclass(
+              AbstractModule.class);
+          try {
+            modules.add(clazz.getDeclaredConstructor(Context.class).newInstance(application));
+          }
+          catch (NoSuchMethodException ignored) {
+            modules.add(clazz.newInstance());
+          }
+        }
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
 
-			injector = new GrapeGuice(Guice.createInjector(modules));
-			injectors.put(application, injector);
-		}
-		return injector;
-	}
+      injector = new GrapeGuice(Guice.createInjector(modules));
+      injectors.put(application, injector);
+    }
+    return injector;
+  }
 
-	/**
-	 * Rebinds all bindings for this injector based on the provided module(s)
-	 *
-	 * @param modules
-	 *
-	 * @return This instance rebound with bindings defined in the provided module(s)
-	 */
-	public GrapeGuice rebind(AbstractModule... modules) {
-		this.injector = Guice.createInjector(modules);
-		return this;
-	}
+  /**
+   * Get an injector for the specified context with the bindings defined in the provided modules If
+   * an injector already exists for the specified context it will be rebound with bindings from the
+   * specified module(s)
+   *
+   * @param context
+   * @param modules
+   *
+   * @return
+   */
+  public static GrapeGuice getInjector(Context context, AbstractModule... modules) {
+    if (context == null) {
+      return null;
+    }
 
-	/**
-	 * Get an injector for the specified context with the bindings defined in the provided modules If
-	 * an injector already exists for the specified context it will be rebound with bindings from the
-	 * specified module(s)
-	 *
-	 * @param context
-	 * @param modules
-	 *
-	 * @return
-	 */
-	public static GrapeGuice getInjector(Context context, AbstractModule... modules) {
-		if (context == null) {
-			return null;
-		}
+    GrapeGuice injector = GrapeGuice.getInjector(context);
+    injector.rebind(modules);
+    return injector;
+  }
 
-		GrapeGuice injector = GrapeGuice.getInjector(context);
-		injector.rebind(modules);
-		return injector;
-	}
+  /**
+   * Rebinds all bindings for this injector based on the provided module(s)
+   *
+   * @param modules
+   *
+   * @return This instance rebound with bindings defined in the provided module(s)
+   */
+  public GrapeGuice rebind(AbstractModule... modules) {
+    this.injector = Guice.createInjector(modules);
+    return this;
+  }
 
-	/**
-	 * Injects dependencies into fields and methods of an object This uses the Guice framework to do
-	 * annotations, {@link Injector#injectMembers(Object)}
-	 *
-	 * @param o The object to inject dependencies into
-	 */
-	public GrapeGuice injectMembers(Object o) {
-		injector.injectMembers(o);
-		return this;
-	}
+  /**
+   * Injects dependencies into fields and methods of an object This uses the Guice framework to do
+   * annotations, {@link Injector#injectMembers(Object)}
+   *
+   * @param o The object to inject dependencies into
+   */
+  public GrapeGuice injectMembers(Object o) {
+    injector.injectMembers(o);
+    return this;
+  }
 
-	/**
-	 * Injects views from the specified activity into fields annotated with
-	 *
-	 * @param a The activity to get views from
-	 * @param o The object to inject views into
-	 *
-	 * @InjectView(id = R.id.name) in the specified target object
-	 */
-	public GrapeGuice injectViews(Activity a, Object o) {
-		return injectViewsFromObject(a, o);
-	}
+  /**
+   * Injects views from the specified activity into fields annotated with
+   *
+   * @param a The activity to get views from
+   * @param o The object to inject views into
+   *
+   * @InjectView(id = R.id.name) in the specified target object
+   */
+  public GrapeGuice injectViews(Activity a, Object o) {
+    return injectViewsFromObject(a, o);
+  }
 
-	public GrapeGuice injectViews(Dialog d, Object o) {
-		return injectViewsFromObject(d, o);
-	}
+  public GrapeGuice injectViews(Dialog d, Object o) {
+    return injectViewsFromObject(d, o);
+  }
 
-	public GrapeGuice injectViews(View v, Object o) {
-		return injectViewsFromObject(v, o);
-	}
+  public GrapeGuice injectViews(View v, Object o) {
+    return injectViewsFromObject(v, o);
+  }
 
-	private GrapeGuice injectViewsFromObject(Object from, Object into) {
-		Class<?> targetClass = into.getClass();
-		Field[] fields = targetClass.getDeclaredFields();
-		for (Field field : fields) {
-			if (field.isAnnotationPresent(InjectView.class)) {
-				InjectView injectView = (InjectView) field.getAnnotation(InjectView.class);
-				final int id = injectView.id();
-				field.setAccessible(true);
-				try {
-					View v = null;
-					if (from instanceof Activity) {
-						v = ((Activity) from).findViewById(id);
-					}
-					else if (from instanceof View) {
-						v = ((View) from).findViewById(id);
-					}
-					else if (from instanceof Dialog) {
-						v = ((Dialog) from).findViewById(id);
-					}
-					if (v != null) {
-						field.set(into, v);
-					}
-				}
-				catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					logger.error("injectViewsFromObject() %d %s", id, e);
-				}
-				catch (IllegalAccessException e) {
-					e.printStackTrace();
-					logger.error("injectViewsFromObject() %d %s", id, e);
-				}
-			}
-		}
-		return this;
-	}
+  private GrapeGuice injectViewsFromObject(Object from, Object into) {
+    Class<?> targetClass = into.getClass();
+    Field[] fields = targetClass.getDeclaredFields();
+    for (Field field : fields) {
+      if (field.isAnnotationPresent(InjectView.class)) {
+        InjectView injectView = (InjectView) field.getAnnotation(InjectView.class);
+        final int id = injectView.id();
+        field.setAccessible(true);
+        try {
+          View v = null;
+          if (from instanceof Activity) {
+            v = ((Activity) from).findViewById(id);
+          }
+          else if (from instanceof View) {
+            v = ((View) from).findViewById(id);
+          }
+          else if (from instanceof Dialog) {
+            v = ((Dialog) from).findViewById(id);
+          }
+          if (v != null) {
+            field.set(into, v);
+          }
+        }
+        catch (IllegalArgumentException e) {
+          e.printStackTrace();
+          logger.error("injectViewsFromObject() %d %s", id, e);
+        }
+        catch (IllegalAccessException e) {
+          e.printStackTrace();
+          logger.error("injectViewsFromObject() %d %s", id, e);
+        }
+      }
+    }
+    return this;
+  }
 
-	/**
-	 * Injects views into the members of an activity Refer to {@link #injectViews(Activity, Object)}
-	 * for details
-	 *
-	 * @param a The activity to get views from and fields to inject to
-	 */
-	public GrapeGuice injectViews(Activity a) {
-		return injectViews(a, a);
-	}
+  /**
+   * Injects views into the members of an activity Refer to {@link #injectViews(Activity, Object)}
+   * for details
+   *
+   * @param a The activity to get views from and fields to inject to
+   */
+  public GrapeGuice injectViews(Activity a) {
+    return injectViews(a, a);
+  }
 
-	/**
-	 * Injects views from the current activity into a fragment Refer to {@link #injectViews(Activity,
-	 * Object)} for details
-	 *
-	 * @param f
-	 */
-	public GrapeGuice injectViews(Fragment f) {
-		return injectViews(f.getView(), f);
-	}
+  /**
+   * Injects views from the current activity into a fragment Refer to {@link #injectViews(Activity,
+   * Object)} for details
+   *
+   * @param f
+   */
+  public GrapeGuice injectViews(Fragment f) {
+    return injectViews(f.getView(), f);
+  }
 
-	public <T> T getInstance(Class<T> t) {
-		return injector.getInstance(t);
-	}
+  public <T> T getInstance(Class<T> t) {
+    return injector.getInstance(t);
+  }
 
 }

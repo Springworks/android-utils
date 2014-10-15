@@ -11,39 +11,44 @@ import se.springworks.android.utils.application.BaseApplication;
 
 public abstract class BaseActivity extends ActionBarActivity {
 
-	public interface OnActivityResultListener {
-		public void onActivityResult(int requestCode, int resultCode, Intent data);
-	}
+  private static int defaultStartActivityEnterAnimationId = 0;
+  protected int startActivityEnterAnimationId = defaultStartActivityEnterAnimationId;
+  private static int defaultStartActivityExitAnimationId = 0;
+  protected int startActivityExitAnimationId = defaultStartActivityExitAnimationId;
+  private static int defaultFinishActivityEnterAnimationId = 0;
+  protected int finishActivityEnterAnimationId = defaultFinishActivityEnterAnimationId;
+  private static int defaultFinishActivityExitAnimationId = 0;
+  protected int finishActivityExitAnimationId = defaultFinishActivityExitAnimationId;
+  private OnActivityResultListener activityResultListener = null;
+  private boolean titleBarHidden = false;
 
+  /**
+   * Set the default start activity transitions
+   *
+   * @param enterId
+   * @param exitId
+   */
+  public static void setDefaultStartActivityTransition(int enterId, int exitId) {
+    defaultStartActivityEnterAnimationId = enterId;
+    defaultStartActivityExitAnimationId = exitId;
+  }
 
-	private OnActivityResultListener activityResultListener = null;
+  public static void setDefaultFinishActivityTransition(int enterId, int exitId) {
+    defaultFinishActivityEnterAnimationId = enterId;
+    defaultFinishActivityExitAnimationId = exitId;
+  }
 
-	private static int defaultStartActivityEnterAnimationId = 0;
-	private static int defaultStartActivityExitAnimationId = 0;
-	private static int defaultFinishActivityEnterAnimationId = 0;
-	private static int defaultFinishActivityExitAnimationId = 0;
+  protected void hideTitleBar() {
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+  }
 
-	protected int startActivityEnterAnimationId = defaultStartActivityEnterAnimationId;
-	protected int startActivityExitAnimationId = defaultStartActivityExitAnimationId;
-	protected int finishActivityEnterAnimationId = defaultFinishActivityEnterAnimationId;
-	protected int finishActivityExitAnimationId = defaultFinishActivityExitAnimationId;
-
-	private boolean titleBarHidden = false;
-
-	protected void hideTitleBar() {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-	}
-
-	public void disableTouchEvents() {
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-	}
-
-	public void enableTouchEvents() {
-		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-	}
+  public void disableTouchEvents() {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+  }
 
 /*
-	@Override
+  @Override
 	public boolean supportRequestWindowFeature(int featureId) {
 		boolean success = super.supportRequestWindowFeature(featureId);
 		titleBarHidden = success && featureId == Window.FEATURE_NO_TITLE;
@@ -51,71 +56,62 @@ public abstract class BaseActivity extends ActionBarActivity {
 	}
 */
 
-	@Override
-	public void setContentView(int layoutResId) {
-		super.setContentView(layoutResId);
-		try {
-			ActionBar ab = getSupportActionBar();
-			if (ab != null && titleBarHidden) {
-				ab.hide();
-			}
-		}
-		catch (NullPointerException npe) {
-			// do nothing
-		}
-	}
+  public void enableTouchEvents() {
+    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+  }
 
-	/**
-	 * Called when the activity is first created.
-	 */
-	@Override
-	public final void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		BaseApplication hej = BaseApplication.getInstance();
-		hej.onActivityCreated(this);
+  @Override
+  public void setContentView(int layoutResId) {
+    super.setContentView(layoutResId);
+    try {
+      ActionBar ab = getSupportActionBar();
+      if (ab != null && titleBarHidden) {
+        ab.hide();
+      }
+    }
+    catch (NullPointerException npe) {
+      // do nothing
+    }
+  }
 
-		try {
-			createActivity(savedInstanceState);
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+  /**
+   * Called when the activity is first created.
+   */
+  @Override
+  public final void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    BaseApplication hej = BaseApplication.getInstance();
+    hej.onActivityCreated(this);
 
-	@Override
-	public final void onRestart() {
-		super.onRestart();
-		try {
-			restartActivity();
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+    try {
+      createActivity(savedInstanceState);
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
-	@Override
-	public final void onStart() {
-		super.onStart();
-		try {
-			startActivity();
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+  @Override
+  public final void onRestart() {
+    super.onRestart();
+    try {
+      restartActivity();
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
-	@Override
-	public final void onResume() {
-		super.onResume();
-		BaseApplication.getInstance().onActivityResumed(this);
-
-		try {
-			resumeActivity();
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+  @Override
+  public final void onStart() {
+    super.onStart();
+    try {
+      startActivity();
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
 /*
 
@@ -132,135 +128,144 @@ public abstract class BaseActivity extends ActionBarActivity {
 	}
 */
 
-	@Override
-	public final void onPause() {
-		super.onPause();
-		BaseApplication.getInstance().onActivityPaused(this);
+  @Override
+  public final void onResume() {
+    super.onResume();
+    BaseApplication.getInstance().onActivityResumed(this);
 
-		try {
-			pauseActivity();
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+    try {
+      resumeActivity();
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
-	@Override
-	public void onStop() {
-		super.onStop();
+  @Override
+  public final void onPause() {
+    super.onPause();
+    BaseApplication.getInstance().onActivityPaused(this);
 
-		try {
-			stopActivity();
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+    try {
+      pauseActivity();
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
-	@Override
-	public final void onDestroy() {
-		super.onDestroy();
-		BaseApplication.getInstance().onActivityDestroyed(this);
+  @Override
+  public void onStop() {
+    super.onStop();
 
-		try {
-			destroyActivity();
-		}
-		catch (Exception e) {
-			handleError(e);
-		}
-	}
+    try {
+      stopActivity();
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
+  @Override
+  public final void onDestroy() {
+    super.onDestroy();
+    BaseApplication.getInstance().onActivityDestroyed(this);
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// there's currently a bug in ActionBarCompat causing an activity
-		// with FEATURE_NO_TITLE to crash when the menu button is
-		// pressed and onCreateOptionsMenu() is called
-		// refer to: http://stackoverflow.com/questions/19275447/oncreateoptionsmenu-causing-error-in-an-activity-with-no-actionbar
-		if (keyCode == KeyEvent.KEYCODE_MENU) {
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+    try {
+      destroyActivity();
+    }
+    catch (Exception e) {
+      handleError(e);
+    }
+  }
 
-	/**
-	 * Suggested implementation in subclasses is to add context information and then rethrow a runtime
-	 * exception to cause the app to crash and send any information to crash/exception detection
-	 * system (such as Crittercism)
-	 *
-	 * @param e
-	 */
-	protected abstract void handleError(Exception e);
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    // there's currently a bug in ActionBarCompat causing an activity
+    // with FEATURE_NO_TITLE to crash when the menu button is
+    // pressed and onCreateOptionsMenu() is called
+    // refer to: http://stackoverflow.com/questions/19275447/oncreateoptionsmenu-causing-error-in
+    // -an-activity-with-no-actionbar
+    if (keyCode == KeyEvent.KEYCODE_MENU) {
+      return true;
+    }
+    return super.onKeyDown(keyCode, event);
+  }
 
-	/**
-	 * Set the default start activity transitions
-	 *
-	 * @param enterId
-	 * @param exitId
-	 */
-	public static void setDefaultStartActivityTransition(int enterId, int exitId) {
-		defaultStartActivityEnterAnimationId = enterId;
-		defaultStartActivityExitAnimationId = exitId;
-	}
+  /**
+   * Suggested implementation in subclasses is to add context information and then rethrow a runtime
+   * exception to cause the app to crash and send any information to crash/exception detection
+   * system (such as Crittercism)
+   *
+   * @param e
+   */
+  protected abstract void handleError(Exception e);
 
-	public static void setDefaultFinishActivityTransition(int enterId, int exitId) {
-		defaultFinishActivityEnterAnimationId = enterId;
-		defaultFinishActivityExitAnimationId = exitId;
-	}
+  public final void switchActivity(Class<? extends ActionBarActivity> c) {
+    Intent i = new Intent(this, c);
+    startActivity(i);
+  }
 
-	public final void switchActivity(Class<? extends ActionBarActivity> c) {
-		Intent i = new Intent(this, c);
-		startActivity(i);
-	}
+  public final void switchActivity(Class<? extends ActionBarActivity> c, Bundle extras) {
+    Intent i = new Intent(this, c);
+    if (extras != null) {
+      i.putExtras(extras);
+    }
+    startActivity(i);
+  }
 
-	public final void switchActivity(Class<? extends ActionBarActivity> c, Bundle extras) {
-		Intent i = new Intent(this, c);
-		if (extras != null) {
-			i.putExtras(extras);
-		}
-		startActivity(i);
-	}
+  @Override
+  public void startActivity(Intent intent) {
+    startActivity(intent, startActivityEnterAnimationId, startActivityExitAnimationId);
+  }
 
-	@Override
-	public void startActivity(Intent intent) {
-		startActivity(intent, startActivityEnterAnimationId, startActivityExitAnimationId);
-	}
+  public void startActivity(Intent intent, int enterAnimationId, int exitAnimationId) {
+    super.startActivity(intent);
+    overridePendingTransition(enterAnimationId, exitAnimationId);
+  }
 
-	public void startActivity(Intent intent, int enterAnimationId, int exitAnimationId) {
-		super.startActivity(intent);
-		overridePendingTransition(enterAnimationId, exitAnimationId);
-	}
+  public void startActivityForResult(Intent intent,
+                                     int requestCode,
+                                     OnActivityResultListener listener) {
+    this.activityResultListener = listener;
+    startActivityForResult(intent, requestCode);
+  }
 
+  @Override
+  public void startActivityForResult(Intent intent, int requestCode) {
+    startActivityForResult(intent,
+                           requestCode,
+                           startActivityEnterAnimationId,
+                           startActivityExitAnimationId);
+  }
 
-	public void startActivityForResult(Intent intent, int requestCode, OnActivityResultListener listener) {
-		this.activityResultListener = listener;
-		startActivityForResult(intent, requestCode);
-	}
+  public void startActivityForResult(Intent intent,
+                                     int requestCode,
+                                     int enterAnimationId,
+                                     int exitAnimationId) {
+    if (getParent() != null) {
+      getParent().startActivityForResult(intent, requestCode);
+      overridePendingTransition(enterAnimationId, exitAnimationId);
+    }
+    else {
+      super.startActivityForResult(intent, requestCode);
+      overridePendingTransition(enterAnimationId, exitAnimationId);
+    }
+  }
 
-	@Override
-	public void startActivityForResult(Intent intent, int requestCode) {
-		startActivityForResult(intent, requestCode, startActivityEnterAnimationId, startActivityExitAnimationId);
-	}
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (activityResultListener != null) {
+      activityResultListener.onActivityResult(requestCode, resultCode, data);
+      activityResultListener = null;
+    }
+    super.onActivityResult(requestCode, resultCode, data);
+  }
 
-	public void startActivityForResult(Intent intent, int requestCode, int enterAnimationId, int exitAnimationId) {
-		if (getParent() != null) {
-			getParent().startActivityForResult(intent, requestCode);
-			overridePendingTransition(enterAnimationId, exitAnimationId);
-		}
-		else {
-			super.startActivityForResult(intent, requestCode);
-			overridePendingTransition(enterAnimationId, exitAnimationId);
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (activityResultListener != null) {
-			activityResultListener.onActivityResult(requestCode, resultCode, data);
-			activityResultListener = null;
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+  @Override
+  public void finish() {
+    finish(finishActivityEnterAnimationId, finishActivityExitAnimationId);
+  }
 
 //	@Override
 //	public void startActivity(Intent intent, Bundle options) {
@@ -268,54 +273,54 @@ public abstract class BaseActivity extends ActionBarActivity {
 //		overridePendingTransition(startActivityEnterAnimationId, startActivityExitAnimationId);
 //	}
 //	
-//	public void startActivity(Intent intent, Bundle options, int enterAnimationId, int exitAnimationId) {
+//	public void startActivity(Intent intent, Bundle options, int enterAnimationId,
+// int exitAnimationId) {
 //		super.startActivity(intent, options);
 //		overridePendingTransition(enterAnimationId, exitAnimationId);
 //	}
 
-	@Override
-	public void finish() {
-		finish(finishActivityEnterAnimationId, finishActivityExitAnimationId);
-	}
+  public void finish(int enterAnimationId, int exitAnimationId) {
+    super.finish();
+    overridePendingTransition(enterAnimationId, exitAnimationId);
+  }
 
-	public void finish(int enterAnimationId, int exitAnimationId) {
-		super.finish();
-		overridePendingTransition(enterAnimationId, exitAnimationId);
-	}
+  @Override
+  public void finishActivity(int requestCode) {
+    finishActivity(requestCode, finishActivityEnterAnimationId, finishActivityExitAnimationId);
+  }
 
-	@Override
-	public void finishActivity(int requestCode) {
-		finishActivity(requestCode, finishActivityEnterAnimationId, finishActivityExitAnimationId);
-	}
+  public void finishActivity(int requestCode, int enterAnimationId, int exitAnimationId) {
+    super.finishActivity(requestCode);
+    overridePendingTransition(enterAnimationId, exitAnimationId);
+  }
 
-	public void finishActivity(int requestCode, int enterAnimationId, int exitAnimationId) {
-		super.finishActivity(requestCode);
-		overridePendingTransition(enterAnimationId, exitAnimationId);
-	}
+  abstract protected void createActivity(Bundle savedInstanceState);
 
-	abstract protected void createActivity(Bundle savedInstanceState);
+  protected void destroyActivity() {
+    // override if needed
+  }
 
-	protected void destroyActivity() {
-		// override if needed
-	}
+  protected void stopActivity() {
+    // override if needed
+  }
 
-	protected void stopActivity() {
-		// override if needed
-	}
+  protected void restartActivity() {
+    // override if needed
+  }
 
-	protected void restartActivity() {
-		// override if needed
-	}
+  protected void startActivity() {
+    // override if needed
+  }
 
-	protected void startActivity() {
-		// override if needed
-	}
+  protected void resumeActivity() {
+    // override if needed
+  }
 
-	protected void resumeActivity() {
-		// override if needed
-	}
+  protected void pauseActivity() {
+    // override if needed
+  }
 
-	protected void pauseActivity() {
-		// override if needed
-	}
+  public interface OnActivityResultListener {
+    public void onActivityResult(int requestCode, int resultCode, Intent data);
+  }
 }

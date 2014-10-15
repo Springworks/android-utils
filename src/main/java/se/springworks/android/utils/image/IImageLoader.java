@@ -13,44 +13,44 @@ import java.io.InputStream;
  */
 public interface IImageLoader {
 
-	/**
-	 * Max amount of downsampling to apply in case of out of memory problems.
-	 *
-	 * @param max
-	 */
-	void setMaxDownsampling(int max);
+  /**
+   * Max amount of downsampling to apply in case of out of memory problems.
+   *
+   * @param max
+   */
+  void setMaxDownsampling(int max);
 
-	/**
-	 * Bit depth to use when loading images
-	 *
-	 * @param config
-	 */
-	void setBitmapConfig(Bitmap.Config config);
+  /**
+   * Bit depth to use when loading images
+   *
+   * @param config
+   */
+  void setBitmapConfig(Bitmap.Config config);
 
-	/**
-	 * Get a bitmap from a URL
-	 *
-	 * @param url
-	 *
-	 * @return
-	 */
-	Bitmap getAsBitmap(String url);
+  /**
+   * Get a bitmap from a URL
+   *
+   * @param url
+   *
+   * @return
+   */
+  Bitmap getAsBitmap(String url);
 
-	/**
-	 * Get a bitmap from an asset file
-	 *
-	 * @param fileName
-	 *
-	 * @return
-	 */
-	Bitmap getFromAssets(String fileName);
+  /**
+   * Get a bitmap from an asset file
+   *
+   * @param fileName
+   *
+   * @return
+   */
+  Bitmap getFromAssets(String fileName);
 
-	/**
-	 * Get a bitmap from a stream
-	 *
-	 * @param in
-	 *
-	 * @return
-	 */
-	Bitmap getAsBitmap(InputStream in);
+  /**
+   * Get a bitmap from a stream
+   *
+   * @param in
+   *
+   * @return
+   */
+  Bitmap getAsBitmap(InputStream in);
 }
