@@ -32,6 +32,9 @@ android:
     - sys-img-armeabi-v7a-android-16
 
 install:
+  - chmod +x scripts/clone_sub_repo.sh
+  - bash scripts/clone_sub_repo.sh
+  
   # update android sdk
   - android list sdk -a -e
 
