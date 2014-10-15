@@ -28,137 +28,145 @@ import java.util.Map;
 
 public class LoopjAsyncHttpClient implements IAsyncHttpClient {
 
-	private Context context;
+  private Context context;
 
-	private AsyncHttpClient loopj = new AsyncHttpClient();
+  private AsyncHttpClient loopj = new AsyncHttpClient();
 
-	@Inject
-	public LoopjAsyncHttpClient(Context context) {
-		this.context = context;
-	}
+  @Inject
+  public LoopjAsyncHttpClient(Context context) {
+    this.context = context;
+  }
 
-	@Override
-	public void get(String url, final IAsyncHttpResponseHandler responseHandler) {
-		loopj.get(url, new AsyncHttpResponseHandler() {
-			@Override
-			public final void onSuccess(String response) {
-				responseHandler.onSuccess(response);
-			}
+  @Override
+  public void get(String url, final IAsyncHttpResponseHandler responseHandler) {
+    loopj.get(url, new AsyncHttpResponseHandler() {
+      @Override
+      public final void onSuccess(String response) {
+        responseHandler.onSuccess(response);
+      }
 
-			@Override
-			public void onFailure(int code, Throwable e, String response) {
-				responseHandler.onFailure(e, response, code);
-			}
-		});
-	}
+      @Override
+      public void onFailure(int code, Throwable e, String response) {
+        responseHandler.onFailure(e, response, code);
+      }
+    });
+  }
 
-	@Override
-	public void post(String url, Map<String, String> params, final IAsyncHttpResponseHandler responseHandler) {
-		RequestParams rp = (params != null) ? new RequestParams(params) : null;
-		loopj.post(url, rp, new AsyncHttpResponseHandler() {
-			@Override
-			public final void onSuccess(String response) {
-				responseHandler.onSuccess(response);
-			}
+  @Override
+  public void post(String url,
+                   Map<String, String> params,
+                   final IAsyncHttpResponseHandler responseHandler) {
+    RequestParams rp = (params != null) ? new RequestParams(params) : null;
+    loopj.post(url, rp, new AsyncHttpResponseHandler() {
+      @Override
+      public final void onSuccess(String response) {
+        responseHandler.onSuccess(response);
+      }
 
-			@Override
-			public void onFailure(int code, Throwable e, String response) {
-				responseHandler.onFailure(e, response, code);
-			}
-		});
-	}
+      @Override
+      public void onFailure(int code, Throwable e, String response) {
+        responseHandler.onFailure(e, response, code);
+      }
+    });
+  }
 
-	@Override
-	public void post(String url, String data, String contentType, final IAsyncHttpResponseHandler responseHandler) {
-		try {
-			StringEntity se = new StringEntity(data);
-			loopj.post(context, url, se, contentType, new AsyncHttpResponseHandler() {
-				@Override
-				public final void onSuccess(String response) {
-					responseHandler.onSuccess(response);
-				}
+  @Override
+  public void post(String url,
+                   String data,
+                   String contentType,
+                   final IAsyncHttpResponseHandler responseHandler) {
+    try {
+      StringEntity se = new StringEntity(data);
+      loopj.post(context, url, se, contentType, new AsyncHttpResponseHandler() {
+        @Override
+        public final void onSuccess(String response) {
+          responseHandler.onSuccess(response);
+        }
 
-				@Override
-				public void onFailure(int code, Throwable e, String response) {
-					responseHandler.onFailure(e, response, code);
-				}
-			});
-		}
-		catch (UnsupportedEncodingException e) {
-			responseHandler.onFailure(e, null, -1);
-		}
-	}
+        @Override
+        public void onFailure(int code, Throwable e, String response) {
+          responseHandler.onFailure(e, response, code);
+        }
+      });
+    }
+    catch (UnsupportedEncodingException e) {
+      responseHandler.onFailure(e, null, -1);
+    }
+  }
 
-	@Override
-	public void setPreemptiveBasicAuth(String user, String pass) {
+  @Override
+  public void setPreemptiveBasicAuth(String user, String pass) {
 
-		loopj.setBasicAuth(user, pass);
+    loopj.setBasicAuth(user, pass);
 
-		HttpContext httpContext = loopj.getHttpContext();
-		httpContext.setAttribute("preemptive-auth", new BasicScheme());
+    HttpContext httpContext = loopj.getHttpContext();
+    httpContext.setAttribute("preemptive-auth", new BasicScheme());
 
-		DefaultHttpClient httpClient = (DefaultHttpClient) loopj.getHttpClient();
-		httpClient.addRequestInterceptor(new HttpRequestInterceptor() {
-			@Override
-			public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-				AuthState authState = (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
+    DefaultHttpClient httpClient = (DefaultHttpClient) loopj.getHttpClient();
+    httpClient.addRequestInterceptor(new HttpRequestInterceptor() {
+      @Override
+      public void process(HttpRequest request, HttpContext context) throws
+                                                                    HttpException,
+                                                                    IOException {
+        AuthState authState = (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
 
-				// If no auth scheme available yet, try to initialize it
-				// preemptively
-				if (authState.getAuthScheme() == null) {
-					AuthScheme authScheme = (AuthScheme) context.getAttribute("preemptive-auth");
-					CredentialsProvider credsProvider = (CredentialsProvider) context.getAttribute(ClientContext.CREDS_PROVIDER);
-					HttpHost targetHost = (HttpHost) context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
-					if (authScheme != null) {
-						AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());
-						Credentials creds = credsProvider.getCredentials(authScope);
-						if (creds == null) {
-							throw new HttpException("No credentials for preemptive authentication");
-						}
-						authState.setAuthScheme(authScheme);
-						authState.setCredentials(creds);
-					}
-				}
-			}
-		}, 0);
-	}
+        // If no auth scheme available yet, try to initialize it
+        // preemptively
+        if (authState.getAuthScheme() == null) {
+          AuthScheme authScheme = (AuthScheme) context.getAttribute("preemptive-auth");
+          CredentialsProvider credsProvider = (CredentialsProvider) context.getAttribute(
+              ClientContext.CREDS_PROVIDER);
+          HttpHost targetHost = (HttpHost) context.getAttribute(ExecutionContext.HTTP_TARGET_HOST);
+          if (authScheme != null) {
+            AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());
+            Credentials creds = credsProvider.getCredentials(authScope);
+            if (creds == null) {
+              throw new HttpException("No credentials for preemptive authentication");
+            }
+            authState.setAuthScheme(authScheme);
+            authState.setCredentials(creds);
+          }
+        }
+      }
+    }, 0);
+  }
 
-	@Override
-	public void cancelRequests(boolean mayInterruptIfRunning) {
-		loopj.cancelRequests(context, mayInterruptIfRunning);
-	}
+  @Override
+  public void cancelRequests(boolean mayInterruptIfRunning) {
+    loopj.cancelRequests(context, mayInterruptIfRunning);
+  }
 
-	@Override
-	public void delete(String url, final IAsyncHttpResponseHandler responseHandler) {
-		loopj.delete(context, url, new AsyncHttpResponseHandler() {
-			@Override
-			public final void onSuccess(String response) {
-				responseHandler.onSuccess(response);
-			}
+  @Override
+  public void delete(String url, final IAsyncHttpResponseHandler responseHandler) {
+    loopj.delete(context, url, new AsyncHttpResponseHandler() {
+      @Override
+      public final void onSuccess(String response) {
+        responseHandler.onSuccess(response);
+      }
 
-			@Override
-			public void onFailure(int code, Throwable e, String response) {
-				responseHandler.onFailure(e, response, code);
-			}
-		});
-	}
+      @Override
+      public void onFailure(int code, Throwable e, String response) {
+        responseHandler.onFailure(e, response, code);
+      }
+    });
+  }
 
-	@Override
-	public void clearCookies() {
-		PersistentCookieStore cookieStore = new PersistentCookieStore(context);
-		cookieStore.clear();
-		loopj.setCookieStore(cookieStore);
-	}
+  @Override
+  public void clearCookies() {
+    PersistentCookieStore cookieStore = new PersistentCookieStore(context);
+    cookieStore.clear();
+    loopj.setCookieStore(cookieStore);
+  }
 
-	@Override
-	public void setHeader(String header, String value) {
-		loopj.addHeader(header, value);
-	}
+  @Override
+  public void setHeader(String header, String value) {
+    loopj.addHeader(header, value);
+  }
 
-	@Override
-	public void removeHeader(String header) {
-		loopj.removeHeader(header);
-	}
+  @Override
+  public void removeHeader(String header) {
+    loopj.removeHeader(header);
+  }
 
 
 }

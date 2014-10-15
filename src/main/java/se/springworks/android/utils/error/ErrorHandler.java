@@ -13,68 +13,68 @@ import se.springworks.android.utils.logging.LoggerFactory;
  */
 public class ErrorHandler {
 
-	private static Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
+  private static Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
 
-	private static Dialog currentDialog = null;
+  private static Dialog currentDialog = null;
 
-	public static final void handleError(int titleId, int errorId, Activity activity) {
-		if (activity == null) {
-			return;
-		}
-		handleError(activity.getString(titleId), activity.getString(errorId), null, activity);
-	}
+  public static final void handleError(int titleId, int errorId, Activity activity) {
+    if (activity == null) {
+      return;
+    }
+    handleError(activity.getString(titleId), activity.getString(errorId), null, activity);
+  }
 
-	public static final void handleError(String title, String error, Activity activity) {
-		handleError(title, error, null, activity);
-	}
+  public static final void handleError(String title, String error, Activity activity) {
+    handleError(title, error, null, activity);
+  }
 
-	public static final void handleError(int titleId, int errorId, Throwable t, Activity activity) {
-		handleError(activity.getString(titleId), activity.getString(errorId), t, activity);
-	}
+  public static final void handleError(int titleId, int errorId, Throwable t, Activity activity) {
+    handleError(activity.getString(titleId), activity.getString(errorId), t, activity);
+  }
 
 
-	public static final void handleError(String title, String error, Throwable t, Activity activity) {
-		String message = error;
-		if (t != null) {
-			message += " " + t.getLocalizedMessage();
-		}
-		logger.error(message);
-		if (activity == null) {
-			return;
-		}
+  public static final void handleError(String title, String error, Throwable t, Activity activity) {
+    String message = error;
+    if (t != null) {
+      message += " " + t.getLocalizedMessage();
+    }
+    logger.error(message);
+    if (activity == null) {
+      return;
+    }
 
-		dismiss();
+    dismiss();
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setTitle(title);
-		builder.setMessage(message);
-		final AlertDialog dialog = builder.create();
-		dialog.setCanceledOnTouchOutside(true);
+    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    builder.setTitle(title);
+    builder.setMessage(message);
+    final AlertDialog dialog = builder.create();
+    dialog.setCanceledOnTouchOutside(true);
 
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					dialog.show();
-					currentDialog = dialog;
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    activity.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          dialog.show();
+          currentDialog = dialog;
+        }
+        catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
-	public static final void dismiss() {
-		if (currentDialog != null) {
-			try {
-				currentDialog.dismiss();
-			}
-			catch (IllegalArgumentException e) {
-				// do nothing
-				// java.lang.IllegalArgumentException: View not attached to window manager
-				// reported in dev console
-			}
-		}
-	}
+  public static final void dismiss() {
+    if (currentDialog != null) {
+      try {
+        currentDialog.dismiss();
+      }
+      catch (IllegalArgumentException e) {
+        // do nothing
+        // java.lang.IllegalArgumentException: View not attached to window manager
+        // reported in dev console
+      }
+    }
+  }
 }

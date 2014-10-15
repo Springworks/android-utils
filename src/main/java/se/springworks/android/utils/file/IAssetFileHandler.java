@@ -5,15 +5,15 @@ import java.io.InputStream;
 
 public interface IAssetFileHandler {
 
-	boolean exists(String name);
+  boolean exists(String name);
 
-	String[] getFileList();
+  String[] getFileList();
 
-	String[] getFileList(String path);
+  String[] getFileList(String path);
 
-	long getSize(String name);
+  long getSize(String name);
 
-	byte[] load(String name) throws Exception;
+  byte[] load(String name) throws Exception;
 
-	InputStream getReadableFile(String name) throws IOException;
+  InputStream getReadableFile(String name) throws IOException;
 }

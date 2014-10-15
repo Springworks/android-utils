@@ -10,27 +10,27 @@ import java.util.Map;
  */
 public interface IAsyncHttpClient {
 
-	void get(String url, IAsyncHttpResponseHandler responseHandler);
+  void get(String url, IAsyncHttpResponseHandler responseHandler);
 
-	void delete(String url, IAsyncHttpResponseHandler responseHandler);
+  void delete(String url, IAsyncHttpResponseHandler responseHandler);
 
-	void post(String url, Map<String, String> params, IAsyncHttpResponseHandler responseHandler);
+  void post(String url, Map<String, String> params, IAsyncHttpResponseHandler responseHandler);
 
-	void post(String url, String data, String contentType, IAsyncHttpResponseHandler responseHandler);
+  void post(String url, String data, String contentType, IAsyncHttpResponseHandler responseHandler);
 
-	void cancelRequests(boolean mayInterruptIfRunning);
+  void cancelRequests(boolean mayInterruptIfRunning);
 
-	void setPreemptiveBasicAuth(String user, String pass);
+  void setPreemptiveBasicAuth(String user, String pass);
 
-	void setHeader(String header, String value);
+  void setHeader(String header, String value);
 
-	void removeHeader(String header);
+  void removeHeader(String header);
 
-	void clearCookies();
+  void clearCookies();
 
-	public interface IAsyncHttpResponseHandler {
-		void onSuccess(String response);
+  public interface IAsyncHttpResponseHandler {
+    void onSuccess(String response);
 
-		void onFailure(Throwable e, String response, int statusCode);
-	}
+    void onFailure(Throwable e, String response, int statusCode);
+  }
 }

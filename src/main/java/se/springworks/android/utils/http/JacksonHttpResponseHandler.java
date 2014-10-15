@@ -12,40 +12,41 @@ import java.util.Collection;
 
 public abstract class JacksonHttpResponseHandler<T> extends AsyncHttpResponseHandler {
 
-	private TypeBase type;
+  private TypeBase type;
 
-	public JacksonHttpResponseHandler() {
+  public JacksonHttpResponseHandler() {
 
-	}
+  }
 
-	@SuppressWarnings ("rawtypes")
-	public JacksonHttpResponseHandler(Class<? extends Collection> collectionClass, Class<?> elementClass) {
-		type = TypeFactory.defaultInstance().constructCollectionType(collectionClass, elementClass);
-	}
+  @SuppressWarnings ("rawtypes")
+  public JacksonHttpResponseHandler(Class<? extends Collection> collectionClass,
+                                    Class<?> elementClass) {
+    type = TypeFactory.defaultInstance().constructCollectionType(collectionClass, elementClass);
+  }
 
-	public JacksonHttpResponseHandler(TypeBase type) {
-		this.type = type;
-	}
+  public JacksonHttpResponseHandler(TypeBase type) {
+    this.type = type;
+  }
 
-	@Override
-	public final void onSuccess(String response) {
-		T t = null;
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		try {
-			if (type != null) {
-				t = mapper.readValue(response, type);
-			}
-			else {
-				t = mapper.readValue(response, new TypeReference<T>() {
-				});
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		onSuccess(t, response);
-	}
+  @Override
+  public final void onSuccess(String response) {
+    T t = null;
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    try {
+      if (type != null) {
+        t = mapper.readValue(response, type);
+      }
+      else {
+        t = mapper.readValue(response, new TypeReference<T>() {
+        });
+      }
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    onSuccess(t, response);
+  }
 
-	public abstract void onSuccess(T response, String raw);
+  public abstract void onSuccess(T response, String raw);
 }

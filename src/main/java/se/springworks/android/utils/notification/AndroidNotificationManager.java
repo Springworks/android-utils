@@ -6,12 +6,12 @@ import com.google.inject.Inject;
 
 public class AndroidNotificationManager implements INotificationManager {
 
-	@Inject
-	private NotificationManager manager;
+  @Inject
+  private NotificationManager manager;
 
-	@Override
-	public void notify(int id, Notification notification) {
-		manager.notify(id, notification);
-	}
+  @Override
+  public void notify(int id, Notification notification) {
+    manager.notify(id, notification);
+  }
 
 }

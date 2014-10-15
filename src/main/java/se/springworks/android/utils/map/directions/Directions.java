@@ -8,27 +8,27 @@ import java.util.List;
 public class Directions {
 
 
-	@JsonProperty ("routes")
-	private ArrayList<Route> routes;
+  @JsonProperty ("routes")
+  private ArrayList<Route> routes;
 
 
-	@JsonProperty ("status")
-	private String status;
+  @JsonProperty ("status")
+  private String status;
 
 
-	public List<Route> getRoutes() {
-		return routes;
-	}
+  public List<Route> getRoutes() {
+    return routes;
+  }
 
-	public Route firstRoute() {
-		return routes.get(0);
-	}
+  public Route firstRoute() {
+    return routes.get(0);
+  }
 
-	public boolean hasRoutes() {
-		return !routes.isEmpty();
-	}
+  public boolean hasRoutes() {
+    return !routes.isEmpty();
+  }
 
-	public String getStatus() {
-		return status;
-	}
+  public String getStatus() {
+    return status;
+  }
 }

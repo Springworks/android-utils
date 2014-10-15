@@ -14,31 +14,31 @@ import se.springworks.android.utils.logging.Logger;
 public class GCMReceiver extends BroadcastReceiver {
 
 
-	@InjectLogger
-	private Logger logger;
+  @InjectLogger
+  private Logger logger;
 
-	@Inject
-	private IPushHandler pushHandler;
+  @Inject
+  private IPushHandler pushHandler;
 
-	@Inject
-	private GoogleCloudMessaging gcm;
+  @Inject
+  private GoogleCloudMessaging gcm;
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		GrapeGuice.getInjector(context).injectMembers(this);
-		logger.debug("onReceive() %s", BundleUtil.toString(intent.getExtras()));
-		String messageType = gcm.getMessageType(intent);
-		if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-			logger.debug("onReceive() error");
-			pushHandler.onError(intent.getExtras().toString());
-		}
-		else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-			logger.debug("onReceive() message deleted");
-		}
-		else {
-			logger.debug("onReceive() message");
-			pushHandler.onMessage(intent.getExtras());
-		}
-		setResultCode(Activity.RESULT_OK);
-	}
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    GrapeGuice.getInjector(context).injectMembers(this);
+    logger.debug("onReceive() %s", BundleUtil.toString(intent.getExtras()));
+    String messageType = gcm.getMessageType(intent);
+    if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+      logger.debug("onReceive() error");
+      pushHandler.onError(intent.getExtras().toString());
+    }
+    else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+      logger.debug("onReceive() message deleted");
+    }
+    else {
+      logger.debug("onReceive() message");
+      pushHandler.onMessage(intent.getExtras());
+    }
+    setResultCode(Activity.RESULT_OK);
+  }
 }

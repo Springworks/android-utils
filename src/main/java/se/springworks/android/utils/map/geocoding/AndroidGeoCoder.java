@@ -10,26 +10,26 @@ import java.util.List;
 
 public class AndroidGeoCoder implements IGeoCodingApi {
 
-	@Inject
-	private Context context;
+  @Inject
+  private Context context;
 
-	@Override
-	public void geocode(String address, IGeoCodeCallback callback) {
+  @Override
+  public void geocode(String address, IGeoCodeCallback callback) {
 
-		GeoCodeResults results = new GeoCodeResults();
+    GeoCodeResults results = new GeoCodeResults();
 
-		Geocoder gc = new Geocoder(context);
-		try {
-			List<Address> addresses = gc.getFromLocationName(address, 5);
-			for (Address a : addresses) {
-				results.add(GeoCodeResult.fromAddress(a));
-			}
-		}
-		catch (IOException e) {
-			callback.onError(e, "");
-			return;
-		}
-		callback.onSuccess(results);
-	}
+    Geocoder gc = new Geocoder(context);
+    try {
+      List<Address> addresses = gc.getFromLocationName(address, 5);
+      for (Address a : addresses) {
+        results.add(GeoCodeResult.fromAddress(a));
+      }
+    }
+    catch (IOException e) {
+      callback.onError(e, "");
+      return;
+    }
+    callback.onSuccess(results);
+  }
 
 }
