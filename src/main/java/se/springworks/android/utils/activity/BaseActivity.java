@@ -11,32 +11,19 @@ import se.springworks.android.utils.application.BaseApplication;
 
 public abstract class BaseActivity extends ActionBarActivity {
 
-  private static int defaultStartActivityEnterAnimationId = 0;
-  protected int startActivityEnterAnimationId = defaultStartActivityEnterAnimationId;
-  private static int defaultStartActivityExitAnimationId = 0;
-  protected int startActivityExitAnimationId = defaultStartActivityExitAnimationId;
-  private static int defaultFinishActivityEnterAnimationId = 0;
-  protected int finishActivityEnterAnimationId = defaultFinishActivityEnterAnimationId;
-  private static int defaultFinishActivityExitAnimationId = 0;
-  protected int finishActivityExitAnimationId = defaultFinishActivityExitAnimationId;
+  public interface OnActivityResultListener {
+    public void onActivityResult(int requestCode, int resultCode, Intent data);
+  }
+
+
   private OnActivityResultListener activityResultListener = null;
+
+  private static int defaultStartActivityEnterAnimationId = 0;
+  private static int defaultStartActivityExitAnimationId = 0;
+  private static int defaultFinishActivityEnterAnimationId = 0;
+  private static int defaultFinishActivityExitAnimationId = 0;
+
   private boolean titleBarHidden = false;
-
-  /**
-   * Set the default start activity transitions
-   *
-   * @param enterId
-   * @param exitId
-   */
-  public static void setDefaultStartActivityTransition(int enterId, int exitId) {
-    defaultStartActivityEnterAnimationId = enterId;
-    defaultStartActivityExitAnimationId = exitId;
-  }
-
-  public static void setDefaultFinishActivityTransition(int enterId, int exitId) {
-    defaultFinishActivityEnterAnimationId = enterId;
-    defaultFinishActivityExitAnimationId = exitId;
-  }
 
   protected void hideTitleBar() {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,18 +34,10 @@ public abstract class BaseActivity extends ActionBarActivity {
                          WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
   }
 
-/*
-  @Override
-	public boolean supportRequestWindowFeature(int featureId) {
-		boolean success = super.supportRequestWindowFeature(featureId);
-		titleBarHidden = success && featureId == Window.FEATURE_NO_TITLE;
-		return success;
-	}
-*/
-
   public void enableTouchEvents() {
     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
   }
+
 
   @Override
   public void setContentView(int layoutResId) {
@@ -80,8 +59,7 @@ public abstract class BaseActivity extends ActionBarActivity {
   @Override
   public final void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    BaseApplication hej = BaseApplication.getInstance();
-    hej.onActivityCreated(this);
+    BaseApplication.getInstance().onActivityCreated(this);
 
     try {
       createActivity(savedInstanceState);
@@ -113,21 +91,6 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
   }
 
-/*
-
-	@Override
-	public final void onResumeFragments() {
-		super.onResumeFragments();
-		BaseApplication.getInstance().onActivityResumed(this);
-
-		try {
-			resumeActivity();
-		} catch (Exception e) {
-			handleError(e);
-		}
-	}
-*/
-
   @Override
   public final void onResume() {
     super.onResume();
@@ -158,12 +121,6 @@ public abstract class BaseActivity extends ActionBarActivity {
   public void onStop() {
     super.onStop();
 
-    try {
-      stopActivity();
-    }
-    catch (Exception e) {
-      handleError(e);
-    }
   }
 
   @Override
@@ -178,6 +135,7 @@ public abstract class BaseActivity extends ActionBarActivity {
       handleError(e);
     }
   }
+
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -201,6 +159,22 @@ public abstract class BaseActivity extends ActionBarActivity {
    */
   protected abstract void handleError(Exception e);
 
+  /**
+   * Set the default start activity transitions
+   *
+   * @param enterId
+   * @param exitId
+   */
+  public static void setDefaultStartActivityTransition(int enterId, int exitId) {
+    defaultStartActivityEnterAnimationId = enterId;
+    defaultStartActivityExitAnimationId = exitId;
+  }
+
+  public static void setDefaultFinishActivityTransition(int enterId, int exitId) {
+    defaultFinishActivityEnterAnimationId = enterId;
+    defaultFinishActivityExitAnimationId = exitId;
+  }
+
   public final void switchActivity(Class<? extends ActionBarActivity> c) {
     Intent i = new Intent(this, c);
     startActivity(i);
@@ -216,13 +190,16 @@ public abstract class BaseActivity extends ActionBarActivity {
 
   @Override
   public void startActivity(Intent intent) {
-    startActivity(intent, startActivityEnterAnimationId, startActivityExitAnimationId);
+    startActivity(intent,
+                  defaultStartActivityEnterAnimationId,
+                  defaultStartActivityExitAnimationId);
   }
 
   public void startActivity(Intent intent, int enterAnimationId, int exitAnimationId) {
     super.startActivity(intent);
     overridePendingTransition(enterAnimationId, exitAnimationId);
   }
+
 
   public void startActivityForResult(Intent intent,
                                      int requestCode,
@@ -235,8 +212,8 @@ public abstract class BaseActivity extends ActionBarActivity {
   public void startActivityForResult(Intent intent, int requestCode) {
     startActivityForResult(intent,
                            requestCode,
-                           startActivityEnterAnimationId,
-                           startActivityExitAnimationId);
+                           defaultStartActivityEnterAnimationId,
+                           defaultStartActivityExitAnimationId);
   }
 
   public void startActivityForResult(Intent intent,
@@ -264,20 +241,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
   @Override
   public void finish() {
-    finish(finishActivityEnterAnimationId, finishActivityExitAnimationId);
+    finish(defaultFinishActivityEnterAnimationId, defaultFinishActivityExitAnimationId);
   }
-
-//	@Override
-//	public void startActivity(Intent intent, Bundle options) {
-//		super.startActivity(intent, options);
-//		overridePendingTransition(startActivityEnterAnimationId, startActivityExitAnimationId);
-//	}
-//	
-//	public void startActivity(Intent intent, Bundle options, int enterAnimationId,
-// int exitAnimationId) {
-//		super.startActivity(intent, options);
-//		overridePendingTransition(enterAnimationId, exitAnimationId);
-//	}
 
   public void finish(int enterAnimationId, int exitAnimationId) {
     super.finish();
@@ -286,7 +251,9 @@ public abstract class BaseActivity extends ActionBarActivity {
 
   @Override
   public void finishActivity(int requestCode) {
-    finishActivity(requestCode, finishActivityEnterAnimationId, finishActivityExitAnimationId);
+    finishActivity(requestCode,
+                   defaultFinishActivityEnterAnimationId,
+                   defaultFinishActivityExitAnimationId);
   }
 
   public void finishActivity(int requestCode, int enterAnimationId, int exitAnimationId) {
@@ -318,9 +285,5 @@ public abstract class BaseActivity extends ActionBarActivity {
 
   protected void pauseActivity() {
     // override if needed
-  }
-
-  public interface OnActivityResultListener {
-    public void onActivityResult(int requestCode, int resultCode, Intent data);
   }
 }
