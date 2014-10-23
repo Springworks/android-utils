@@ -18,10 +18,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 
   private OnActivityResultListener activityResultListener = null;
 
-  private static int defaultStartActivityEnterAnimationId = 0;
-  private static int defaultStartActivityExitAnimationId = 0;
-  private static int defaultFinishActivityEnterAnimationId = 0;
-  private static int defaultFinishActivityExitAnimationId = 0;
+  private int defaultStartActivityEnterAnimationId = 0;
+  private int defaultStartActivityExitAnimationId = 0;
+  private int defaultFinishActivityEnterAnimationId = 0;
+  private int defaultFinishActivityExitAnimationId = 0;
 
   private boolean titleBarHidden = false;
 
@@ -165,12 +165,12 @@ public abstract class BaseActivity extends ActionBarActivity {
    * @param enterId
    * @param exitId
    */
-  public static void setDefaultStartActivityTransition(int enterId, int exitId) {
+  public void setDefaultStartActivityTransition(int enterId, int exitId) {
     defaultStartActivityEnterAnimationId = enterId;
     defaultStartActivityExitAnimationId = exitId;
   }
 
-  public static void setDefaultFinishActivityTransition(int enterId, int exitId) {
+  public void setDefaultFinishActivityTransition(int enterId, int exitId) {
     defaultFinishActivityEnterAnimationId = enterId;
     defaultFinishActivityExitAnimationId = exitId;
   }
